@@ -1,0 +1,633 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "tomba dei leoni ruggenti",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Olgiata",
+        "suburb": "Municipio Roma XV",
+        "street": "Via dei Leoni Ruggenti",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.3859441,
+        "lat": 42.0345167,
+        "state_code": "LAZ",
+        "formatted": "tomba dei leoni ruggenti, Via dei Leoni Ruggenti, Rome RM, Italy",
+        "address_line1": "tomba dei leoni ruggenti",
+        "address_line2": "Via dei Leoni Ruggenti, Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic",
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.034537598253706,
+            "lon": 12.385928268782667,
+            "name": "tomba dei leoni ruggenti",
+            "osm_id": 1319132944,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "wikidata": "Q3531109",
+            "archaeological_site": "tomb",
+            "historic:civilization": "etruscan"
+          }
+        },
+        "wiki_and_media": {
+          "wikidata": "Q3531109"
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "etruscan"
+        },
+        "place_id": "51020cda6398c5284059b47d5fba6b044540f00102f901105fa04e00000000920318746f6d626120646569206c656f6e692072756767656e7469"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.385928268782667,
+          42.034537598253706
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "La Tomba Campana",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Formello",
+        "street": "Via Monte Michele",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.4059327,
+        "lat": 42.0328489,
+        "state_code": "LAZ",
+        "formatted": "La Tomba Campana, Via Monte Michele, Formello RM, Italy",
+        "address_line1": "La Tomba Campana",
+        "address_line2": "Via Monte Michele, Formello RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.ruines"
+        ],
+        "details": [
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.0328489,
+            "lon": 12.4059327,
+            "name": "La Tomba Campana",
+            "osm_id": 8699337932,
+            "historic": "ruins",
+            "osm_type": "n",
+            "wikidata": "Q3531058",
+            "wikipedia": "en:Grotta Campana"
+          }
+        },
+        "wiki_and_media": {
+          "wikidata": "Q3531058",
+          "wikipedia": "en:Grotta Campana"
+        },
+        "historic": {
+          "type": "ruins"
+        },
+        "place_id": "5103c12d69d6cf284059d39a8b6434044540f00103f901cc5c8506020000009203104c6120546f6d62612043616d70616e61"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4059327,
+          42.0328489
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Area Archeologica di Campetti - Decumano",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "suburb": "Municipio Roma XV",
+        "street": "Vicolo Formellese",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.3940519,
+        "lat": 42.0266526,
+        "state_code": "LAZ",
+        "formatted": "Area Archeologica di Campetti - Decumano, Vicolo Formellese, Rome RM, Italy",
+        "address_line1": "Area Archeologica di Campetti - Decumano",
+        "address_line2": "Vicolo Formellese, Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.02661581325727,
+            "lon": 12.394036606725818,
+            "name": "Area Archeologica di Campetti - Decumano",
+            "osm_id": 102571484,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "historic:civilization": "etruscan"
+          }
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "etruscan"
+        },
+        "place_id": "51dfa0862abfc92840598bbf9f2568034540f00102f901dc1d1d0600000000920328417265612041726368656f6c6f676963612064692043616d7065747469202d20446563756d616e6f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.394036606725818,
+          42.02661581325727
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tomba delle Anatre",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Olgiata",
+        "postcode": "00123",
+        "suburb": "Municipio Roma XV",
+        "street": "Via Formellese",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.3830916,
+        "lat": 42.0254627,
+        "state_code": "LAZ",
+        "formatted": "Tomba delle Anatre, Via Formellese, 00123 Rome RM, Italy",
+        "address_line1": "Tomba delle Anatre",
+        "address_line2": "Via Formellese, 00123 Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic",
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.02546328648607,
+            "lon": 12.383092137329623,
+            "name": "Tomba delle Anatre",
+            "osm_id": 910163628,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "wikidata": "Q130380000",
+            "archaeological_site": "rock-cut_tomb",
+            "historic:civilization": "etruscan"
+          }
+        },
+        "wiki_and_media": {
+          "wikidata": "Q130380000"
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "etruscan"
+        },
+        "place_id": "51f65e12a724c42840596a5a876142034540f00102f901acfe3f3600000000920312546f6d62612064656c6c6520416e61747265"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.383092137329623,
+          42.02546328648607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Galeria",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Cesano",
+        "postcode": "00123",
+        "suburb": "Municipio Roma XIV",
+        "street": "Via Claudia Braccianese",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.2999366,
+        "lat": 42.0249846,
+        "state_code": "LAZ",
+        "formatted": "Galeria, Via Claudia Braccianese, 00123 Rome RM, Italy",
+        "address_line1": "Galeria",
+        "address_line2": "Via Claudia Braccianese, 00123 Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.facilities",
+          "details.historic",
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.0249846,
+            "lon": 12.2999366,
+            "name": "Galeria",
+            "ruins": "yes",
+            "osm_id": 618491090,
+            "historic": "archaeological_site",
+            "osm_type": "n",
+            "wikidata": "Q3862725",
+            "wikipedia": "it:Monumento naturale di Galeria Antica",
+            "wheelchair": "no",
+            "abandoned:place": "village",
+            "archaeological_site": "settlement"
+          }
+        },
+        "facilities": {
+          "wheelchair": false
+        },
+        "wiki_and_media": {
+          "wikidata": "Q3862725",
+          "wikipedia": "it:Monumento naturale di Galeria Antica"
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "ruins": true
+        },
+        "place_id": "5133bf3f4a9199284059abf303b232034540f00103f901d26cdd240000000092030747616c65726961"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.2999366,
+          42.0249846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tumulo della Vaccareccia",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Isola Farnese",
+        "street": "Via Prato della Corte",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.4142928,
+        "lat": 42.0245188,
+        "state_code": "LAZ",
+        "formatted": "Tumulo della Vaccareccia, Via Prato della Corte, Rome RM, Italy",
+        "address_line1": "Tumulo della Vaccareccia",
+        "address_line2": "Via Prato della Corte, Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site",
+          "tourism.sights.memorial",
+          "tourism.sights.memorial.tumulus"
+        ],
+        "details": [
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.0245188,
+            "lon": 12.4142928,
+            "name": "Tumulo della Vaccareccia",
+            "osm_id": 9632456766,
+            "historic": "archaeological_site",
+            "osm_type": "n",
+            "wikidata": "Q130380897",
+            "archaeological_site": "tumulus"
+          }
+        },
+        "wiki_and_media": {
+          "wikidata": "Q130380897"
+        },
+        "historic": {
+          "type": "archaeological_site"
+        },
+        "place_id": "51c1ef952f1ed42840598f119a6e23034540f00103f9013ea0233e0200000092031854756d756c6f2064656c6c61205661636361726563636961"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4142928,
+          42.0245188
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Area Archeologica di Piano della Comunità",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "suburb": "Municipio Roma XV",
+        "street": "Vicolo Formellese",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.4005382,
+        "lat": 42.0243202,
+        "state_code": "LAZ",
+        "formatted": "Area Archeologica di Piano della Comunità, Vicolo Formellese, Rome RM, Italy",
+        "address_line1": "Area Archeologica di Piano della Comunità",
+        "address_line2": "Vicolo Formellese, Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic",
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.02429052592814,
+            "lon": 12.400397224116753,
+            "name": "Area Archeologica di Piano della Comunità",
+            "osm_id": 102699361,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "wikipedia": "it:Veio",
+            "historic:civilization": "etruscan"
+          }
+        },
+        "wiki_and_media": {
+          "wikipedia": "it:Veio"
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "etruscan"
+        },
+        "place_id": "5135fb6ddd00cd284059643bb3f31b034540f00102f90161111f060000000092032a417265612041726368656f6c6f67696361206469205069616e6f2064656c6c6120436f6d756e6974c3a0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.400397224116753,
+          42.02429052592814
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "tomba delle Centocelle",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Casale Prima Porta",
+        "postcode": "00188",
+        "suburb": "Municipio Roma XV",
+        "street": "Via Flaminia",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.48684,
+        "lat": 42.0239193,
+        "state_code": "LAZ",
+        "formatted": "tomba delle Centocelle, Via Flaminia, 00188 Rome RM, Italy",
+        "address_line1": "tomba delle Centocelle",
+        "address_line2": "Via Flaminia, 00188 Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.023919293228424,
+            "lon": 12.486839983632805,
+            "name": "tomba delle Centocelle",
+            "osm_id": 1357828054,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "archaeological_site": "tomb",
+            "historic:civilization": "ancient_roman"
+          }
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "ancient_roman"
+        },
+        "place_id": "51182d201743f92840596b1493c90f034540f00102f901d6cfee5000000000920316746f6d62612064656c6c652043656e746f63656c6c65"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.486839983632805,
+          42.023919293228424
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Area Archeologica di Macchia Grande",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Isola Farnese",
+        "postcode": "00189",
+        "street": "Via Prato della Corte",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.4058729,
+        "lat": 42.018024,
+        "state_code": "LAZ",
+        "formatted": "Area Archeologica di Macchia Grande, Via Prato della Corte, 00189 Rome RM, Italy",
+        "address_line1": "Area Archeologica di Macchia Grande",
+        "address_line2": "Via Prato della Corte, 00189 Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details.historic"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.017932112849905,
+            "lon": 12.405905138071503,
+            "name": "Area Archeologica di Macchia Grande",
+            "osm_id": 102599282,
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "historic:civilization": "etruscan"
+          }
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "etruscan"
+        },
+        "place_id": "5148975accd2cf284059881e77994b024540f00102f901728a1d0600000000920323417265612041726368656f6c6f67696361206469204d616363686961204772616e6465"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.405905138071503,
+          42.017932112849905
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parco Archeologico di Crustumerium",
+        "country": "Italy",
+        "country_code": "it",
+        "state": "Lazio",
+        "county": "Roma Capitale",
+        "city": "Rome",
+        "village": "Settebagni",
+        "postcode": "00138",
+        "suburb": "Marcigliana",
+        "street": "Via della Marcigliana",
+        "housenumber": "1052",
+        "iso3166_2": "IT-62",
+        "iso3166_2_sublevel": "IT-RM",
+        "lon": 12.5497674,
+        "lat": 42.0158348,
+        "state_code": "LAZ",
+        "formatted": "Parco Archeologico di Crustumerium, Via della Marcigliana, 1052, 00138 Rome RM, Italy",
+        "address_line1": "Parco Archeologico di Crustumerium",
+        "address_line2": "Via della Marcigliana, 1052, 00138 Rome RM, Italy",
+        "categories": [
+          "tourism",
+          "tourism.sights",
+          "tourism.sights.archaeological_site"
+        ],
+        "details": [
+          "details",
+          "details.historic",
+          "details.wiki_and_media"
+        ],
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright",
+          "raw": {
+            "lat": 42.015747453438664,
+            "lon": 12.54981842336297,
+            "city": "Roma",
+            "name": "Parco Archeologico di Crustumerium",
+            "osm_id": 936391552,
+            "street": "Via della Marcigliana",
+            "website": "https://www.soprintendenzaspecialeroma.it/schede/parco-archeologico-di-crustumerium_3004/",
+            "historic": "archaeological_site",
+            "osm_type": "w",
+            "wikidata": "Q1142110",
+            "wikipedia": "it:Crustumerium",
+            "description": "Il sito è aperto esclusivamente in occasione di eventi.",
+            "housenumber": 1052,
+            "historic:period": "roman_kingdom",
+            "historic:civilization": "ancient_roman"
+          }
+        },
+        "website": "https://www.soprintendenzaspecialeroma.it/schede/parco-archeologico-di-crustumerium_3004/",
+        "description": "Il sito è aperto esclusivamente in occasione di eventi.",
+        "wiki_and_media": {
+          "wikidata": "Q1142110",
+          "wikipedia": "it:Crustumerium"
+        },
+        "historic": {
+          "type": "archaeological_site",
+          "civilization": "ancient_roman",
+          "period": "roman_kingdom"
+        },
+        "place_id": "511b2ae6cc8119294059d6c1360304024540f00102f9018033d03700000000920322506172636f2041726368656f6c6f6769636f206469204372757374756d657269756d"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.54981842336297,
+          42.015747453438664
+        ]
+      }
+    }
+  ]
+}
