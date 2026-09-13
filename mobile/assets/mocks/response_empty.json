@@ -1,0 +1,9 @@
+{
+  "destinationId": "aqaba",
+  "requestedDays": 2,
+  "days": [
+    { "dayNumber": 1, "places": [] },
+    { "dayNumber": 2, "places": [] }
+  ],
+  "warnings": ["NO_PLACES_AVAILABLE"]
+}
