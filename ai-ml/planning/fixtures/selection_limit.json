@@ -1,0 +1,120 @@
+{
+  "destinationId": "istanbul-tr",
+  "days": 3,
+  "interests": [
+    "museum",
+    "history"
+  ],
+  "candidatePlaces": [
+    {
+      "id": "p-01",
+      "destinationId": "istanbul-tr",
+      "name": "History Museum",
+      "categoryIds": [
+        "museum",
+        "history"
+      ],
+      "latitude": 41.0086,
+      "longitude": 28.9802
+    },
+    {
+      "id": "p-02",
+      "destinationId": "istanbul-tr",
+      "name": "Old City Landmark",
+      "categoryIds": [
+        "history",
+        "landmark"
+      ],
+      "latitude": 41.0107,
+      "longitude": 28.968
+    },
+    {
+      "id": "p-03",
+      "destinationId": "istanbul-tr",
+      "name": "Art Museum",
+      "categoryIds": [
+        "museum",
+        "art"
+      ],
+      "latitude": 41.034,
+      "longitude": 28.9778
+    },
+    {
+      "id": "p-04",
+      "destinationId": "istanbul-tr",
+      "name": "Waterfront Park",
+      "categoryIds": [
+        "park",
+        "nature"
+      ],
+      "latitude": 41.0422,
+      "longitude": 29.0075
+    },
+    {
+      "id": "p-05",
+      "destinationId": "istanbul-tr",
+      "name": "Historic Mosque",
+      "categoryIds": [
+        "history",
+        "landmark"
+      ],
+      "latitude": 41.0165,
+      "longitude": 28.963
+    },
+    {
+      "id": "p-06",
+      "destinationId": "istanbul-tr",
+      "name": "City Market",
+      "categoryIds": [
+        "market",
+        "shopping"
+      ],
+      "latitude": 41.0137,
+      "longitude": 28.9681
+    },
+    {
+      "id": "p-07",
+      "destinationId": "istanbul-tr",
+      "name": "Modern Gallery",
+      "categoryIds": [
+        "art",
+        "gallery"
+      ],
+      "latitude": 41.0294,
+      "longitude": 28.9744
+    },
+    {
+      "id": "p-08",
+      "destinationId": "istanbul-tr",
+      "name": "Public Garden",
+      "categoryIds": [
+        "park",
+        "nature"
+      ],
+      "latitude": 41.0451,
+      "longitude": 29.0062
+    },
+    {
+      "id": "p-09",
+      "destinationId": "istanbul-tr",
+      "name": "Cultural Center",
+      "categoryIds": [
+        "culture",
+        "art"
+      ],
+      "latitude": 41.031,
+      "longitude": 28.979
+    },
+    {
+      "id": "p-10",
+      "destinationId": "istanbul-tr",
+      "name": "Local Bazaar",
+      "categoryIds": [
+        "market",
+        "shopping"
+      ],
+      "latitude": 41.012,
+      "longitude": 28.97
+    }
+  ]
+}

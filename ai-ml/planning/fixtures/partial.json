@@ -1,0 +1,31 @@
+{
+  "destinationId": "istanbul-tr",
+  "days": 3,
+  "interests": [
+    "museum"
+  ],
+  "candidatePlaces": [
+    {
+      "id": "p-01",
+      "destinationId": "istanbul-tr",
+      "name": "History Museum",
+      "categoryIds": [
+        "museum",
+        "history"
+      ],
+      "latitude": 41.0086,
+      "longitude": 28.9802
+    },
+    {
+      "id": "p-02",
+      "destinationId": "istanbul-tr",
+      "name": "Old City Landmark",
+      "categoryIds": [
+        "history",
+        "landmark"
+      ],
+      "latitude": 41.0107,
+      "longitude": 28.968
+    }
+  ]
+}
