@@ -21,8 +21,8 @@ class Place {
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: _requiredString(json, 'id'),
+      name: _requiredString(json, 'name'),
       description: json['description'] as String?,
       address: json['address'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
@@ -52,9 +52,10 @@ class DayPlan {
 
   factory DayPlan.fromJson(Map<String, dynamic> json) {
     return DayPlan(
-      dayNumber: json['dayNumber'] as int,
+      dayNumber: _requiredInt(json, 'dayNumber'),
       places: (json['places'] as List<dynamic>? ?? const [])
-          .map((item) => Place.fromJson(item as Map<String, dynamic>))
+          .whereType<Map>()
+          .map((item) => Place.fromJson(Map<String, dynamic>.from(item)))
           .toList(),
     );
   }
@@ -62,6 +63,36 @@ class DayPlan {
   Map<String, dynamic> toJson() => {
         'dayNumber': dayNumber,
         'places': places.map((place) => place.toJson()).toList(),
+      };
+}
+
+class PlanningWarning {
+  const PlanningWarning({required this.code, this.message});
+
+  final String code;
+  final String? message;
+
+  factory PlanningWarning.fromJson(Object? json) {
+    if (json is String) {
+      return PlanningWarning(code: json);
+    }
+    if (json is Map) {
+      final map = Map<String, dynamic>.from(json);
+      final code = map['code'] as String? ?? '';
+      if (code.isEmpty) {
+        throw const FormatException('Warning object is missing code.');
+      }
+      return PlanningWarning(
+        code: code,
+        message: map['message'] as String?,
+      );
+    }
+    throw const FormatException('Warning must be an object or string.');
+  }
+
+  Map<String, dynamic> toJson() => {
+        'code': code,
+        if (message != null) 'message': message,
       };
 }
 
@@ -76,17 +107,29 @@ class TripPlan {
   final String destinationId;
   final int requestedDays;
   final List<DayPlan> days;
-  final List<String> warnings;
+  final List<PlanningWarning> warnings;
 
-  factory TripPlan.fromJson(Map<String, dynamic> json) {
+  /// [requestedDays] comes from the request Flutter sent. Backend Stage 1
+  /// does not return this field.
+  factory TripPlan.fromJson(
+    Map<String, dynamic> json, {
+    int? requestedDays,
+  }) {
+    final days = (json['days'] as List<dynamic>? ?? const [])
+        .whereType<Map>()
+        .map((item) => DayPlan.fromJson(Map<String, dynamic>.from(item)))
+        .toList();
+    final fromJson = json['requestedDays'];
+    final resolvedDays = requestedDays ??
+        (fromJson is num ? fromJson.toInt() : null) ??
+        days.length;
+
     return TripPlan(
-      destinationId: json['destinationId'] as String,
-      requestedDays: json['requestedDays'] as int,
-      days: (json['days'] as List<dynamic>)
-          .map((item) => DayPlan.fromJson(item as Map<String, dynamic>))
-          .toList(),
+      destinationId: _requiredString(json, 'destinationId'),
+      requestedDays: resolvedDays,
+      days: days,
       warnings: (json['warnings'] as List<dynamic>? ?? const [])
-          .map((item) => item as String)
+          .map(PlanningWarning.fromJson)
           .toList(),
     );
   }
@@ -95,6 +138,25 @@ class TripPlan {
         'destinationId': destinationId,
         'requestedDays': requestedDays,
         'days': days.map((day) => day.toJson()).toList(),
-        'warnings': warnings,
+        'warnings': warnings.map((warning) => warning.toJson()).toList(),
       };
+}
+
+String _requiredString(Map<String, dynamic> json, String key) {
+  final value = json[key];
+  if (value is String && value.isNotEmpty) {
+    return value;
+  }
+  throw FormatException('Missing or invalid "$key".');
+}
+
+int _requiredInt(Map<String, dynamic> json, String key) {
+  final value = json[key];
+  if (value is int) {
+    return value;
+  }
+  if (value is num) {
+    return value.toInt();
+  }
+  throw FormatException('Missing or invalid "$key".');
 }

@@ -1,52 +1,55 @@
-# Team 6 Flutter client
+# Team 6 Flutter client — Stage 1
 
-Trip input + result flow for the Flutter track. Default mode is **mock**, so this card works without the ASP.NET Backend.
+Default runtime talks to Mohammad's ASP.NET Backend. Mock mode is explicit tests/dev only. A failed real request never becomes a fake itinerary.
 
-## Run
+## Run the Backend first
+
+```bash
+cd Backend/TripPlanning.Api
+dotnet run --launch-profile http
+```
+
+Swagger: `http://localhost:5185/swagger`  
+Public Stage 1 route: `POST /trip-plans/preview`  
+There is **no** `GET /trip-options`. Flutter uses the documented catalog: Istanbul, Rome, Aqaba.
+
+## Run Flutter
 
 ```bash
 cd mobile
 flutter pub get
+dart analyze lib test
+flutter test
 flutter run
 ```
 
-You should see a **MOCK** chip in the app bar. No Backend process is required.
+Use an Android emulator or Windows desktop. The HTTP client uses `dart:io`, so Chrome is not the Stage 1 proof target.
 
-## Switch mock / real
+## Backend URL
 
 Edit `lib/config/app_config.dart`:
 
 ```dart
-static const bool useMockApi = true; // false = real ASP.NET only
-static const String backendBaseUrl = 'http://10.0.2.2:5080';
+static const bool useMockApi = false; // true only for explicit mock/demo
+static const String backendBaseUrl = 'http://10.0.2.2:5185';
 ```
 
 | Device | Backend URL |
 |---|---|
-| Android emulator | `http://10.0.2.2:PORT` |
-| Windows / Chrome / iOS simulator | `http://localhost:PORT` |
-| Physical phone | `http://YOUR_LAN_IP:PORT` |
+| Android emulator | `http://10.0.2.2:5185` |
+| Windows / iOS simulator | `http://localhost:5185` |
+| Physical phone | `http://YOUR_LAN_IP:5185` |
 
-Put the **ASP.NET public base URL** only. Never a FastAPI URL and never a Places provider URL.
+ASP.NET public base URL only. Never FastAPI or Geoapify.
 
-When OpenAPI/Swagger exists, match these paths (or change them in `lib/services/backend_trip_api.dart`):
+## Stage 1 fixtures to verify with Mohammad
 
-- `GET /trip-options`
-- `POST /trips/plan`
+- Istanbul = normal itinerary
+- Rome = `PARTIAL_ITINERARY` (empty days stay empty)
+- Aqaba = `NO_PLACES_AVAILABLE`
+- Invalid destination / offline = error + Retry, no fake success
 
-## Mock scenarios
-
-The **Mock scenario** chips are demo-only. They are not sent to the real Backend.
-
-- Success — every requested day has places (max 3 / day)
-- Partial — later days can be empty + `PARTIAL_ITINERARY`
-- Empty — all requested days exist, places are empty + `NO_PLACES_AVAILABLE`
-- `PLANNING_SERVICE_UNAVAILABLE`
-- `PLANNING_FAILED`
-- Network / no JSON
-- Unknown future error code (generic retry text)
-
-JSON samples live in `assets/mocks/`.
+Interests are sent and validated; Stage 1 fake ranking does not change by interest.
 
 ## What this card does not include
 

@@ -242,7 +242,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                 onAction: _submitting ? null : _onGenerate,
               ),
             if (_status == _FlowStatus.success && _plan != null)
-              _ResultView(plan: _plan!, showJson: AppConfig.useMockApi),
+              _ResultView(plan: _plan!, showJson: true),
           ],
         ),
       ),
@@ -465,8 +465,10 @@ IconData _interestIcon(String id) {
       return Icons.restaurant_outlined;
     case 'nature':
       return Icons.park_outlined;
-    case 'shopping':
-      return Icons.shopping_bag_outlined;
+    case 'adventure':
+      return Icons.hiking;
+    case 'art':
+      return Icons.palette_outlined;
     default:
       return Icons.favorite_outline;
   }
@@ -482,7 +484,9 @@ Color _interestColor(String id) {
       return const Color(0xFFD9843A);
     case 'nature':
       return const Color(0xFF4F9A62);
-    case 'shopping':
+    case 'adventure':
+      return const Color(0xFFC45C3E);
+    case 'art':
       return const Color(0xFF3F7FB5);
     default:
       return AppTheme.primary;
@@ -586,7 +590,7 @@ class _ResultView extends StatelessWidget {
         if (showJson) ...[
           const SizedBox(height: 8),
           ExpansionTile(
-            title: const Text('Mock response JSON'),
+            title: const Text('Response JSON'),
             children: [
               SelectableText(
                 const JsonEncoder.withIndent('  ').convert(plan.toJson()),
@@ -599,14 +603,17 @@ class _ResultView extends StatelessWidget {
     );
   }
 
-  String _warningText(String code) {
-    switch (code) {
+  String _warningText(PlanningWarning warning) {
+    if (warning.message != null && warning.message!.trim().isNotEmpty) {
+      return warning.message!;
+    }
+    switch (warning.code) {
       case 'PARTIAL_ITINERARY':
         return 'Some days came back empty. Empty days are shown on purpose; this is not a crash.';
       case 'NO_PLACES_AVAILABLE':
         return 'No places were returned for this request. That does not mean the destination itself has nothing to visit.';
       default:
-        return 'Warning: $code';
+        return 'Warning: ${warning.code}';
     }
   }
 }

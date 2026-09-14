@@ -1,19 +1,18 @@
 /// Switch between mock data and the real ASP.NET Backend here.
-///
-/// Today's task must work **without** a running Backend, so mock stays on.
-/// When Stage 1 starts, set [useMockApi] to false and put Mohammad's URL below.
 class AppConfig {
-  /// `true` = local fake Backend (no internet, no ASP.NET).
-  /// `false` = call only the public ASP.NET API.
-  static const bool useMockApi = true;
+  /// `false` = call only the public ASP.NET API (Stage 1 default).
+  /// `true` = local mock for tests / explicit offline demo. Never used as a
+  /// silent fallback after a real request fails.
+  static const bool useMockApi = false;
 
-  /// Public ASP.NET base URL only.
-  /// Never put a FastAPI URL or Places provider URL here.
+  /// Public ASP.NET base URL only. Never FastAPI or Places.
   ///
-  /// Android emulator → host machine: `http://10.0.2.2:PORT`
-  /// iOS simulator / Windows / Chrome: `http://localhost:PORT`
-  /// Physical phone: `http://YOUR_LAN_IP:PORT`
-  static const String backendBaseUrl = 'http://10.0.2.2:5080';
+  /// Android emulator → host machine: `http://10.0.2.2:5185`
+  /// Windows / iOS simulator: `http://localhost:5185`
+  /// Physical phone: `http://YOUR_LAN_IP:5185`
+  ///
+  /// Ask Mohammad to run the Backend `http` launch profile on port 5185.
+  static const String backendBaseUrl = 'http://10.0.2.2:5185';
 
   static const Duration requestTimeout = Duration(seconds: 15);
 }

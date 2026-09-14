@@ -1,4 +1,4 @@
-/// Body of POST /trips/plan.
+/// Body of POST /trip-plans/preview.
 /// Budget is intentionally absent: the v0 capability is disabled.
 class TripPlanRequest {
   const TripPlanRequest({
