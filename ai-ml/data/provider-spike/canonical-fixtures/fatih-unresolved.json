@@ -1,0 +1,45 @@
+[
+  {
+    "caseId": "fatih-unresolved-001",
+    "status": "unresolved-duplicate-like",
+    "canonicalFixtureInclusion": "excluded",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 4,
+    "provider": "Geoapify",
+    "providerPlaceId": "5177bf65a950f83c4059c042418413814440f00103f901b98b25c9000000009203184174696b20416c69205061c59f61204d6564726573657369",
+    "observedName": "Atik Ali Paşa Medresesi",
+    "latitude": 41.0084081,
+    "longitude": 28.9699808,
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.memorial",
+      "tourism.sights.memorial.monument"
+    ],
+    "reason": "Duplicate-like identity relationship is unresolved. This record has a different Geoapify place_id from another nearby Atik Ali Paşa Medresesi record and must not be silently merged or accepted as a separate physical place without later deduplication evidence."
+  },
+  {
+    "caseId": "fatih-unresolved-002",
+    "status": "unresolved-duplicate-like",
+    "canonicalFixtureInclusion": "excluded",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 5,
+    "provider": "Geoapify",
+    "providerPlaceId": "51755c200252f83c405930222fb010814440f00102f901c98dcc1d000000009203184174696b20416c69205061c59f61204d6564726573657369",
+    "observedName": "Atik Ali Paşa Medresesi",
+    "latitude": 41.0083182,
+    "longitude": 28.9699886,
+    "observedCategories": [
+      "building",
+      "building.historic",
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.building"
+    ],
+    "reason": "Duplicate-like identity relationship is unresolved. This record has a different Geoapify place_id and slightly different category evidence from the nearby Atik Ali Paşa Medresesi record. Production deduplication is outside Iteration 2."
+  }
+]
