@@ -97,6 +97,24 @@ Therefore:
 - production deduplication is outside the scope of this iteration;
 - duplicate-like records must remain documented rather than silently merged.
 
+### Development Fixture ID Policy
+
+Iteration 2 clean fixtures use local development IDs with the following declared form:
+
+- Fatih: `fatih-001`, `fatih-002`, ...
+- Rome: `rome-001`, `rome-002`, ...
+
+These IDs are assigned to accepted clean fixture records in fixture order.
+
+They are:
+
+- deterministic within the committed fixture version;
+- separate from Geoapify `place_id`;
+- traceable to the source record through the companion provenance artifact;
+- not claimed as permanent production place identifiers.
+
+If fixture membership or ordering changes in a later iteration, ID stability must be reviewed rather than assumed.
+
 ---
 
 ## Destination Assignment Policy
@@ -116,7 +134,7 @@ A returned provider record may contain address metadata such as:
 
 These fields may support traceability, but they do not independently define the canonical `destinationId`.
 
-This distinction is important because the Rome evidence contains records associated with the broader Roma Capitale request boundary while some returned address metadata identifies another city value such as `Formello`.
+This distinction is important because the Rome evidence contains records associated with the broader Roma Capitale request boundary while some returned address metadata identifies other city values including `Riano` and `Formello`.
 
 For development fixtures, the destination scope must therefore be declared explicitly and applied consistently.
 
@@ -156,7 +174,45 @@ Any category IDs used in Iteration 2 normalized fixtures must be declared explic
 | `tourism.sights.memorial` | historical / commemorative-like | Draft | Memorial semantics support a historical or commemorative interpretation. |
 | `tourism.sights.memorial.monument` | historical / landmark-like | Draft | Monument semantics support historical and landmark-like interpretation. |
 | `tourism.sights.ruines` | historical / heritage-like | Draft | Ruins provide an explicit historical or heritage signal. |
+| `tourism.sights.memorial.tumulus` | No accepted mapping yet | Observed / Unresolved | Observed in the full Rome primary sample. Iteration 2 does not invent a canonical meaning for this category; records depending on this semantic decision remain unmapped until the taxonomy decision is coordinated. |
 | `tourism.sights.building` | No automatic historical mapping | Conditional / Unresolved | A generic tourism building must not automatically become historical. Additional observed historic or heritage evidence is required. |
+
+### Full Primary-Sample Category Review
+
+Iteration 2 reviewed the category values observed across all 20 Fatih primary records and all 20 Rome primary records.
+
+Observed Fatih category values include:
+
+- `building`
+- `building.historic`
+- `highway`
+- `highway.pedestrian`
+- `man_made`
+- `tourism`
+- `tourism.attraction`
+- `tourism.sights`
+- `tourism.sights.archaeological_site`
+- `tourism.sights.building`
+- `tourism.sights.memorial`
+- `tourism.sights.memorial.monument`
+- `tourism.sights.ruines`
+- `tourism.sights.square`
+- `wheelchair`
+- `wheelchair.limited`
+
+Observed Rome category values include:
+
+- `tourism`
+- `tourism.sights`
+- `tourism.sights.archaeological_site`
+- `tourism.sights.memorial`
+- `tourism.sights.memorial.monument`
+- `tourism.sights.memorial.tumulus`
+- `tourism.sights.ruines`
+
+Only categories with an explicit documented development mapping are used to produce accepted fixture `categoryIds`.
+
+Other observed provider categories, including parent, accessibility, transport, generic tourism, or otherwise unresolved values, remain provenance evidence and are not assigned invented canonical meanings.
 
 ### Development Fixture Category Policy
 
@@ -256,6 +312,8 @@ The inspected records show:
 - different Geoapify `place_id` values;
 - slightly different category structures.
 
+A full primary-sample duplicate-name review found this as the only repeated place name in the 20-record Fatih primary sample.
+
 This is documented as an identity limitation.
 
 Iteration 2 does not implement production deduplication and does not claim that the records definitely represent either one or multiple physical places.
@@ -264,11 +322,17 @@ The case remains traceable evidence for later deduplication decisions.
 
 ---
 
-## Known Destination-Boundary Limitation — Rome / Formello
+## Known Destination-Boundary Limitation — Rome / Riano / Formello
 
 The Rome sample was collected using a broader Rome / Roma Capitale development request scope.
 
-Some returned records contain address metadata whose `city` value differs from central Rome, including `Formello`.
+Across the 20 primary Rome records, the observed `properties.city` values were:
+
+- Rome: 17 records
+- Riano: 2 records
+- Formello: 1 record
+
+The Riano and Formello records demonstrate that the selected provider request boundary and the returned address-level city value are not identical concepts.
 
 This demonstrates that:
 
@@ -277,7 +341,7 @@ This demonstrates that:
 - the development fixture scope must be explicit;
 - production destination membership remains unresolved and outside this iteration.
 
-Records affected by this ambiguity must remain visibly documented rather than being used to claim a finalized destination-membership rule.
+The Riano and Formello records are retained as unresolved boundary evidence rather than being silently treated as accepted Rome fixture members.
 
 ---
 
@@ -429,9 +493,10 @@ The following cases remain intentionally unresolved:
 - final sightseeing taxonomy;
 - final historical taxonomy;
 - `tourism.sights.building` without corroborating historical evidence;
+- `tourism.sights.memorial.tumulus` canonical meaning;
 - App Interest IDs;
 - duplicate-like physical-place identity;
-- Rome/Formello production destination membership;
+- Rome / Riano / Formello production destination membership;
 - production zero-category eligibility;
 - rating and price semantics.
 
