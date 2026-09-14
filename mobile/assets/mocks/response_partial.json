@@ -1,0 +1,24 @@
+{
+  "destinationId": "petra",
+  "requestedDays": 3,
+  "days": [
+    {
+      "dayNumber": 1,
+      "places": [
+        { "id": "siq", "name": "The Siq" },
+        { "id": "treasury", "name": "The Treasury" }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "places": [
+        { "id": "monastery", "name": "The Monastery" }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "places": []
+    }
+  ],
+  "warnings": ["PARTIAL_ITINERARY"]
+}

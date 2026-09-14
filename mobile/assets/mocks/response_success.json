@@ -1,0 +1,49 @@
+{
+  "destinationId": "amman",
+  "requestedDays": 3,
+  "days": [
+    {
+      "dayNumber": 1,
+      "places": [
+        {
+          "id": "amman-citadel",
+          "name": "Amman Citadel",
+          "description": "Hilltop ruins overlooking downtown Amman.",
+          "address": "K. Ali Ben Al-Hussein St, Amman",
+          "rating": 4.6
+        },
+        {
+          "id": "roman-theatre",
+          "name": "Roman Theatre"
+        },
+        {
+          "id": "rainbow-street",
+          "name": "Rainbow Street"
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "places": [
+        {
+          "id": "jordan-museum",
+          "name": "The Jordan Museum"
+        },
+        {
+          "id": "amman-citadel",
+          "name": "Amman Citadel"
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "places": [
+        {
+          "id": "roman-theatre",
+          "name": "Roman Theatre"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}
