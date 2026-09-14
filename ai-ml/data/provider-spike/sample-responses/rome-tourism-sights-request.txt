@@ -1,0 +1,1 @@
+https://api.geoapify.com/v2/places?categories=tourism.sights&filter=place:51bed8dd37c9f1284059e830a1f595f04440f00101f9010da2000000000000c00206920304526f6d61&limit=10&apiKey=YOUR_API_KEY
