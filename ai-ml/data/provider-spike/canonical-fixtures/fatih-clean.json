@@ -1,0 +1,44 @@
+[
+  {
+    "id": "fatih-001",
+    "destinationId": "istanbul-tr",
+    "name": "Gate of Salutation",
+    "categoryIds": [
+      "history",
+      "landmark"
+    ],
+    "latitude": 41.0113977,
+    "longitude": 28.9832354
+  },
+  {
+    "id": "fatih-002",
+    "destinationId": "istanbul-tr",
+    "name": "Milion",
+    "categoryIds": [
+      "history",
+      "landmark"
+    ],
+    "latitude": 41.0080674,
+    "longitude": 28.9780181
+  },
+  {
+    "id": "fatih-003",
+    "destinationId": "istanbul-tr",
+    "name": "Istiklal Marsi",
+    "categoryIds": [
+      "history"
+    ],
+    "latitude": 41.0079266,
+    "longitude": 28.9752446
+  },
+  {
+    "id": "fatih-004",
+    "destinationId": "istanbul-tr",
+    "name": "Archeological Park",
+    "categoryIds": [
+      "history"
+    ],
+    "latitude": 41.0073174,
+    "longitude": 28.9806541
+  }
+]

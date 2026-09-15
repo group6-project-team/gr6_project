@@ -1,0 +1,65 @@
+[
+  {
+    "caseId": "rome-unresolved-001",
+    "status": "unresolved-destination-boundary",
+    "canonicalFixtureInclusion": "excluded",
+    "destinationScope": "Rome / Roma Capitale, Italy",
+    "destinationId": "rome-it",
+    "sourceFile": "sample-responses/rome-tourism-sights.txt",
+    "sourceRecordIndex": 1,
+    "provider": "Geoapify",
+    "providerPlaceId": "51d9aac9f89c082940590add802ac9084540f00103f9014a82fdc90200000092031d4361766520726f6d616e65206469205069616e2064656c6c274f6c6d6f",
+    "observedName": "Cave romane di Pian dell'Olmo",
+    "observedCity": "Riano",
+    "latitude": 42.0686391,
+    "longitude": 12.5168226,
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.archaeological_site"
+    ],
+    "reason": "The record was returned within the broader Rome / Roma Capitale request scope, but its observed city is Riano. Iteration 2 does not decide production destination membership, so the record is excluded from the clean Rome fixture and retained as boundary evidence."
+  },
+  {
+    "caseId": "rome-unresolved-002",
+    "status": "unresolved-destination-boundary",
+    "canonicalFixtureInclusion": "excluded",
+    "destinationScope": "Rome / Roma Capitale, Italy",
+    "destinationId": "rome-it",
+    "sourceFile": "sample-responses/rome-tourism-sights.txt",
+    "sourceRecordIndex": 2,
+    "provider": "Geoapify",
+    "providerPlaceId": "51d2fd9c82fcfc2840598c4b55dae2064540f00103f901215a8ddc010000009203174361766520646920466f73736f2064656c20447261676f",
+    "observedName": "Cave di Fosso del Drago",
+    "observedCity": "Riano",
+    "latitude": 42.053798,
+    "longitude": 12.494114,
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.archaeological_site"
+    ],
+    "reason": "The record was returned within the broader Rome / Roma Capitale request scope, but its observed city is Riano. Iteration 2 does not decide production destination membership, so the record is excluded from the clean Rome fixture and retained as boundary evidence."
+  },
+  {
+    "caseId": "rome-unresolved-003",
+    "status": "unresolved-destination-boundary",
+    "canonicalFixtureInclusion": "excluded",
+    "destinationScope": "Rome / Roma Capitale, Italy",
+    "destinationId": "rome-it",
+    "sourceFile": "sample-responses/rome-tourism-sights.txt",
+    "sourceRecordIndex": 5,
+    "provider": "Geoapify",
+    "providerPlaceId": "5103c12d69d6cf284059d39a8b6434044540f00103f901cc5c8506020000009203104c6120546f6d62612043616d70616e61",
+    "observedName": "La Tomba Campana",
+    "observedCity": "Formello",
+    "latitude": 42.0328489,
+    "longitude": 12.4059327,
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.ruines"
+    ],
+    "reason": "The record was returned within the broader Rome / Roma Capitale request scope, but its observed city is Formello. This boundary ambiguity is documented rather than resolved in Iteration 2. Production destination membership remains a Backend decision."
+  }
+]

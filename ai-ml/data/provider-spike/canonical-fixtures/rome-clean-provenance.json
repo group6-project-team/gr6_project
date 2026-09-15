@@ -1,0 +1,158 @@
+[
+    {
+        "fixtureId":  "rome-001",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  0,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "5195df58068ba92840593f462f59cb084540f00103f9018f8514610100000092031b4d6f6e756d656e746f20616c2046616e74652064274974616c6961",
+        "observedName":  "Monumento al Fante d\u0027Italia",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.memorial",
+                                   "tourism.sights.memorial.monument"
+                               ],
+        "categoryIds":  [
+                            "history",
+                            "landmark"
+                        ],
+        "mappingReason":  "Observed memorial and monument categories support the development history and landmark mapping.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-002",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  3,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "5102f62c639ef42840597ac14c8006054540f00103f9015e26c8cf020000009203185069657472612050657274757361204d697468726165756d",
+        "observedName":  "Pietra Pertusa Mithraeum",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-003",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  4,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "51020cda6398c5284059b47d5fba6b044540f00102f901105fa04e00000000920318746f6d626120646569206c656f6e692072756767656e7469",
+        "observedName":  "tomba dei leoni ruggenti",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-004",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  6,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "518e8e50d8eab32840590d23731bc3034540f00103f901886c24260200000092031c417265612041726368656f6c6f67696361204d6f6e7469636368696f",
+        "observedName":  "Area Archeologica Monticchio",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-005",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  7,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "51dfa0862abfc92840598bbf9f2568034540f00102f901dc1d1d0600000000920328417265612041726368656f6c6f676963612064692043616d7065747469202d20446563756d616e6f",
+        "observedName":  "Area Archeologica di Campetti - Decumano",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-006",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  8,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "51f65e12a724c42840596a5a876142034540f00102f901acfe3f3600000000920312546f6d62612064656c6c6520416e61747265",
+        "observedName":  "Tomba delle Anatre",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    },
+    {
+        "fixtureId":  "rome-007",
+        "destinationScope":  "Rome / Roma Capitale, Italy",
+        "destinationId":  "rome-it",
+        "destinationIdPolicy":  "Development-only fixture ID declared for Iteration 2; not sourced from Geoapify and not a final Backend destination ID.",
+        "sourceFile":  "sample-responses/rome-tourism-sights.txt",
+        "sourceRecordIndex":  9,
+        "provider":  "Geoapify",
+        "providerPlaceId":  "5133bf3f4a9199284059abf303b232034540f00103f901d26cdd240000000092030747616c65726961",
+        "observedName":  "Galeria",
+        "observedCity":  "Rome",
+        "observedCategories":  [
+                                   "tourism",
+                                   "tourism.sights",
+                                   "tourism.sights.archaeological_site"
+                               ],
+        "categoryIds":  [
+                            "history"
+                        ],
+        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
+        "status":  "accepted-development-mapping"
+    }
+]

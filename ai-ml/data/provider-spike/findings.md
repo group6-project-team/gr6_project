@@ -8,7 +8,7 @@
 
 - **Branch:** `spike/places-provider`
 
-- **Status:** In Progress
+- **Status:** Iteration 1 Complete — Evidence Merged in PR #2; Iteration 2 canonical mapping and fixture normalization in progress
 
 ---
 
@@ -19,6 +19,16 @@ This Data Spike evaluates whether Geoapify provides useful and reliable place da
 The goal is to collect initial evidence from a small sample across at least two representative destinations.
 
 ---
+## Source Inventory
+
+The current provider-spike evidence contains:
+
+- `fatih-istanbul-tourism-sights.txt` — primary Fatih sample, 20 returned records.
+- `rome-tourism-sights.txt` — primary Rome sample, 20 returned records.
+- `rome-tourism-sights-page1-limit10.txt` — separate `limit=10` experiment used to verify result limiting behavior; it is not automatically counted as 10 additional unique evidence records.
+- `rome-tourism-sights-request.txt` — sanitized request context for the Rome experiment.
+
+For Iteration 2 evidence accounting, the primary evidence base remains 20 Fatih records and 20 Rome records. The `limit=10` experiment is retained as supporting pagination/limit evidence only unless individual records are separately verified as additional unique evidence.
 
 ## Destinations Checked
 
