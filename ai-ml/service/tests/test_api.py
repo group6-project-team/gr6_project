@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 from planning.planner import PlannerInputError
 from service.app import app
+from service.schemas import ErrorResponse
 
 
 client = TestClient(app, raise_server_exceptions=False)
@@ -141,6 +142,7 @@ def test_planner_domain_rejections_are_controlled(mutate) -> None:
     mutate(body)
     response = client.post("/plan", json=body)
     assert response.status_code == 422
+    assert ErrorResponse.model_validate(response.json()).code == "INVALID_PLANNING_INPUT"
     assert response.json() == {
         "code": "INVALID_PLANNING_INPUT",
         "message": "The planning request violates planner constraints.",
@@ -192,3 +194,49 @@ def test_openapi_contract_has_only_canonical_fields() -> None:
     schema_text = str(schema).lower()
     for provider_field in ("geoapify", "rating", "price", "website", "opening hours"):
         assert provider_field not in schema_text
+
+
+@pytest.mark.parametrize("malformed_json", [False, True])
+def test_transport_validation_uses_generic_error_envelope(malformed_json, caplog) -> None:
+    marker = "PRIVATE_PAYLOAD_C:/private/path"
+    if malformed_json:
+        response = client.post(
+            "/plan", content='{"days": "' + marker,
+            headers={"Content-Type": "application/json"},
+        )
+    else:
+        response = client.post("/plan", json=request_body(days=marker))
+    assert response.status_code == 422
+    error = ErrorResponse.model_validate(response.json())
+    assert error.code == "INVALID_REQUEST"
+    assert error.message == "The planning request is invalid."
+    assert set(response.json()) == {"code", "message"}
+    for forbidden in ("detail", "traceback", "loc", "input", marker):
+        assert forbidden not in response.text
+    assert marker not in caplog.text
+    assert response.headers["X-Request-ID"] in caplog.text
+
+
+def test_openapi_422_matches_runtime_error_model() -> None:
+    schema = client.get("/openapi.json").json()
+    documented = schema["paths"]["/plan"]["post"]["responses"]["422"]
+    assert documented["content"]["application/json"]["schema"] == {
+        "$ref": "#/components/schemas/ErrorResponse"
+    }
+    assert schema["components"]["schemas"]["ErrorResponse"] == ErrorResponse.model_json_schema()
+    response = client.post("/plan", json=request_body(days=0))
+    assert response.status_code == 422
+    assert ErrorResponse.model_validate(response.json()).code == "INVALID_REQUEST"
+
+
+@pytest.mark.parametrize("request_id", ["backend-validation-42", None, "invalid value"])
+def test_validation_failure_preserves_request_id_policy(request_id) -> None:
+    headers = {"X-Request-ID": request_id} if request_id is not None else {}
+    response = client.post("/plan", json=request_body(days=0), headers=headers)
+    assert response.status_code == 422
+    returned = response.headers["X-Request-ID"]
+    if request_id == "backend-validation-42":
+        assert returned == request_id
+    else:
+        assert len(returned) == 32
+        assert all(character in "0123456789abcdef" for character in returned)

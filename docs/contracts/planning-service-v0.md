@@ -65,7 +65,8 @@ The service rejects more than `PLANNING_MAX_CANDIDATES` candidates with HTTP 413
 Controlled service errors have `{ "code": "...", "message": "..." }`:
 
 - `413 CANDIDATE_LIMIT_EXCEEDED`
+- `422 INVALID_REQUEST` for transport/schema validation or malformed JSON, with message `The planning request is invalid.`
 - `422 INVALID_PLANNING_INPUT` for a known planner-domain rejection
 - `500 INTERNAL_PLANNING_ERROR` for an unexpected planning failure
 
-FastAPI's normal 422 schema-validation response applies before planner invocation. Public Backend codes and timeout/unavailable mapping remain Backend responsibilities.
+Both 422 paths use the same `ErrorResponse` envelope documented by OpenAPI, with distinct codes for transport and domain failures. Raw validation details, request bodies, and internal exception information are never returned. The existing `X-Request-ID` policy applies to validation failures too. Public Backend codes and timeout/unavailable mapping remain Backend responsibilities.

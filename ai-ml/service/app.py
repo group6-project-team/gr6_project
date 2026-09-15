@@ -5,6 +5,7 @@ import re
 from uuid import uuid4
 
 from fastapi import FastAPI, Header, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from planning.planner import PlannerInputError, plan_trip
@@ -36,6 +37,23 @@ async def add_request_id(request: Request, call_next):
     response = await call_next(request)
     response.headers[REQUEST_ID_HEADER] = request_id
     return response
+
+
+@app.exception_handler(RequestValidationError)
+async def request_validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    LOGGER.warning(
+        "planning rejected request_id=%s reason=request_validation",
+        request.state.request_id,
+    )
+    return JSONResponse(
+        status_code=422,
+        content=ErrorResponse(
+            code="INVALID_REQUEST",
+            message="The planning request is invalid.",
+        ).model_dump(),
+    )
 
 
 @app.get("/health", response_model=HealthResponse, tags=["readiness"])

@@ -4,7 +4,7 @@ This is the internal, provider-independent FastAPI boundary around the existing 
 
 ## Setup and run
 
-From the repository root, using Python 3.14:
+Tested with Python 3.14. From the repository root:
 
 ```bash
 python -m pip install -r ai-ml/service/requirements-dev.txt
@@ -32,9 +32,11 @@ python ai-ml/planning/run_example.py
 
 ## Internal errors
 
-- Invalid HTTP schema: FastAPI `422` validation response.
+- Invalid HTTP schema or malformed JSON: `422` with `INVALID_REQUEST` and message `The planning request is invalid.`.
 - Planner domain rejection: `422` with `INVALID_PLANNING_INPUT`.
 - Candidate guard exceeded: `413` with `CANDIDATE_LIMIT_EXCEEDED`.
 - Unexpected planning failure: `500` with `INTERNAL_PLANNING_ERROR`.
 
 These are internal service errors. The Backend owns mapping dependency failures to public API error codes.
+
+Both 422 paths use the documented `{code,message}` envelope. Validation details and request bodies are not returned or logged; `X-Request-ID` follows the same policy on validation failures as on successful requests.
