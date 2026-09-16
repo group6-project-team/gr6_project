@@ -1,0 +1,21 @@
+{
+  "_case": "Partial",
+  "_expected": "D=3, E=2 -> N=2, q=0, r=2 -> capacities 1/1/0 + PARTIAL_ITINERARY",
+  "request": {
+    "destinationId": "istanbul-tr",
+    "days": 3,
+    "interests": ["history"],
+    "candidatePlaces": [
+      {"id": "p1", "destinationId": "istanbul-tr", "name": "Hagia Sophia",     "categoryIds": ["historic_site"], "latitude": 41.0086, "longitude": 28.9802},
+      {"id": "p2", "destinationId": "istanbul-tr", "name": "Topkapi Palace",   "categoryIds": ["museum"],        "latitude": 41.0115, "longitude": 28.9833}
+    ]
+  },
+  "response": {
+    "days": [
+      {"day": 1, "placeIds": ["p1"]},
+      {"day": 2, "placeIds": ["p2"]},
+      {"day": 3, "placeIds": []}
+    ],
+    "warnings": ["PARTIAL_ITINERARY"]
+  }
+}
