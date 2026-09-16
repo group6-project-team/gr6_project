@@ -1,0 +1,11 @@
+Flutter owner branch: 8fcb18622613346909d1d718517c917f4473d9f2
+Direct Dart parser retest: Dart 3.11.0 (full project requires ^3.12.2)
+
+valid: ACCEPTED days=[1, 2, 3] requested=3
+missing-days: ACCEPTED days=[] requested=3
+non-map-day: ACCEPTED days=[] requested=3
+fractional-day: ACCEPTED days=[1] requested=3
+
+Conclusion: I2-02 remains reproducible. Missing/malformed day entries are silently
+accepted and fractional day numbers are truncated. Full Flutter suite was not run
+because the installed SDK is Dart 3.11.0 while pubspec requires Dart ^3.12.2.
