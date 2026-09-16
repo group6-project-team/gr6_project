@@ -1,0 +1,314 @@
+{
+  "date": "2026-09-16",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "queries": [
+    {
+      "package": {
+        "name": "FluentValidation",
+        "ecosystem": "NuGet"
+      },
+      "version": "11.11.0"
+    },
+    {
+      "package": {
+        "name": "FluentValidation.AspNetCore",
+        "ecosystem": "NuGet"
+      },
+      "version": "11.3.1"
+    },
+    {
+      "package": {
+        "name": "FluentValidation.DependencyInjectionExtensions",
+        "ecosystem": "NuGet"
+      },
+      "version": "11.11.0"
+    },
+    {
+      "package": {
+        "name": "Microsoft.AspNetCore.OpenApi",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.0.12"
+    },
+    {
+      "package": {
+        "name": "Microsoft.Extensions.ApiDescription.Server",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.0.0"
+    },
+    {
+      "package": {
+        "name": "Microsoft.OpenApi",
+        "ecosystem": "NuGet"
+      },
+      "version": "2.12.0"
+    },
+    {
+      "package": {
+        "name": "Swashbuckle.AspNetCore",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.2.3"
+    },
+    {
+      "package": {
+        "name": "Swashbuckle.AspNetCore.Swagger",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.2.3"
+    },
+    {
+      "package": {
+        "name": "Swashbuckle.AspNetCore.SwaggerGen",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.2.3"
+    },
+    {
+      "package": {
+        "name": "Swashbuckle.AspNetCore.SwaggerUI",
+        "ecosystem": "NuGet"
+      },
+      "version": "10.2.3"
+    },
+    {
+      "package": {
+        "name": "async",
+        "ecosystem": "Pub"
+      },
+      "version": "2.13.1"
+    },
+    {
+      "package": {
+        "name": "boolean_selector",
+        "ecosystem": "Pub"
+      },
+      "version": "2.1.2"
+    },
+    {
+      "package": {
+        "name": "characters",
+        "ecosystem": "Pub"
+      },
+      "version": "1.4.1"
+    },
+    {
+      "package": {
+        "name": "clock",
+        "ecosystem": "Pub"
+      },
+      "version": "1.1.2"
+    },
+    {
+      "package": {
+        "name": "collection",
+        "ecosystem": "Pub"
+      },
+      "version": "1.19.1"
+    },
+    {
+      "package": {
+        "name": "cupertino_icons",
+        "ecosystem": "Pub"
+      },
+      "version": "1.0.9"
+    },
+    {
+      "package": {
+        "name": "fake_async",
+        "ecosystem": "Pub"
+      },
+      "version": "1.3.3"
+    },
+    {
+      "package": {
+        "name": "flutter_lints",
+        "ecosystem": "Pub"
+      },
+      "version": "6.0.0"
+    },
+    {
+      "package": {
+        "name": "http",
+        "ecosystem": "Pub"
+      },
+      "version": "1.6.0"
+    },
+    {
+      "package": {
+        "name": "http_parser",
+        "ecosystem": "Pub"
+      },
+      "version": "4.1.2"
+    },
+    {
+      "package": {
+        "name": "leak_tracker",
+        "ecosystem": "Pub"
+      },
+      "version": "11.0.2"
+    },
+    {
+      "package": {
+        "name": "leak_tracker_flutter_testing",
+        "ecosystem": "Pub"
+      },
+      "version": "3.0.10"
+    },
+    {
+      "package": {
+        "name": "leak_tracker_testing",
+        "ecosystem": "Pub"
+      },
+      "version": "3.0.2"
+    },
+    {
+      "package": {
+        "name": "lints",
+        "ecosystem": "Pub"
+      },
+      "version": "6.1.0"
+    },
+    {
+      "package": {
+        "name": "matcher",
+        "ecosystem": "Pub"
+      },
+      "version": "0.12.19"
+    },
+    {
+      "package": {
+        "name": "material_color_utilities",
+        "ecosystem": "Pub"
+      },
+      "version": "0.13.0"
+    },
+    {
+      "package": {
+        "name": "meta",
+        "ecosystem": "Pub"
+      },
+      "version": "1.18.0"
+    },
+    {
+      "package": {
+        "name": "path",
+        "ecosystem": "Pub"
+      },
+      "version": "1.9.1"
+    },
+    {
+      "package": {
+        "name": "source_span",
+        "ecosystem": "Pub"
+      },
+      "version": "1.10.2"
+    },
+    {
+      "package": {
+        "name": "stack_trace",
+        "ecosystem": "Pub"
+      },
+      "version": "1.12.1"
+    },
+    {
+      "package": {
+        "name": "stream_channel",
+        "ecosystem": "Pub"
+      },
+      "version": "2.1.4"
+    },
+    {
+      "package": {
+        "name": "string_scanner",
+        "ecosystem": "Pub"
+      },
+      "version": "1.4.1"
+    },
+    {
+      "package": {
+        "name": "term_glyph",
+        "ecosystem": "Pub"
+      },
+      "version": "1.2.2"
+    },
+    {
+      "package": {
+        "name": "test_api",
+        "ecosystem": "Pub"
+      },
+      "version": "0.7.11"
+    },
+    {
+      "package": {
+        "name": "typed_data",
+        "ecosystem": "Pub"
+      },
+      "version": "1.4.0"
+    },
+    {
+      "package": {
+        "name": "vector_math",
+        "ecosystem": "Pub"
+      },
+      "version": "2.2.0"
+    },
+    {
+      "package": {
+        "name": "vm_service",
+        "ecosystem": "Pub"
+      },
+      "version": "15.3.0"
+    },
+    {
+      "package": {
+        "name": "web",
+        "ecosystem": "Pub"
+      },
+      "version": "1.1.1"
+    }
+  ],
+  "response": {
+    "results": [
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {}
+    ]
+  }
+}

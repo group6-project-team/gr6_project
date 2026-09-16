@@ -1,0 +1,1054 @@
+{
+  "target": "https://gr6-tripplanning-api.runasp.net",
+  "tls_verified_by_default_context": true,
+  "cases": [
+    {
+      "case": "istanbul-normal",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": 200,
+      "matches_expectation": true,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              },
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              },
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "case": "rome-partial",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": 200,
+      "matches_expectation": true,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "rome",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "rom-001",
+                "name": "Colosseum",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic amphitheatre in Rome.",
+                "imageUrl": null,
+                "address": "Rome, Italy"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "rom-002",
+                "name": "Roman Forum",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Ancient Roman archaeological site.",
+                "imageUrl": null,
+                "address": "Rome, Italy"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": []
+          }
+        ],
+        "warnings": [
+          {
+            "code": "PARTIAL_ITINERARY",
+            "message": "There are not enough places to cover every requested day."
+          }
+        ]
+      }
+    },
+    {
+      "case": "aqaba-empty",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": 200,
+      "matches_expectation": true,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "aqaba",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": []
+          },
+          {
+            "dayNumber": 2,
+            "places": []
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_PLACES_AVAILABLE",
+            "message": "No places are available for the selected destination."
+          }
+        ]
+      }
+    },
+    {
+      "case": "maximum-days",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": 200,
+      "matches_expectation": true,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 4,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 5,
+            "places": [
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 6,
+            "places": [
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 7,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 8,
+            "places": [
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 9,
+            "places": [
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 10,
+            "places": []
+          },
+          {
+            "dayNumber": 11,
+            "places": []
+          },
+          {
+            "dayNumber": 12,
+            "places": []
+          },
+          {
+            "dayNumber": 13,
+            "places": []
+          },
+          {
+            "dayNumber": 14,
+            "places": []
+          }
+        ],
+        "warnings": [
+          {
+            "code": "PARTIAL_ITINERARY",
+            "message": "There are not enough places to cover every requested day."
+          }
+        ]
+      }
+    },
+    {
+      "case": "unknown-destination",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "DestinationId": [
+            "The selected destination is not supported."
+          ]
+        },
+        "traceId": "00-d7649220fbe01f5fb5d9603d8184b6c1-ca9b3fc8839c974e-00"
+      }
+    },
+    {
+      "case": "days-zero",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Days": [
+            "Days must be between 1 and 14."
+          ]
+        },
+        "traceId": "00-bc49d1c1f289a4a460ac2aac7597b27b-a1b0313ff2e4331b-00"
+      }
+    },
+    {
+      "case": "days-fifteen",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Days": [
+            "Days must be between 1 and 14."
+          ]
+        },
+        "traceId": "00-aa601132b957e258d8be029a03f9387f-6ae6e63c99a8a95b-00"
+      }
+    },
+    {
+      "case": "unsupported-interest",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Interests": [
+            "One or more interests are not supported."
+          ]
+        },
+        "traceId": "00-ec8256a45ba385c46d87edd3869d1d14-78e13985e06ded16-00"
+      }
+    },
+    {
+      "case": "malformed-json",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "$": [
+            "Expected depth to be zero at the end of the JSON payload. There is an open JSON object or array that should be closed. Path: $ | LineNumber: 0 | BytePositionInLine: 1."
+          ],
+          "request": [
+            "The request field is required."
+          ]
+        },
+        "traceId": "00-b72c089c87f7ca4b5a5db5e8a670a366-487db2e9f6b9c127-00"
+      }
+    },
+    {
+      "case": "null-body",
+      "path": "/trip-plans/preview",
+      "status": 400,
+      "expected": 400,
+      "matches_expectation": true,
+      "checks": {},
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "": [
+            "A non-empty request body is required."
+          ],
+          "request": [
+            "The request field is required."
+          ]
+        },
+        "traceId": "00-8bd4465c785fa5dbf43425327561a86b-c3a878cc75d7544a-00"
+      }
+    },
+    {
+      "case": "duplicate-interests",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": null,
+      "matches_expectation": null,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              },
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              },
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "case": "budget-extra",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": null,
+      "matches_expectation": null,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              },
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              },
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "case": "unknown-field",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": null,
+      "matches_expectation": null,
+      "checks": {
+        "days_preserved": true,
+        "max_three_places": true
+      },
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              },
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              },
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "case": "string-days",
+      "path": "/trip-plans/preview",
+      "status": 200,
+      "expected": null,
+      "matches_expectation": null,
+      "checks": {},
+      "response": {
+        "destinationId": "istanbul",
+        "days": [
+          {
+            "dayNumber": 1,
+            "places": [
+              {
+                "id": "ist-001",
+                "name": "Hagia Sophia",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic landmark in Istanbul.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-002",
+                "name": "Topkapi Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic Ottoman palace.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-003",
+                "name": "Blue Mosque",
+                "categoryIds": [
+                  "historic_site",
+                  "monument"
+                ],
+                "description": "Historic mosque in Sultanahmet.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 2,
+            "places": [
+              {
+                "id": "ist-004",
+                "name": "Grand Bazaar",
+                "categoryIds": [
+                  "market",
+                  "culture"
+                ],
+                "description": "Historic covered market.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              },
+              {
+                "id": "ist-005",
+                "name": "Galata Tower",
+                "categoryIds": [
+                  "monument",
+                  "viewpoint"
+                ],
+                "description": "Historic tower with city views.",
+                "imageUrl": null,
+                "address": "Beyoglu, Istanbul"
+              },
+              {
+                "id": "ist-006",
+                "name": "Istanbul Archaeological Museums",
+                "categoryIds": [
+                  "museum",
+                  "history"
+                ],
+                "description": "Museum complex with archaeological collections.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          },
+          {
+            "dayNumber": 3,
+            "places": [
+              {
+                "id": "ist-007",
+                "name": "Basilica Cistern",
+                "categoryIds": [
+                  "historic_site"
+                ],
+                "description": "Historic underground cistern.",
+                "imageUrl": null,
+                "address": "Sultanahmet, Istanbul"
+              },
+              {
+                "id": "ist-008",
+                "name": "Dolmabahce Palace",
+                "categoryIds": [
+                  "historic_site",
+                  "museum"
+                ],
+                "description": "Historic palace on the Bosphorus.",
+                "imageUrl": null,
+                "address": "Besiktas, Istanbul"
+              },
+              {
+                "id": "ist-009",
+                "name": "Spice Bazaar",
+                "categoryIds": [
+                  "market",
+                  "food"
+                ],
+                "description": "Traditional market known for spices and food.",
+                "imageUrl": null,
+                "address": "Fatih, Istanbul"
+              }
+            ]
+          }
+        ],
+        "warnings": []
+      }
+    },
+    {
+      "case": "old-route",
+      "path": "/trips/plan",
+      "status": 404,
+      "expected": 404,
+      "matches_expectation": true,
+      "checks": {},
+      "response": ""
+    }
+  ]
+}

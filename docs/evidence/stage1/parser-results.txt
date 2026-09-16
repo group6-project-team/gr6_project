@@ -1,0 +1,3 @@
+missing-days: ACCEPTED days=[] requested=3
+non-map-day: ACCEPTED days=[] requested=3
+fractional-day: ACCEPTED days=[1] requested=3
