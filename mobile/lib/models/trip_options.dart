@@ -1,4 +1,5 @@
-/// Supported destinations and interests from GET /trip-options.
+/// Supported destinations and interests.
+/// Stage 1 uses the documented Backend catalog, not GET /trip-options.
 ///
 /// Flutter must not hardcode the final product taxonomy. Today's list is
 /// temporary local data behind [TripApi.getOptions], so we can replace it

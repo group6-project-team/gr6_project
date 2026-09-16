@@ -5,7 +5,7 @@ import 'package:mobile/services/mock_trip_api.dart';
 
 void main() {
   const request = TripPlanRequest(
-    destinationId: 'amman',
+    destinationId: 'istanbul',
     days: 4,
     interests: [],
   );
@@ -29,7 +29,7 @@ void main() {
     final plan = await api.planTrip(request);
 
     expect(plan.days.length, 4);
-    expect(plan.warnings, ['PARTIAL_ITINERARY']);
+    expect(plan.warnings.map((warning) => warning.code), ['PARTIAL_ITINERARY']);
     expect(plan.days.last.places, isEmpty);
   });
 
@@ -41,7 +41,7 @@ void main() {
     final plan = await api.planTrip(request);
 
     expect(plan.days.length, 4);
-    expect(plan.warnings, ['NO_PLACES_AVAILABLE']);
+    expect(plan.warnings.map((warning) => warning.code), ['NO_PLACES_AVAILABLE']);
     expect(plan.days.every((day) => day.places.isEmpty), isTrue);
   });
 

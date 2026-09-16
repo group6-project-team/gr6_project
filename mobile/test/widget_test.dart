@@ -10,8 +10,8 @@ Future<void> _openApp(WidgetTester tester, MockTripApi api) async {
   await tester.pumpAndSettle();
 }
 
-Future<void> _chooseAmman(WidgetTester tester) async {
-  await tester.tap(find.byKey(const Key('destination-amman')));
+Future<void> _chooseIstanbul(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('destination-istanbul')));
   await tester.pump();
 }
 
@@ -29,7 +29,7 @@ void main() {
   testWidgets('invalid days cannot be submitted', (tester) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
-    await _chooseAmman(tester);
+    await _chooseIstanbul(tester);
 
     await tester.enterText(find.byKey(const Key('days-field')), '15');
     await _generate(tester);
@@ -52,14 +52,14 @@ void main() {
   testWidgets('success shows every requested day', (tester) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
-    await _chooseAmman(tester);
+    await _chooseIstanbul(tester);
     await tester.enterText(find.byKey(const Key('days-field')), '2');
     await _generate(tester);
 
     expect(api.planCallCount, 1);
     expect(find.text('Day 1'), findsOneWidget);
     expect(find.text('Day 2'), findsOneWidget);
-    expect(find.text('Amman Citadel'), findsWidgets);
+    expect(find.text('Hagia Sophia'), findsWidgets);
   });
 
   testWidgets('partial result shows empty days and a coverage warning', (
@@ -69,7 +69,7 @@ void main() {
     await _openApp(tester, api);
     await tester.tap(find.byKey(const Key('scenario-partial')));
     await tester.pump();
-    await _chooseAmman(tester);
+    await _chooseIstanbul(tester);
     await _generate(tester);
 
     expect(find.text('Coverage warning'), findsOneWidget);
@@ -82,11 +82,11 @@ void main() {
       scenario: MockScenario.planningFailed,
     );
     await _openApp(tester, api);
-    await _chooseAmman(tester);
+    await _chooseIstanbul(tester);
     await _generate(tester);
 
     expect(find.textContaining('could not create this itinerary'), findsOneWidget);
-    expect(find.text('Amman'), findsWidgets);
+    expect(find.text('Istanbul'), findsWidgets);
 
     api.scenario = MockScenario.success;
     await tester.ensureVisible(find.byKey(const Key('action-Retry')));
@@ -100,7 +100,7 @@ void main() {
   testWidgets('loading ignores extra Generate taps', (tester) async {
     final api = MockTripApi(delay: const Duration(milliseconds: 400));
     await _openApp(tester, api);
-    await _chooseAmman(tester);
+    await _chooseIstanbul(tester);
 
     await tester.tap(generateButton());
     await tester.pump();

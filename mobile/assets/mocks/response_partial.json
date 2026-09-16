@@ -1,24 +1,11 @@
 {
-  "destinationId": "petra",
-  "requestedDays": 3,
+  "destinationId": "rome",
   "days": [
-    {
-      "dayNumber": 1,
-      "places": [
-        { "id": "siq", "name": "The Siq" },
-        { "id": "treasury", "name": "The Treasury" }
-      ]
-    },
-    {
-      "dayNumber": 2,
-      "places": [
-        { "id": "monastery", "name": "The Monastery" }
-      ]
-    },
-    {
-      "dayNumber": 3,
-      "places": []
-    }
+    { "dayNumber": 1, "places": [{ "id": "rom-001", "name": "Colosseum" }] },
+    { "dayNumber": 2, "places": [{ "id": "rom-002", "name": "Roman Forum" }] },
+    { "dayNumber": 3, "places": [] }
   ],
-  "warnings": ["PARTIAL_ITINERARY"]
+  "warnings": [
+    { "code": "PARTIAL_ITINERARY", "message": "There are not enough places to cover every requested day." }
+  ]
 }
