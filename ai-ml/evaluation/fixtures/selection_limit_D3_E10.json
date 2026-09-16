@@ -1,0 +1,29 @@
+{
+  "_case": "Selection limit",
+  "_expected": "D=3, E=10 -> N=min(10,9)=9, q=3, r=0 -> capacities 3/3/3, no warning. p10 is intentionally excluded (E>N).",
+  "request": {
+    "destinationId": "istanbul-tr",
+    "days": 3,
+    "interests": ["history", "nature"],
+    "candidatePlaces": [
+      {"id": "p1",  "destinationId": "istanbul-tr", "name": "Hagia Sophia",         "categoryIds": ["historic_site"], "latitude": 41.0086, "longitude": 28.9802},
+      {"id": "p2",  "destinationId": "istanbul-tr", "name": "Topkapi Palace",       "categoryIds": ["museum"],        "latitude": 41.0115, "longitude": 28.9833},
+      {"id": "p3",  "destinationId": "istanbul-tr", "name": "Basilica Cistern",     "categoryIds": ["historic_site"], "latitude": 41.0084, "longitude": 28.9778},
+      {"id": "p4",  "destinationId": "istanbul-tr", "name": "Galata Tower",         "categoryIds": ["viewpoint"],     "latitude": 41.0256, "longitude": 28.9744},
+      {"id": "p5",  "destinationId": "istanbul-tr", "name": "Grand Bazaar",         "categoryIds": ["market"],        "latitude": 41.0106, "longitude": 28.9681},
+      {"id": "p6",  "destinationId": "istanbul-tr", "name": "Gulhane Park",         "categoryIds": ["park"],          "latitude": 41.0130, "longitude": 28.9810},
+      {"id": "p7",  "destinationId": "istanbul-tr", "name": "Suleymaniye Mosque",   "categoryIds": ["monument"],      "latitude": 41.0161, "longitude": 28.9639},
+      {"id": "p8",  "destinationId": "istanbul-tr", "name": "Bosphorus Waterfront", "categoryIds": ["waterfront"],    "latitude": 41.0390, "longitude": 29.0080},
+      {"id": "p9",  "destinationId": "istanbul-tr", "name": "Emirgan Park",         "categoryIds": ["park"],          "latitude": 41.1080, "longitude": 29.0550},
+      {"id": "p10", "destinationId": "istanbul-tr", "name": "Ortakoy Cafe Strip",   "categoryIds": ["cafe"],          "latitude": 41.0475, "longitude": 29.0269}
+    ]
+  },
+  "response": {
+    "days": [
+      {"day": 1, "placeIds": ["p1", "p2", "p3"]},
+      {"day": 2, "placeIds": ["p4", "p5", "p6"]},
+      {"day": 3, "placeIds": ["p7", "p8", "p9"]}
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "_case": "INVALID (must fail validation)",
+  "_expected": "D=3, E=5 -> N=5, q=1, r=2 -> capacities should be 2/2/1, no warning. This fixture intentionally VIOLATES the contract in three ways so the validation script must reject it:",
+  "_violations": [
+    "1) Only 2 day entries are returned instead of 3 (missing day 3).",
+    "2) placeId 'p1' is duplicated within day 1.",
+    "3) placeId 'p99' does not exist in candidatePlaces (unknown ID)."
+  ],
+  "request": {
+    "destinationId": "istanbul-tr",
+    "days": 3,
+    "interests": ["history"],
+    "candidatePlaces": [
+      {"id": "p1", "destinationId": "istanbul-tr", "name": "Hagia Sophia",     "categoryIds": ["historic_site"], "latitude": 41.0086, "longitude": 28.9802},
+      {"id": "p2", "destinationId": "istanbul-tr", "name": "Topkapi Palace",   "categoryIds": ["museum"],        "latitude": 41.0115, "longitude": 28.9833},
+      {"id": "p3", "destinationId": "istanbul-tr", "name": "Basilica Cistern", "categoryIds": ["historic_site"], "latitude": 41.0084, "longitude": 28.9778},
+      {"id": "p4", "destinationId": "istanbul-tr", "name": "Galata Tower",     "categoryIds": ["viewpoint"],     "latitude": 41.0256, "longitude": 28.9744},
+      {"id": "p5", "destinationId": "istanbul-tr", "name": "Grand Bazaar",     "categoryIds": ["market"],        "latitude": 41.0106, "longitude": 28.9681}
+    ]
+  },
+  "response": {
+    "days": [
+      {"day": 1, "placeIds": ["p1", "p1"]},
+      {"day": 2, "placeIds": ["p2", "p99"]}
+    ],
+    "warnings": []
+  }
+}

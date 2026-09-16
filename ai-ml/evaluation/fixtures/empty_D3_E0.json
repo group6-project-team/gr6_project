@@ -1,0 +1,18 @@
+{
+  "_case": "Empty",
+  "_expected": "D=3, E=0 -> N=0 -> capacities 0/0/0 + NO_PLACES_AVAILABLE",
+  "request": {
+    "destinationId": "istanbul-tr",
+    "days": 3,
+    "interests": ["history"],
+    "candidatePlaces": []
+  },
+  "response": {
+    "days": [
+      {"day": 1, "placeIds": []},
+      {"day": 2, "placeIds": []},
+      {"day": 3, "placeIds": []}
+    ],
+    "warnings": ["NO_PLACES_AVAILABLE"]
+  }
+}

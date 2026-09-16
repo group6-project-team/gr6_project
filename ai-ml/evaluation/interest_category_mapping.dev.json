@@ -1,0 +1,28 @@
+{
+  "_label": "TEMPORARY DEVELOPMENT DATA — NOT the versioned repository taxonomy artifact (config/recommendation_taxonomy.v1.json). For use only in test/planning-fixtures until the real taxonomy artifact is available.",
+  "version": "dev-0.1",
+  "canonicalCategories": [
+    "historic_site",
+    "museum",
+    "monument",
+    "park",
+    "cafe",
+    "viewpoint",
+    "market",
+    "waterfront"
+  ],
+  "interests": {
+    "history": {
+      "label": "History",
+      "categoryIds": ["historic_site", "museum", "monument"]
+    },
+    "nature": {
+      "label": "Nature",
+      "categoryIds": ["park", "viewpoint", "waterfront"]
+    },
+    "food": {
+      "label": "Food",
+      "categoryIds": ["cafe", "market"]
+    }
+  }
+}
