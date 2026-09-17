@@ -1,6 +1,6 @@
 ﻿using TripPlanning.Api.DTOs.Requests;
 
-namespace TripPlanning.Api.Data
+namespace TripPlanning.Api.Tests.Fixtures
 {
     public static class Stage2APlanningFixture
     {

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.Extensions.Logging.Abstractions;
 using TripPlanning.Api.DTOs.Requests;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Validators;
@@ -48,7 +49,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -86,7 +88,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -124,7 +127,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -165,7 +169,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -201,7 +206,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -236,21 +242,21 @@ namespace TripPlanning.Api.Tests.Services
                 {
                     Content = new StringContent(
                         """
-                {
-                  "days": [
-                    {
-                      "day": 1,
-                      "placeIds": []
-                    }
-                  ],
-                  "warnings": [
-                    {
-                      "code": "NO_PLACES_AVAILABLE",
-                      "message": "No suitable places were found in the current candidate pool."
-                    }
-                  ]
-                }
-                """,
+                        {
+                          "days": [
+                            {
+                              "day": 1,
+                              "placeIds": []
+                            }
+                          ],
+                          "warnings": [
+                            {
+                              "code": "NO_PLACES_AVAILABLE",
+                              "message": "No suitable places were found in the current candidate pool."
+                            }
+                          ]
+                        }
+                        """,
                         System.Text.Encoding.UTF8,
                         "application/json")
                 };
@@ -267,7 +273,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -301,16 +308,16 @@ namespace TripPlanning.Api.Tests.Services
                 {
                     Content = new StringContent(
                         """
-                {
-                  "days": [
-                    {
-                      "day": 1,
-                      "placeIds": ["p1", "p999"]
-                    }
-                  ],
-                  "warnings": []
-                }
-                """,
+                        {
+                          "days": [
+                            {
+                              "day": 1,
+                              "placeIds": ["p1", "p999"]
+                            }
+                          ],
+                          "warnings": []
+                        }
+                        """,
                         System.Text.Encoding.UTF8,
                         "application/json")
                 };
@@ -327,7 +334,8 @@ namespace TripPlanning.Api.Tests.Services
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = new FastApiPlanRequest
             {
@@ -335,26 +343,26 @@ namespace TripPlanning.Api.Tests.Services
                 Days = 1,
                 Interests = new List<string> { "historic_site" },
                 CandidatePlaces = new List<PlaceCandidateRequest>
-        {
-            new()
-            {
-                Id = "p1",
-                DestinationId = "istanbul-tr",
-                Name = "Hagia Sophia",
-                CategoryIds = new List<string> { "historic_site" },
-                Latitude = 41.0086,
-                Longitude = 28.9802
-            },
-            new()
-            {
-                Id = "p2",
-                DestinationId = "istanbul-tr",
-                Name = "Topkapi Palace",
-                CategoryIds = new List<string> { "museum" },
-                Latitude = 41.0115,
-                Longitude = 28.9833
-            }
-        }
+                {
+                    new()
+                    {
+                        Id = "p1",
+                        DestinationId = "istanbul-tr",
+                        Name = "Hagia Sophia",
+                        CategoryIds = new List<string> { "historic_site" },
+                        Latitude = 41.0086,
+                        Longitude = 28.9802
+                    },
+                    new()
+                    {
+                        Id = "p2",
+                        DestinationId = "istanbul-tr",
+                        Name = "Topkapi Palace",
+                        CategoryIds = new List<string> { "museum" },
+                        Latitude = 41.0115,
+                        Longitude = 28.9833
+                    }
+                }
             };
 
             // Act & Assert

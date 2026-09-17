@@ -12,19 +12,22 @@ namespace TripPlanning.Api.Services.Classes
     {
         private readonly HttpClient _httpClient;
         private readonly IPlanningResultValidator _planningResultValidator;
+        private readonly ILogger<FastApiPlanningClient> _logger;
 
         public FastApiPlanningClient(
             HttpClient httpClient,
-            IPlanningResultValidator planningResultValidator)
+            IPlanningResultValidator planningResultValidator,
+            ILogger<FastApiPlanningClient> logger)
         {
             _httpClient = httpClient;
             _planningResultValidator = planningResultValidator;
+            _logger = logger;
         }
 
         public async Task<FastApiPlanResponse> PlanAsync(
-    FastApiPlanRequest request,
-    string requestId,
-    CancellationToken cancellationToken)
+            FastApiPlanRequest request,
+            string requestId,
+            CancellationToken cancellationToken)
         {
             try
             {
@@ -41,12 +44,21 @@ namespace TripPlanning.Api.Services.Classes
 
                 if (response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
                 {
+                    _logger.LogWarning(
+                        "Planning service returned 503. RequestId: {RequestId}",
+                        requestId);
+
                     throw new PlanningServiceUnavailableException(
                         "Planning service is unavailable.");
                 }
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    _logger.LogError(
+                        "Planning service returned unsuccessful status {StatusCode}. RequestId: {RequestId}",
+                        (int)response.StatusCode,
+                        requestId);
+
                     throw new PlanningFailedException(
                         "Planning service returned an unsuccessful response.");
                 }
@@ -57,27 +69,50 @@ namespace TripPlanning.Api.Services.Classes
                 if (result is null ||
                     !_planningResultValidator.IsValid(request, result))
                 {
+                    _logger.LogError(
+                        "Planning service returned an invalid planning result. RequestId: {RequestId}",
+                        requestId);
+
                     throw new PlanningFailedException(
                         "Planning service returned an invalid planning result.");
                 }
+
+                _logger.LogInformation(
+                    "Planning request completed successfully. RequestId: {RequestId}",
+                    requestId);
 
                 return result;
             }
             catch (OperationCanceledException ex)
                 when (!cancellationToken.IsCancellationRequested)
             {
+                _logger.LogWarning(
+                    ex,
+                    "Planning service request timed out. RequestId: {RequestId}",
+                    requestId);
+
                 throw new PlanningServiceUnavailableException(
                     "Planning service request timed out.",
                     ex);
             }
             catch (HttpRequestException ex)
             {
+                _logger.LogWarning(
+                    ex,
+                    "Planning service connection failed. RequestId: {RequestId}",
+                    requestId);
+
                 throw new PlanningServiceUnavailableException(
                     "Planning service is unavailable.",
                     ex);
             }
             catch (JsonException ex)
             {
+                _logger.LogError(
+                    ex,
+                    "Planning service returned malformed JSON. RequestId: {RequestId}",
+                    requestId);
+
                 throw new PlanningFailedException(
                     "Planning service returned a malformed response.",
                     ex);

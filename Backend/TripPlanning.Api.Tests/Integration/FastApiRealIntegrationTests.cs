@@ -1,4 +1,5 @@
-﻿using TripPlanning.Api.Data;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using TripPlanning.Api.Tests.Fixtures;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Validators;
 
@@ -20,7 +21,8 @@ namespace TripPlanning.Api.Tests.Integration
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = Stage2APlanningFixture.CreateNormalRequest();
 
@@ -50,7 +52,8 @@ namespace TripPlanning.Api.Tests.Integration
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = Stage2APlanningFixture.CreatePartialRequest();
 
@@ -84,7 +87,8 @@ namespace TripPlanning.Api.Tests.Integration
 
             var client = new FastApiPlanningClient(
                 httpClient,
-                validator);
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
 
             var request = Stage2APlanningFixture.CreateEmptyRequest();
 

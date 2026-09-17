@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Text.Json;
 using TripPlanning.Api.DTOs.Responses;
 using TripPlanning.Api.Exceptions;
 
@@ -45,7 +44,6 @@ namespace TripPlanning.Api.Middleware
             string message)
         {
             context.Response.StatusCode = (int)statusCode;
-            context.Response.ContentType = "application/json";
 
             var response = new PlanningErrorResponse
             {
@@ -53,9 +51,7 @@ namespace TripPlanning.Api.Middleware
                 Message = message
             };
 
-            var json = JsonSerializer.Serialize(response);
-
-            await context.Response.WriteAsync(json);
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }
