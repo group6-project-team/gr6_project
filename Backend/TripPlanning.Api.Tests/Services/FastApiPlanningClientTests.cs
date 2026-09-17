@@ -372,5 +372,233 @@ namespace TripPlanning.Api.Tests.Services
                     "test-request-id",
                     CancellationToken.None));
         }
+
+        [Fact]
+        public async Task PlanAsync_ThrowsPlanningFailedException_WhenWarningsIsNull()
+        {
+            // Arrange
+            var handler = new StubHttpMessageHandler((request, cancellationToken) =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                        """
+                {
+                  "days": [
+                    {
+                      "day": 1,
+                      "placeIds": []
+                    }
+                  ],
+                  "warnings": null
+                }
+                """,
+                        System.Text.Encoding.UTF8,
+                        "application/json")
+                };
+
+                return Task.FromResult(response);
+            });
+
+            var httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri("http://localhost/")
+            };
+
+            var validator = new PlanningResultValidator();
+
+            var client = new FastApiPlanningClient(
+                httpClient,
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
+
+            var request = new FastApiPlanRequest
+            {
+                DestinationId = "aqaba-jo",
+                Days = 1,
+                Interests = new List<string>(),
+                CandidatePlaces = new List<PlaceCandidateRequest>()
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<TripPlanning.Api.Exceptions.PlanningFailedException>(
+                () => client.PlanAsync(
+                    request,
+                    "test-null-warnings",
+                    CancellationToken.None));
+        }
+
+        [Fact]
+        public async Task PlanAsync_ThrowsPlanningFailedException_WhenWarningsFieldIsMissing()
+        {
+            // Arrange
+            var handler = new StubHttpMessageHandler((request, cancellationToken) =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                        """
+                {
+                  "days": [
+                    {
+                      "day": 1,
+                      "placeIds": []
+                    }
+                  ]
+                }
+                """,
+                        System.Text.Encoding.UTF8,
+                        "application/json")
+                };
+
+                return Task.FromResult(response);
+            });
+
+            var httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri("http://localhost/")
+            };
+
+            var validator = new PlanningResultValidator();
+
+            var client = new FastApiPlanningClient(
+                httpClient,
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
+
+            var request = new FastApiPlanRequest
+            {
+                DestinationId = "aqaba-jo",
+                Days = 1,
+                Interests = new List<string>(),
+                CandidatePlaces = new List<PlaceCandidateRequest>()
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<TripPlanning.Api.Exceptions.PlanningFailedException>(
+                () => client.PlanAsync(
+                    request,
+                    "test-missing-warnings",
+                    CancellationToken.None));
+        }
+
+        [Fact]
+        public async Task PlanAsync_ThrowsPlanningFailedException_WhenPlaceIdsIsNull()
+        {
+            // Arrange
+            var handler = new StubHttpMessageHandler((request, cancellationToken) =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                        """
+                {
+                  "days": [
+                    {
+                      "day": 1,
+                      "placeIds": null
+                    }
+                  ],
+                  "warnings": [
+                    {
+                      "code": "NO_PLACES_AVAILABLE",
+                      "message": "No suitable places were found."
+                    }
+                  ]
+                }
+                """,
+                        System.Text.Encoding.UTF8,
+                        "application/json")
+                };
+
+                return Task.FromResult(response);
+            });
+
+            var httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri("http://localhost/")
+            };
+
+            var validator = new PlanningResultValidator();
+
+            var client = new FastApiPlanningClient(
+                httpClient,
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
+
+            var request = new FastApiPlanRequest
+            {
+                DestinationId = "aqaba-jo",
+                Days = 1,
+                Interests = new List<string>(),
+                CandidatePlaces = new List<PlaceCandidateRequest>()
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<TripPlanning.Api.Exceptions.PlanningFailedException>(
+                () => client.PlanAsync(
+                    request,
+                    "test-null-placeids",
+                    CancellationToken.None));
+        }
+
+        [Fact]
+        public async Task PlanAsync_ThrowsPlanningFailedException_WhenPlaceIdsFieldIsMissing()
+        {
+            // Arrange
+            var handler = new StubHttpMessageHandler((request, cancellationToken) =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                        """
+                {
+                  "days": [
+                    {
+                      "day": 1
+                    }
+                  ],
+                  "warnings": [
+                    {
+                      "code": "NO_PLACES_AVAILABLE",
+                      "message": "No suitable places were found."
+                    }
+                  ]
+                }
+                """,
+                        System.Text.Encoding.UTF8,
+                        "application/json")
+                };
+
+                return Task.FromResult(response);
+            });
+
+            var httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri("http://localhost/")
+            };
+
+            var validator = new PlanningResultValidator();
+
+            var client = new FastApiPlanningClient(
+                httpClient,
+                validator,
+                NullLogger<FastApiPlanningClient>.Instance);
+
+            var request = new FastApiPlanRequest
+            {
+                DestinationId = "aqaba-jo",
+                Days = 1,
+                Interests = new List<string>(),
+                CandidatePlaces = new List<PlaceCandidateRequest>()
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<TripPlanning.Api.Exceptions.PlanningFailedException>(
+                () => client.PlanAsync(
+                    request,
+                    "test-missing-placeids",
+                    CancellationToken.None));
+        }
     }
 }

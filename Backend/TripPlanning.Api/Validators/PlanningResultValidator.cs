@@ -9,6 +9,27 @@ namespace TripPlanning.Api.Validators
             FastApiPlanRequest request,
             FastApiPlanResponse response)
         {
+            if (response.Days is null ||
+                response.Warnings is null)
+            {
+                return false;
+            }
+
+            if (response.Days.Any(day =>
+                day is null ||
+                day.PlaceIds is null))
+            {
+                return false;
+            }
+
+            if (response.Warnings.Any(warning =>
+                warning is null ||
+                warning.Code is null ||
+                warning.Message is null))
+            {
+                return false;
+            }
+
             if (response.Days.Count != request.Days)
             {
                 return false;
@@ -35,7 +56,7 @@ namespace TripPlanning.Api.Validators
                 3 * request.Days);
 
             int actualSelectedCount = response.Days
-                .Sum(day => day.PlaceIds.Count);
+                .Sum(day => day.PlaceIds!.Count);
 
             if (actualSelectedCount != expectedSelectedCount)
             {
@@ -55,13 +76,13 @@ namespace TripPlanning.Api.Validators
                         ? baseCapacity + 1
                         : baseCapacity;
 
-                if (day.PlaceIds.Count != expectedCapacity)
+                if (day.PlaceIds!.Count != expectedCapacity)
                 {
                     return false;
                 }
             }
 
-            if (response.Days.Any(day => day.PlaceIds.Count > 3))
+            if (response.Days.Any(day => day.PlaceIds!.Count > 3))
             {
                 return false;
             }
@@ -71,7 +92,7 @@ namespace TripPlanning.Api.Validators
                 .ToHashSet();
 
             var selectedIds = response.Days
-                .SelectMany(day => day.PlaceIds)
+                .SelectMany(day => day.PlaceIds!)
                 .ToList();
 
             if (selectedIds.Any(id => !candidateIds.Contains(id)))
@@ -85,7 +106,7 @@ namespace TripPlanning.Api.Validators
             }
 
             var warningCodes = response.Warnings
-                .Select(warning => warning.Code)
+                .Select(warning => warning.Code!)
                 .ToList();
 
             if (expectedSelectedCount == 0)

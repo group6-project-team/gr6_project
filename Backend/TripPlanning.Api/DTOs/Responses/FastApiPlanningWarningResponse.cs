@@ -1,9 +1,13 @@
-﻿namespace TripPlanning.Api.DTOs.Responses
+﻿using System.Text.Json.Serialization;
+
+namespace TripPlanning.Api.DTOs.Responses
 {
     public class FastApiPlanningWarningResponse
     {
-        public string Code { get; set; } = string.Empty;
+        [JsonRequired]
+        public string? Code { get; set; }
 
-        public string Message { get; set; } = string.Empty;
+        [JsonRequired]
+        public string? Message { get; set; }
     }
 }

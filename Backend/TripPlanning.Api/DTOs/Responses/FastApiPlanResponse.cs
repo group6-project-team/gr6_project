@@ -1,9 +1,13 @@
-﻿namespace TripPlanning.Api.DTOs.Responses
+﻿using System.Text.Json.Serialization;
+
+namespace TripPlanning.Api.DTOs.Responses
 {
     public class FastApiPlanResponse
     {
-        public List<FastApiPlanningDayResponse> Days { get; set; } = new();
+        [JsonRequired]
+        public List<FastApiPlanningDayResponse>? Days { get; set; }
 
-        public List<FastApiPlanningWarningResponse> Warnings { get; set; } = new();
+        [JsonRequired]
+        public List<FastApiPlanningWarningResponse>? Warnings { get; set; }
     }
 }
