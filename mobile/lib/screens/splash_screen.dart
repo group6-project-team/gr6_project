@@ -100,30 +100,36 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const PaperPlaneMark(size: 58),
-                      const SizedBox(height: 12),
+                      const PaperPlaneMark(size: 64),
+                      const SizedBox(height: 10),
                       const Text(
                         'Triply',
                         style: TextStyle(
                           fontFamily: 'PlayfairDisplay',
-                          fontSize: 58,
+                          fontSize: 64,
                           height: 0.95,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
+                          shadows: [
+                            Shadow(color: Color(0x99000000), blurRadius: 18),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 14),
                       Text(
                         'More than trips...\nIt\'s a story.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'PlayfairDisplay',
-                          fontSize: 18,
+                          fontSize: 20,
                           height: 1.35,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w400,
-                          color: Colors.white.withValues(alpha: 0.94),
+                          color: Colors.white.withValues(alpha: 0.96),
+                          shadows: const [
+                            Shadow(color: Color(0x66000000), blurRadius: 10),
+                          ],
                         ),
                       ),
                     ],

@@ -11,8 +11,10 @@ class AppTheme {
   static const Color ink = Color(0xFF14343A);
   static const Color muted = Color(0xFF4F6B68);
   static const Color outline = Color(0xFFB4C7C3);
-  static const Color introTeal = Color(0xFF1B6B73);
-  static const Color introCanvas = Color(0xFFF4F0E8);
+  static const Color introTeal = Color(0xFF0E5860);
+  static const Color introCanvas = Color(0xFFF6F1E8);
+  static const Color brandInk = Color(0xFF12343C);
+  static const Color brandSoft = Color(0xFF3E5C5A);
 
   static ThemeData light() {
     final scheme = ColorScheme.fromSeed(

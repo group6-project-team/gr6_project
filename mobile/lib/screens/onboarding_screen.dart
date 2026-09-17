@@ -216,12 +216,12 @@ class _OnboardingBody extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'PlayfairDisplay',
-                        fontSize: 34,
-                        height: 1.18,
+                        fontSize: 40,
+                        height: 1.12,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1A3D45),
-                        letterSpacing: 0.3,
+                        color: AppTheme.brandInk,
+                        letterSpacing: 0.2,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -239,12 +239,12 @@ class _OnboardingBody extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'PlayfairDisplay',
-                        fontSize: 16,
-                        height: 1.55,
+                        fontSize: 17.5,
+                        height: 1.5,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF5E726E),
-                        letterSpacing: 0.15,
+                        color: AppTheme.brandSoft,
+                        letterSpacing: 0.12,
                       ),
                     ),
                     if (page.showActions) ...[
@@ -308,13 +308,28 @@ class _ActionIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, size: 26, color: AppTheme.introTeal),
-        const SizedBox(height: 6),
+        Container(
+          width: 58,
+          height: 58,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.86),
+            shape: BoxShape.circle,
+            border: Border.all(color: AppTheme.introTeal.withValues(alpha: 0.22)),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.introTeal.withValues(alpha: 0.1),
+                blurRadius: 12,
+              ),
+            ],
+          ),
+          child: Icon(icon, size: 26, color: AppTheme.introTeal),
+        ),
+        const SizedBox(height: 8),
         Text(
           label,
           style: const TextStyle(
             fontFamily: 'PlayfairDisplay',
-            fontSize: 13,
+            fontSize: 14,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
             color: AppTheme.introTeal,

@@ -10,6 +10,8 @@ import '../models/trip_request.dart';
 import '../services/mock_trip_api.dart';
 import '../services/trip_api.dart';
 import '../theme/app_theme.dart';
+import '../theme/destination_art.dart';
+import '../widgets/blended_scene.dart';
 
 enum _FlowStatus { initial, loading, success, error }
 
@@ -217,7 +219,27 @@ class _TripFormScreenState extends State<TripFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.introCanvas,
-      body: SafeArea(
+      body: Stack(
+        children: [
+          const Opacity(
+            opacity: 0.22,
+            child: Image(
+              image: AssetImage('assets/intro/login_sky.png'),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          const Opacity(
+            opacity: 0.16,
+            child: Image(
+              image: AssetImage('assets/intro/onboard_floral_wash.png'),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          SafeArea(
         child: Form(
         key: _formKey,
         autovalidateMode: _autoValidate,
@@ -304,6 +326,8 @@ class _TripFormScreenState extends State<TripFormScreen> {
           ],
         ),
         ),
+          ),
+        ],
       ),
     );
   }
@@ -362,20 +386,21 @@ class _DestinationStep extends StatelessWidget {
           'Plan your trip',
           style: TextStyle(
             fontFamily: 'PlayfairDisplay',
-            fontSize: 30,
+            fontSize: 34,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1A3D45),
+            color: AppTheme.brandInk,
           ),
         ),
         const SizedBox(height: 4),
         const Text(
           'Where do you want to go?',
           style: TextStyle(
-            fontFamily: 'PlusJakartaSans',
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1A3D45),
+            fontFamily: 'PlayfairDisplay',
+            fontSize: 18,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w500,
+            color: AppTheme.brandSoft,
           ),
         ),
         const SizedBox(height: 16),
@@ -418,6 +443,33 @@ class _DestinationStep extends StatelessWidget {
                       ),
                   ],
                 ),
+                const SizedBox(height: 16),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 380),
+                  child: BlendedScene(
+                    key: ValueKey(destinationId ?? 'featured'),
+                    image: DestinationArt.photoFor(destinationId),
+                    height: 210,
+                    overlay: destinationId == null
+                        ? const SizedBox.shrink()
+                        : Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(18, 0, 18, 16),
+                              child: Text(
+                                _destinationName(options, destinationId),
+                                style: const TextStyle(
+                                  fontFamily: 'PlayfairDisplay',
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
                 if (state.hasError) ...[
                   const SizedBox(height: 8),
                   Text(
@@ -431,16 +483,6 @@ class _DestinationStep extends StatelessWidget {
               ],
             );
           },
-        ),
-        const SizedBox(height: 18),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Image.asset(
-            'assets/intro/onboard_wave_plan.png',
-            height: 180,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
         ),
       ],
     );
@@ -480,26 +522,31 @@ class _DaysStep extends StatelessWidget {
           'How long is your trip?',
           style: TextStyle(
             fontFamily: 'PlayfairDisplay',
-            fontSize: 30,
+            fontSize: 34,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1A3D45),
+            color: AppTheme.brandInk,
           ),
         ),
         const SizedBox(height: 8),
         const Text(
           'Choose 1 to 14 days.',
-          style: TextStyle(color: AppTheme.muted),
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 16,
+            color: AppTheme.brandSoft,
+          ),
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 36),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton.filledTonal(
+            _RoundStepButton(
+              icon: Icons.remove,
               onPressed: enabled ? () => _bump(-1) : null,
-              icon: const Icon(Icons.remove),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 18),
             SizedBox(
               width: 140,
               child: TextFormField(
@@ -509,10 +556,11 @@ class _DaysStep extends StatelessWidget {
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 style: const TextStyle(
-                  fontFamily: 'PlusJakartaSans',
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1A3D45),
+                  fontFamily: 'PlayfairDisplay',
+                  fontSize: 56,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.introTeal,
                 ),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -532,26 +580,29 @@ class _DaysStep extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(width: 12),
-            IconButton.filledTonal(
+            const SizedBox(width: 18),
+            _RoundStepButton(
+              icon: Icons.add,
               onPressed: enabled ? () => _bump(1) : null,
-              icon: const Icon(Icons.add),
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         const Center(
-          child: Text('days', style: TextStyle(color: AppTheme.muted)),
-        ),
-        const SizedBox(height: 18),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Image.asset(
-            'assets/intro/onboard_wave_discover.png',
-            height: 180,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          child: Text(
+            'days',
+            style: TextStyle(
+              fontFamily: 'PlayfairDisplay',
+              fontStyle: FontStyle.italic,
+              fontSize: 18,
+              color: AppTheme.brandSoft,
+            ),
           ),
+        ),
+        const SizedBox(height: 28),
+        const BlendedScene(
+          image: DestinationArt.days,
+          height: 210,
         ),
       ],
     );
@@ -600,31 +651,44 @@ class _InterestsStep extends StatelessWidget {
           'What do you love?',
           style: TextStyle(
             fontFamily: 'PlayfairDisplay',
-            fontSize: 30,
+            fontSize: 34,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1A3D45),
+            color: AppTheme.brandInk,
           ),
         ),
         const SizedBox(height: 8),
         const Text(
           'Interests are optional. Leave them empty if you want.',
-          style: TextStyle(color: AppTheme.muted),
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 16,
+            color: AppTheme.brandSoft,
+          ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 18),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 10,
+          runSpacing: 10,
           children: [
             for (final interest in options?.interests ?? const <InterestOption>[])
               FilterChip(
                 key: Key('interest-${interest.id}'),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 avatar: Icon(
                   _interestIcon(interest.id),
-                  size: 16,
+                  size: 18,
                   color: _interestColor(interest.id),
                 ),
-                label: Text(interest.name),
+                label: Text(
+                  interest.name,
+                  style: const TextStyle(
+                    fontFamily: 'PlusJakartaSans',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                ),
                 selected: interestIds.contains(interest.id),
                 selectedColor: _interestColor(interest.id).withValues(alpha: 0.18),
                 onSelected: enabled
@@ -633,7 +697,14 @@ class _InterestsStep extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 18),
+        if (status == _FlowStatus.initial) ...[
+          const BlendedScene(
+            image: DestinationArt.featured,
+            height: 188,
+          ),
+          const SizedBox(height: 16),
+        ],
         if (status == _FlowStatus.loading)
           const _MessageCard(
             title: 'Creating itinerary…',
@@ -691,6 +762,39 @@ Color _interestColor(String id) {
       return const Color(0xFF3F7FB5);
     default:
       return AppTheme.primary;
+  }
+}
+
+String _destinationName(TripOptions? options, String? destinationId) {
+  if (options == null || destinationId == null) return '';
+  for (final item in options.destinations) {
+    if (item.id == destinationId) return item.name;
+  }
+  return '';
+}
+
+class _RoundStepButton extends StatelessWidget {
+  const _RoundStepButton({required this.icon, required this.onPressed});
+
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 48,
+      height: 48,
+      child: FilledButton(
+        onPressed: onPressed,
+        style: FilledButton.styleFrom(
+          backgroundColor: AppTheme.introTeal,
+          padding: EdgeInsets.zero,
+          minimumSize: const Size(48, 48),
+          shape: const CircleBorder(),
+        ),
+        child: Icon(icon, color: Colors.white),
+      ),
+    );
   }
 }
 
@@ -785,9 +889,11 @@ class _ResultView extends StatelessWidget {
         const Text(
           'Your trip itinerary',
           style: TextStyle(
-            fontFamily: 'PlusJakartaSans',
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 26,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.brandInk,
           ),
         ),
         Text(
@@ -849,7 +955,12 @@ class _DayCard extends StatelessWidget {
           children: [
             Text(
               'Day ${day.dayNumber}',
-              style: const TextStyle(fontWeight: FontWeight.w800),
+              style: const TextStyle(
+                fontFamily: 'PlayfairDisplay',
+                fontStyle: FontStyle.italic,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 8),
             if (visiblePlaces.isEmpty)
