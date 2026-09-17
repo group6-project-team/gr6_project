@@ -25,6 +25,7 @@ namespace TripPlanning.Api
             builder.Services.AddScoped<IFakeTripPreviewService, FakeTripPreviewService>();
             builder.Services.AddScoped<IPlanningResultValidator, PlanningResultValidator>();
             builder.Services.AddScoped<IPlanningService, PlanningService>();
+            builder.Services.AddScoped<IRealTripPreviewService, RealTripPreviewService>();
             builder.Services.AddHttpClient<IFastApiPlanningClient, FastApiPlanningClient>((serviceProvider, client) =>
             {
                 var configuration = serviceProvider.GetRequiredService<IConfiguration>();

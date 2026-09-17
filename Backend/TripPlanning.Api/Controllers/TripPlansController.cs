@@ -9,19 +9,36 @@ namespace TripPlanning.Api.Controllers
     [Route("trip-plans")]
     public class TripPlansController : ControllerBase
     {
-        private readonly IFakeTripPreviewService _tripPreviewService;
+        private readonly IRealTripPreviewService _tripPreviewService;
 
-        public TripPlansController(IFakeTripPreviewService tripPreviewService)
+        public TripPlansController(
+            IRealTripPreviewService tripPreviewService)
         {
             _tripPreviewService = tripPreviewService;
         }
 
         [HttpPost("preview")]
-        [ProducesResponseType(typeof(TripPlanPreviewResponse), StatusCodes.Status200OK)]
-        public ActionResult<TripPlanPreviewResponse> Preview(
-    [FromBody] TripPlanPreviewRequest request)
+        [ProducesResponseType(
+            typeof(TripPlanPreviewResponse),
+            StatusCodes.Status200OK)]
+        [ProducesResponseType(
+            typeof(PlanningErrorResponse),
+            StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(
+            typeof(PlanningErrorResponse),
+            StatusCodes.Status503ServiceUnavailable)]
+        public async Task<ActionResult<TripPlanPreviewResponse>> Preview(
+            [FromBody] TripPlanPreviewRequest request,
+            CancellationToken cancellationToken)
         {
-            var result = _tripPreviewService.GeneratePreview(request);
+            var requestId =
+                HttpContext.Items["X-Request-ID"]?.ToString()
+                ?? HttpContext.TraceIdentifier;
+
+            var result = await _tripPreviewService.GeneratePreviewAsync(
+                request,
+                requestId,
+                cancellationToken);
 
             return Ok(result);
         }
