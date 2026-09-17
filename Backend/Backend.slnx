@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="TripPlanning.Api.Tests/TripPlanning.Api.Tests.csproj" Id="f389307d-b482-4ef4-a015-0af0157d971a" />
   <Project Path="TripPlanning.Api/TripPlanning.Api.csproj" />
 </Solution>

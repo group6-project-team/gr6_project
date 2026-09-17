@@ -1,6 +1,7 @@
 
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using TripPlanning.Api.Middleware;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Services.Interfaces;
 using TripPlanning.Api.Validators;
@@ -22,6 +23,26 @@ namespace TripPlanning.Api
             builder.Services.AddValidatorsFromAssemblyContaining<TripPlanPreviewRequestValidator>();
 
             builder.Services.AddScoped<IFakeTripPreviewService, FakeTripPreviewService>();
+            builder.Services.AddScoped<IPlanningResultValidator, PlanningResultValidator>();
+            builder.Services.AddScoped<IPlanningService, PlanningService>();
+            builder.Services.AddHttpClient<IFastApiPlanningClient, FastApiPlanningClient>((serviceProvider, client) =>
+            {
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+                var baseUrl =
+                    configuration["AI_SERVICE_BASE_URL"]
+                    ?? configuration["AIService:BaseUrl"];
+
+                var timeoutValue =
+                    configuration["AI_SERVICE_TIMEOUT"];
+
+                var timeoutSeconds = int.TryParse(timeoutValue, out var configuredTimeout)
+                    ? configuredTimeout
+                    : configuration.GetValue<int>("AIService:TimeoutSeconds");
+
+                client.BaseAddress = new Uri(baseUrl!);
+                client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
+            });
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -30,6 +51,9 @@ namespace TripPlanning.Api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<RequestIdMiddleware>();
+            app.UseMiddleware<PlanningExceptionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
