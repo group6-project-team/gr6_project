@@ -1,0 +1,23 @@
+[
+  {
+    "id": "rom-001",
+    "destinationId": "rome",
+    "name": "Colosseum",
+    "categoryIds": [
+      "historic_site",
+      "monument"
+    ],
+    "latitude": 41.8902,
+    "longitude": 12.4922
+  },
+  {
+    "id": "rom-002",
+    "destinationId": "rome",
+    "name": "Roman Forum",
+    "categoryIds": [
+      "historic_site"
+    ],
+    "latitude": 41.8925,
+    "longitude": 12.4853
+  }
+]
