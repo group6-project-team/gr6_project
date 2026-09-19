@@ -69,74 +69,60 @@ class _SplashScreenState extends State<SplashScreen>
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
+        key: const Key('splash-screen'),
         backgroundColor: const Color(0xFF08141C),
         body: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                'assets/intro/splash_amalfi.png',
-                fit: BoxFit.cover,
-                alignment: const Alignment(0, 0.1),
-              ),
-              const DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0x660A1820),
-                      Color(0x330A1820),
-                      Color(0x14000000),
-                      Color(0x330A1820),
-                    ],
-                    stops: [0, 0.28, 0.58, 1],
-                  ),
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/intro/splash_amalfi.png',
+              fit: BoxFit.cover,
+              alignment: const Alignment(0, -0.08),
+            ),
+            FadeTransition(
+              opacity: fade,
+              child: const Align(
+                alignment: Alignment(0, -0.22),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    PaperPlaneMark(size: 52),
+                    SizedBox(height: 14),
+                    Text(
+                      'Triply',
+                      style: TextStyle(
+                        fontFamily: 'PlayfairDisplay',
+                        fontSize: 58,
+                        height: 0.95,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(color: Color(0x66000000), blurRadius: 12),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 14),
+                    Text(
+                      'More than trips...\nIt\'s a story.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'PlayfairDisplay',
+                        fontSize: 20,
+                        height: 1.35,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(color: Color(0x4D000000), blurRadius: 8),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              FadeTransition(
-                opacity: fade,
-                child: Align(
-                  alignment: const Alignment(0, -0.28),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const PaperPlaneMark(size: 64),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Triply',
-                        style: TextStyle(
-                          fontFamily: 'PlayfairDisplay',
-                          fontSize: 64,
-                          height: 0.95,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(color: Color(0x99000000), blurRadius: 18),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        'More than trips...\nIt\'s a story.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'PlayfairDisplay',
-                          fontSize: 20,
-                          height: 1.35,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white.withValues(alpha: 0.96),
-                          shadows: const [
-                            Shadow(color: Color(0x66000000), blurRadius: 10),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
+          ],
         ),
       ),
     );

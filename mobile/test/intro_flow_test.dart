@@ -14,6 +14,7 @@ void main() {
       ),
     );
 
+    expect(find.byKey(const Key('splash-screen')), findsOneWidget);
     expect(find.text('Triply'), findsWidgets);
     expect(find.textContaining("It's a story."), findsOneWidget);
 
