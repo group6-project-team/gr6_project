@@ -10,13 +10,22 @@ import '../models/trip_request.dart';
 import '../services/mock_trip_api.dart';
 import '../services/trip_api.dart';
 import '../theme/app_theme.dart';
+import '../theme/destination_art.dart';
+import '../widgets/blended_scene.dart';
 
 enum _FlowStatus { initial, loading, success, error }
 
 class TripFormScreen extends StatefulWidget {
-  const TripFormScreen({super.key, required this.api});
+  const TripFormScreen({
+    super.key,
+    required this.api,
+    this.presetDestinationId,
+    this.onPlanGenerated,
+  });
 
   final TripApi api;
+  final String? presetDestinationId;
+  final ValueChanged<TripPlan>? onPlanGenerated;
 
   @override
   State<TripFormScreen> createState() => _TripFormScreenState();
@@ -25,6 +34,7 @@ class TripFormScreen extends StatefulWidget {
 class _TripFormScreenState extends State<TripFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _daysController = TextEditingController(text: '3');
+  final _pageController = PageController();
 
   TripOptions? _options;
   Object? _optionsError;
@@ -38,6 +48,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
   TripApiException? _error;
   bool _submitting = false;
   int _requestSeq = 0;
+  int _step = 0;
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
   MockScenario _scenario = MockScenario.success;
 
@@ -49,6 +60,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
   @override
   void initState() {
     super.initState();
+    _destinationId = widget.presetDestinationId;
     final mock = _mockApi;
     if (mock != null) {
       _scenario = mock.scenario;
@@ -57,8 +69,18 @@ class _TripFormScreenState extends State<TripFormScreen> {
   }
 
   @override
+  void didUpdateWidget(covariant TripFormScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.presetDestinationId != null &&
+        widget.presetDestinationId != _destinationId) {
+      setState(() => _destinationId = widget.presetDestinationId);
+    }
+  }
+
+  @override
   void dispose() {
     _daysController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -97,6 +119,9 @@ class _TripFormScreenState extends State<TripFormScreen> {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) {
       setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+      if (_destinationId == null) {
+        _goToStep(0);
+      }
       return;
     }
 
@@ -123,6 +148,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
         _status = _FlowStatus.success;
         _submitting = false;
       });
+      widget.onPlanGenerated?.call(plan);
     } catch (error) {
       if (!mounted || seq != _requestSeq) {
         return;
@@ -145,313 +171,559 @@ class _TripFormScreenState extends State<TripFormScreen> {
     }
   }
 
+  void _goToStep(int step) {
+    setState(() => _step = step);
+    _pageController.animateToPage(
+      step,
+      duration: const Duration(milliseconds: 380),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _nextFromDestination() {
+    if (_destinationId == null) {
+      _formKey.currentState?.validate();
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+      return;
+    }
+    _goToStep(1);
+  }
+
+  VoidCallback? get _footerAction {
+    if (_submitting) {
+      return _step == 2 ? _onGenerate : null;
+    }
+    if (_step == 0) {
+      return _options == null ? null : _nextFromDestination;
+    }
+    if (_step == 1) {
+      return _nextFromDays;
+    }
+    if (_options == null || _options!.destinations.isEmpty || _optionsLoading) {
+      return null;
+    }
+    return _onGenerate;
+  }
+
+  void _nextFromDays() {
+    final value = int.tryParse(_daysController.text.trim());
+    if (value == null || value < 1 || value > 14) {
+      _formKey.currentState?.validate();
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+      return;
+    }
+    _goToStep(2);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [AppTheme.mistTop, AppTheme.mistBottom],
-        ),
-      ),
-      child: Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 76,
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Triply', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppTheme.muted)),
-            Text('Plan your trip'),
-          ],
-        ),
-        actions: [
-          if (AppConfig.useMockApi)
-            const Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: Center(child: _ModeChip(label: 'MOCK')),
+    return Scaffold(
+      backgroundColor: AppTheme.introCanvas,
+      body: Stack(
+        children: [
+          const Opacity(
+            opacity: 0.22,
+            child: Image(
+              image: AssetImage('assets/intro/login_sky.png'),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
-        ],
-      ),
-      body: Form(
+          ),
+          const Opacity(
+            opacity: 0.16,
+            child: Image(
+              image: AssetImage('assets/intro/onboard_floral_wash.png'),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          SafeArea(
+        child: Form(
         key: _formKey,
         autovalidateMode: _autoValidate,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-            if (_mockApi != null) ...[
-              _MockScenarioCard(
-                scenario: _scenario,
-                enabled: !_submitting,
-                onChanged: (value) {
-                  setState(() {
-                    _scenario = value;
-                    _mockApi!.scenario = value;
-                  });
-                },
+        child: Column(
+          children: [
+            if (AppConfig.useMockApi)
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: Center(child: _ModeChip(label: 'MOCK')),
               ),
-              const SizedBox(height: 16),
-            ],
             if (_optionsLoading) const LinearProgressIndicator(),
-            if (_optionsError != null)
-              _MessageCard(
-                color: Theme.of(context).colorScheme.errorContainer,
-                title: 'Could not load destinations',
-                body: 'Saved-trip work is not part of this card. Retry to load options.',
-                actionLabel: 'Retry options',
-                onAction: _optionsLoading ? null : _loadOptions,
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (value) => setState(() => _step = value),
+                children: [
+                  _DestinationStep(
+                    options: _options,
+                    destinationId: _destinationId,
+                    enabled: !_submitting && _options != null,
+                    optionsError: _optionsError,
+                    onRetryOptions: _loadOptions,
+                    mockApi: _mockApi,
+                    scenario: _scenario,
+                    onScenarioChanged: (value) {
+                      setState(() {
+                        _scenario = value;
+                        _mockApi?.scenario = value;
+                      });
+                    },
+                    onDestinationChanged: (id) => setState(() => _destinationId = id),
+                  ),
+                  _DaysStep(
+                    controller: _daysController,
+                    enabled: !_submitting,
+                    onBack: () => _goToStep(0),
+                  ),
+                  _InterestsStep(
+                    options: _options,
+                    interestIds: _interestIds,
+                    enabled: !_submitting && _options != null,
+                    submitting: _submitting,
+                    status: _status,
+                    error: _error,
+                    plan: _plan,
+                    onInterestToggled: (id, selected) {
+                      setState(() {
+                        if (selected) {
+                          _interestIds.add(id);
+                        } else {
+                          _interestIds.remove(id);
+                        }
+                      });
+                    },
+                    onGenerate: _onGenerate,
+                    onBack: () => _goToStep(1),
+                  ),
+                ],
               ),
-            if (_options != null && _options!.destinations.isEmpty)
-              _MessageCard(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                title: 'No destinations available',
-                body: 'Generate stays disabled until trip-options returns destinations.',
-              ),
-            const SizedBox(height: 8),
-            _TripInputForm(
-              options: _options,
-              destinationId: _destinationId,
-              daysController: _daysController,
-              interestIds: _interestIds,
-              enabled: !_submitting && _options != null,
-              onDestinationChanged: (id) => setState(() => _destinationId = id),
-              onInterestToggled: (id, selected) {
-                setState(() {
-                  if (selected) {
-                    _interestIds.add(id);
-                  } else {
-                    _interestIds.remove(id);
-                  }
-                });
-              },
             ),
-            const SizedBox(height: 16),
-            if (_status == _FlowStatus.loading)
-              const _MessageCard(
-                title: 'Creating itinerary…',
-                body: 'Please wait. Extra Generate taps are ignored while this is running.',
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+              child: SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: FilledButton(
+                  key: Key(_step == 2 ? 'generate-button' : _step == 1 ? 'days-next' : 'plan-next'),
+                  onPressed: _footerAction,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppTheme.introTeal,
+                    shape: const StadiumBorder(),
+                  ),
+                  child: _submitting
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : Text(_step == 2 ? 'Generate' : 'Next'),
+                ),
               ),
-            if (_status == _FlowStatus.error && _error != null)
-              _MessageCard(
-                color: Theme.of(context).colorScheme.errorContainer,
-                title: 'Could not generate this trip',
-                body: _error!.userMessage,
-                actionLabel: 'Retry',
-                onAction: _submitting ? null : _onGenerate,
-              ),
-            if (_status == _FlowStatus.success && _plan != null)
-              _ResultView(plan: _plan!, showJson: true),
+            ),
           ],
         ),
-      ),
-      ),
-      bottomNavigationBar: ColoredBox(
-        color: AppTheme.mistBottom.withValues(alpha: 0.92),
-        child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: FilledButton(
-            key: const Key('generate-button'),
-            onPressed: (!_submitting &&
-                    _options != null &&
-                    _options!.destinations.isNotEmpty &&
-                    !_optionsLoading)
-                ? _onGenerate
-                : null,
-            child: _submitting
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: AppTheme.cream),
-                  )
-                : const Text('Generate'),
-          ),
         ),
+          ),
+        ],
       ),
-      ),
-    ),
     );
   }
 }
 
-class _TripInputForm extends StatelessWidget {
-  const _TripInputForm({
+class _DestinationStep extends StatelessWidget {
+  const _DestinationStep({
     required this.options,
     required this.destinationId,
-    required this.daysController,
-    required this.interestIds,
     required this.enabled,
+    required this.optionsError,
+    required this.onRetryOptions,
+    required this.mockApi,
+    required this.scenario,
+    required this.onScenarioChanged,
     required this.onDestinationChanged,
-    required this.onInterestToggled,
   });
 
   final TripOptions? options;
   final String? destinationId;
-  final TextEditingController daysController;
-  final Set<String> interestIds;
   final bool enabled;
+  final Object? optionsError;
+  final VoidCallback onRetryOptions;
+  final MockTripApi? mockApi;
+  final MockScenario scenario;
+  final ValueChanged<MockScenario> onScenarioChanged;
   final ValueChanged<String?> onDestinationChanged;
-  final void Function(String id, bool selected) onInterestToggled;
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.headlineSmall?.copyWith(
-          fontWeight: FontWeight.w800,
-          height: 1.15,
-        );
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+      children: [
+        if (mockApi != null) ...[
+          _MockScenarioCard(
+            scenario: scenario,
+            enabled: enabled,
+            onChanged: onScenarioChanged,
+          ),
+          const SizedBox(height: 12),
+        ],
+        if (optionsError != null)
+          _MessageCard(
+            color: Theme.of(context).colorScheme.errorContainer,
+            title: 'Could not load destinations',
+            body: 'Saved-trip work is not part of this card. Retry to load options.',
+            actionLabel: 'Retry options',
+            onAction: onRetryOptions,
+          ),
+        if (options != null && options!.destinations.isEmpty)
+          const _MessageCard(
+            title: 'No destinations available',
+            body: 'Generate stays disabled until trip-options returns destinations.',
+          ),
+        const Text(
+          'Plan your trip',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontSize: 34,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.brandInk,
+          ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'Where do you want to go?',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontSize: 18,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w500,
+            color: AppTheme.brandSoft,
+          ),
+        ),
+        const SizedBox(height: 16),
+        FormField<String>(
+          key: const Key('destination-field'),
+          validator: (_) {
+            if (destinationId == null || destinationId!.isEmpty) {
+              return 'Destination is required';
+            }
+            return null;
+          },
+          builder: (state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final destination
+                        in options?.destinations ?? const <DestinationOption>[])
+                      ChoiceChip(
+                        key: Key('destination-${destination.id}'),
+                        label: Text(destination.name),
+                        selected: destinationId == destination.id,
+                        showCheckmark: true,
+                        selectedColor: AppTheme.introTeal,
+                        labelStyle: TextStyle(
+                          color: destinationId == destination.id
+                              ? Colors.white
+                              : AppTheme.ink,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        onSelected: enabled
+                            ? (_) {
+                                onDestinationChanged(destination.id);
+                                state.didChange(destination.id);
+                              }
+                            : null,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 380),
+                  child: BlendedScene(
+                    key: ValueKey(destinationId ?? 'featured'),
+                    image: DestinationArt.photoFor(destinationId),
+                    height: 210,
+                    overlay: destinationId == null
+                        ? const SizedBox.shrink()
+                        : Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(18, 0, 18, 16),
+                              child: Text(
+                                _destinationName(options, destinationId),
+                                style: const TextStyle(
+                                  fontFamily: 'PlayfairDisplay',
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
+                if (state.hasError) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    state.errorText!,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 22, 20, 20),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              FormField<String>(
-                key: const Key('destination-field'),
-                validator: (_) {
-                  if (destinationId == null || destinationId!.isEmpty) {
-                    return 'Destination is required';
+class _DaysStep extends StatelessWidget {
+  const _DaysStep({
+    required this.controller,
+    required this.enabled,
+    required this.onBack,
+  });
+
+  final TextEditingController controller;
+  final bool enabled;
+  final VoidCallback onBack;
+
+  void _bump(int delta) {
+    final current = int.tryParse(controller.text.trim()) ?? 3;
+    controller.text = '${(current + delta).clamp(1, 14)}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            onPressed: onBack,
+            icon: const Icon(Icons.arrow_back_ios_new, size: 16),
+            label: const Text('Back'),
+          ),
+        ),
+        const Text(
+          'How long is your trip?',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontSize: 34,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.brandInk,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Choose 1 to 14 days.',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 16,
+            color: AppTheme.brandSoft,
+          ),
+        ),
+        const SizedBox(height: 36),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _RoundStepButton(
+              icon: Icons.remove,
+              onPressed: enabled ? () => _bump(-1) : null,
+            ),
+            const SizedBox(width: 18),
+            SizedBox(
+              width: 140,
+              child: TextFormField(
+                key: const Key('days-field'),
+                controller: controller,
+                enabled: enabled,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(
+                  fontFamily: 'PlayfairDisplay',
+                  fontSize: 56,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.introTeal,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  filled: false,
+                ),
+                validator: (raw) {
+                  final value = int.tryParse(raw?.trim() ?? '');
+                  if (value == null) {
+                    return 'Enter a whole number';
+                  }
+                  if (value < 1 || value > 14) {
+                    return 'Days must be between 1 and 14';
                   }
                   return null;
                 },
-                builder: (state) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Where do you want to go?', style: titleStyle),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Pick a supported destination.',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.muted),
-                      ),
-                      const SizedBox(height: 14),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final destination
-                              in options?.destinations ?? const <DestinationOption>[])
-                            ChoiceChip(
-                              key: Key('destination-${destination.id}'),
-                              label: Text(destination.name),
-                              selected: destinationId == destination.id,
-                              showCheckmark: true,
-                              selectedColor: AppTheme.primary,
-                              labelStyle: TextStyle(
-                                color: destinationId == destination.id ? AppTheme.cream : AppTheme.ink,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              onSelected: enabled
-                                  ? (_) {
-                                      onDestinationChanged(destination.id);
-                                      state.didChange(destination.id);
-                                    }
-                                  : null,
-                            ),
-                        ],
-                      ),
-                      if (state.hasError) ...[
-                        const SizedBox(height: 8),
-                        Text(
-                          state.errorText!,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.error,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ],
-                  );
-                },
               ),
-              const SizedBox(height: 28),
-              Text('How long is your trip?', style: titleStyle),
-              const SizedBox(height: 6),
-              Text(
-                'Choose 1 to 14 days.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.muted),
-              ),
-              const SizedBox(height: 14),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  width: 320,
-                  child: Row(
-                children: [
-                  IconButton.filledTonal(
-                    onPressed: enabled ? () => _bumpDays(-1) : null,
-                    icon: const Icon(Icons.remove),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: TextFormField(
-                      key: const Key('days-field'),
-                      controller: daysController,
-                      enabled: enabled,
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
-                      decoration: const InputDecoration(
-                        labelText: 'Days',
-                        hintText: '1 to 14',
-                      ),
-                      validator: (raw) {
-                        final value = int.tryParse(raw?.trim() ?? '');
-                        if (value == null) {
-                          return 'Enter a whole number';
-                        }
-                        if (value < 1 || value > 14) {
-                          return 'Days must be between 1 and 14';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton.filledTonal(
-                    onPressed: enabled ? () => _bumpDays(1) : null,
-                    icon: const Icon(Icons.add),
-                  ),
-                ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 28),
-              Text('What do you love?', style: titleStyle),
-              const SizedBox(height: 6),
-              Text(
-                'Interests are optional. Leave them empty if you want.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.muted),
-              ),
-              const SizedBox(height: 14),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (final interest in options?.interests ?? const <InterestOption>[])
-                    FilterChip(
-                      key: Key('interest-${interest.id}'),
-                      avatar: Icon(_interestIcon(interest.id), size: 16, color: _interestColor(interest.id)),
-                      label: Text(interest.name),
-                      selected: interestIds.contains(interest.id),
-                      selectedColor: _interestColor(interest.id).withValues(alpha: 0.18),
-                      onSelected: enabled
-                          ? (selected) => onInterestToggled(interest.id, selected)
-                          : null,
-                    ),
-                ],
-              ),
-            ],
+            ),
+            const SizedBox(width: 18),
+            _RoundStepButton(
+              icon: Icons.add,
+              onPressed: enabled ? () => _bump(1) : null,
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        const Center(
+          child: Text(
+            'days',
+            style: TextStyle(
+              fontFamily: 'PlayfairDisplay',
+              fontStyle: FontStyle.italic,
+              fontSize: 18,
+              color: AppTheme.brandSoft,
+            ),
           ),
         ),
-      );
+        const SizedBox(height: 28),
+        const BlendedScene(
+          image: DestinationArt.days,
+          height: 210,
+        ),
+      ],
+    );
   }
+}
 
-  void _bumpDays(int delta) {
-    final current = int.tryParse(daysController.text.trim()) ?? 3;
-    daysController.text = '${(current + delta).clamp(1, 14)}';
+class _InterestsStep extends StatelessWidget {
+  const _InterestsStep({
+    required this.options,
+    required this.interestIds,
+    required this.enabled,
+    required this.submitting,
+    required this.status,
+    required this.error,
+    required this.plan,
+    required this.onInterestToggled,
+    required this.onGenerate,
+    required this.onBack,
+  });
+
+  final TripOptions? options;
+  final Set<String> interestIds;
+  final bool enabled;
+  final bool submitting;
+  final _FlowStatus status;
+  final TripApiException? error;
+  final TripPlan? plan;
+  final void Function(String id, bool selected) onInterestToggled;
+  final VoidCallback onGenerate;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            onPressed: onBack,
+            icon: const Icon(Icons.arrow_back_ios_new, size: 16),
+            label: const Text('Back'),
+          ),
+        ),
+        const Text(
+          'What do you love?',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontSize: 34,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.brandInk,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          'Interests are optional. Leave them empty if you want.',
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 16,
+            color: AppTheme.brandSoft,
+          ),
+        ),
+        const SizedBox(height: 18),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: [
+            for (final interest in options?.interests ?? const <InterestOption>[])
+              FilterChip(
+                key: Key('interest-${interest.id}'),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                avatar: Icon(
+                  _interestIcon(interest.id),
+                  size: 18,
+                  color: _interestColor(interest.id),
+                ),
+                label: Text(
+                  interest.name,
+                  style: const TextStyle(
+                    fontFamily: 'PlusJakartaSans',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                ),
+                selected: interestIds.contains(interest.id),
+                selectedColor: _interestColor(interest.id).withValues(alpha: 0.18),
+                onSelected: enabled
+                    ? (selected) => onInterestToggled(interest.id, selected)
+                    : null,
+              ),
+          ],
+        ),
+        const SizedBox(height: 18),
+        if (status == _FlowStatus.initial) ...[
+          const BlendedScene(
+            image: DestinationArt.featured,
+            height: 188,
+          ),
+          const SizedBox(height: 16),
+        ],
+        if (status == _FlowStatus.loading)
+          const _MessageCard(
+            title: 'Creating itinerary…',
+            body: 'Please wait. Extra Generate taps are ignored while this is running.',
+          ),
+        if (status == _FlowStatus.error && error != null)
+          _MessageCard(
+            color: Theme.of(context).colorScheme.errorContainer,
+            title: 'Could not generate this trip',
+            body: error!.userMessage,
+            actionLabel: 'Retry',
+            onAction: submitting ? null : onGenerate,
+          ),
+        if (status == _FlowStatus.success && plan != null) ...[
+          _ResultView(plan: plan!, showJson: true),
+          const SizedBox(height: 12),
+        ],
+      ],
+    );
   }
 }
 
@@ -493,6 +765,39 @@ Color _interestColor(String id) {
   }
 }
 
+String _destinationName(TripOptions? options, String? destinationId) {
+  if (options == null || destinationId == null) return '';
+  for (final item in options.destinations) {
+    if (item.id == destinationId) return item.name;
+  }
+  return '';
+}
+
+class _RoundStepButton extends StatelessWidget {
+  const _RoundStepButton({required this.icon, required this.onPressed});
+
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 48,
+      height: 48,
+      child: FilledButton(
+        onPressed: onPressed,
+        style: FilledButton.styleFrom(
+          backgroundColor: AppTheme.introTeal,
+          padding: EdgeInsets.zero,
+          minimumSize: const Size(48, 48),
+          shape: const CircleBorder(),
+        ),
+        child: Icon(icon, color: Colors.white),
+      ),
+    );
+  }
+}
+
 class _ScenarioChoice {
   const _ScenarioChoice(this.scenario, this.label);
   final MockScenario scenario;
@@ -529,7 +834,12 @@ class _MockScenarioCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Mock scenario', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              'Mock scenario',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
             const SizedBox(height: 4),
             Text(
               'Demo only. The real Backend will not receive this.',
@@ -576,27 +886,35 @@ class _ResultView extends StatelessWidget {
           ),
           const SizedBox(height: 12),
         ],
-        Text(
+        const Text(
           'Your trip itinerary',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontFamily: 'PlayfairDisplay',
+            fontStyle: FontStyle.italic,
+            fontSize: 26,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.brandInk,
+          ),
         ),
-        const SizedBox(height: 4),
         Text(
           '${plan.requestedDays} requested day${plan.requestedDays == 1 ? '' : 's'}',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.muted),
+          style: const TextStyle(color: AppTheme.muted),
         ),
         const SizedBox(height: 8),
         for (final day in plan.days) _DayCard(day: day),
         if (showJson) ...[
           const SizedBox(height: 8),
-          ExpansionTile(
-            title: const Text('Response JSON'),
-            children: [
-              SelectableText(
-                const JsonEncoder.withIndent('  ').convert(plan.toJson()),
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-              ),
-            ],
+          Material(
+            color: Colors.transparent,
+            child: ExpansionTile(
+              title: const Text('Response JSON'),
+              children: [
+                SelectableText(
+                  const JsonEncoder.withIndent('  ').convert(plan.toJson()),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                ),
+              ],
+            ),
           ),
         ],
       ],
@@ -635,14 +953,20 @@ class _DayCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Day ${day.dayNumber}', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            Text(
+              'Day ${day.dayNumber}',
+              style: const TextStyle(
+                fontFamily: 'PlayfairDisplay',
+                fontStyle: FontStyle.italic,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 8),
             if (visiblePlaces.isEmpty)
               Text(
                 'No places for this day.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
             for (final place in visiblePlaces) _PlaceTile(place: place),
             if (extraPlaces)
@@ -746,7 +1070,10 @@ class _ModeChip extends StatelessWidget {
       visualDensity: VisualDensity.compact,
       backgroundColor: AppTheme.cream.withValues(alpha: 0.8),
       side: const BorderSide(color: AppTheme.outline),
-      label: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 11, letterSpacing: 0.6)),
+      label: Text(
+        label,
+        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 11, letterSpacing: 0.6),
+      ),
     );
   }
 }
