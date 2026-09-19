@@ -1,91 +1,90 @@
 [
-    {
-        "fixtureId":  "fatih-001",
-        "destinationScope":  "Fatih, Istanbul, Turkey",
-        "destinationId":  "istanbul-tr",
-        "sourceFile":  "sample-responses/fatih-istanbul-tourism-sights.txt",
-        "sourceRecordIndex":  0,
-        "provider":  "Geoapify",
-        "providerPlaceId":  "51c3b316a4b4fb3c405961a5088e75814440f00102f90199d6fd130000000092030d42c3a262c3bc7373656cc3a26d",
-        "observedName":  "Bأ¢bأ¼sselأ¢m",
-        "observedEnglishName":  "Gate of Salutation",
-        "observedCategories":  [
-                                   "building",
-                                   "building.historic",
-                                   "tourism",
-                                   "tourism.sights",
-                                   "tourism.sights.building"
-                               ],
-        "categoryIds":  [
-                            "history",
-                            "landmark"
-                        ],
-        "mappingReason":  "Historic building evidence is present in addition to tourism.sights.building.",
-        "status":  "accepted-development-mapping"
-    },
-    {
-        "fixtureId":  "fatih-002",
-        "destinationScope":  "Fatih, Istanbul, Turkey",
-        "destinationId":  "istanbul-tr",
-        "sourceFile":  "sample-responses/fatih-istanbul-tourism-sights.txt",
-        "sourceRecordIndex":  6,
-        "provider":  "Geoapify",
-        "providerPlaceId":  "516465ea645ffa3c4059f694415a08814440f00103f901041ac4710000000092030d4d696c796f6e205461c59fc4b1",
-        "observedName":  "Milyon Taإںؤ±",
-        "observedEnglishName":  "Milion",
-        "observedCategories":  [
-                                   "tourism",
-                                   "tourism.sights",
-                                   "tourism.sights.memorial",
-                                   "tourism.sights.memorial.monument"
-                               ],
-        "categoryIds":  [
-                            "history",
-                            "landmark"
-                        ],
-        "mappingReason":  "Observed memorial and monument categories support the development history and landmark mapping.",
-        "status":  "accepted-development-mapping"
-    },
-    {
-        "fixtureId":  "fatih-003",
-        "destinationScope":  "Fatih, Istanbul, Turkey",
-        "destinationId":  "istanbul-tr",
-        "sourceFile":  "sample-responses/fatih-istanbul-tourism-sights.txt",
-        "sourceRecordIndex":  7,
-        "provider":  "Geoapify",
-        "providerPlaceId":  "51c1994ea1a9f93c40595de223bd03814440f00103f901ec31823001000000",
-        "observedName":  "Istiklal Marsi",
-        "observedEnglishName":  "Istiklal Marsi",
-        "observedCategories":  [
-                                   "tourism",
-                                   "tourism.sights",
-                                   "tourism.sights.memorial"
-                               ],
-        "categoryIds":  [
-                            "history"
-                        ],
-        "mappingReason":  "Observed memorial category supports the development history mapping.",
-        "status":  "accepted-development-mapping"
-    },
-    {
-        "fixtureId":  "fatih-004",
-        "destinationScope":  "Fatih, Istanbul, Turkey",
-        "destinationId":  "istanbul-tr",
-        "sourceFile":  "sample-responses/fatih-istanbul-tourism-sights.txt",
-        "sourceRecordIndex":  9,
-        "provider":  "Geoapify",
-        "providerPlaceId":  "51a43a9d1d05fb3c4059bd59170fef804440f00102f9014d4fe208000000009203135069736b6f706f736c756b205361726179c4b1",
-        "observedName":  "Piskoposluk Sarayؤ±",
-        "observedEnglishName":  "Archeological Park",
-        "observedCategories":  [
-                                   "tourism",
-                                   "tourism.sights",
-                                   "tourism.sights.archaeological_site"
-                               ],
-        "categoryIds":  [
-                            "history"
-                        ],
-        "mappingReason":  "Observed archaeological_site category provides explicit historical or heritage evidence.",
-        "status":  "accepted-development-mapping"
-    }
+  {
+    "fixtureId": "fatih-001",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 0,
+    "provider": "Geoapify",
+    "providerPlaceId": "51c3b316a4b4fb3c405961a5088e75814440f00102f90199d6fd130000000092030d42c3a262c3bc7373656cc3a26d",
+    "observedName": "Bأ¢bأ¼sselأ¢m",
+    "observedEnglishName": "Gate of Salutation",
+    "observedCategories": [
+      "building",
+      "building.historic",
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.building"
+    ],
+    "categoryIds": [
+      "historic_site"
+    ],
+    "mappingReason": "Corroborating building.historic evidence maps this record to canonical historic_site; generic building evidence alone would not qualify.",
+    "status": "accepted-stage3-canonical-mapping"
+  },
+  {
+    "fixtureId": "fatih-002",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 6,
+    "provider": "Geoapify",
+    "providerPlaceId": "516465ea645ffa3c4059f694415a08814440f00103f901041ac4710000000092030d4d696c796f6e205461c59fc4b1",
+    "observedName": "Milyon Taإںؤ±",
+    "observedEnglishName": "Milion",
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.memorial",
+      "tourism.sights.memorial.monument"
+    ],
+    "categoryIds": [
+      "historic_site",
+      "monument"
+    ],
+    "mappingReason": "Observed memorial.monument evidence maps to canonical historic_site and monument under the reviewed Stage 3 taxonomy.",
+    "status": "accepted-stage3-canonical-mapping"
+  },
+  {
+    "fixtureId": "fatih-003",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 7,
+    "provider": "Geoapify",
+    "providerPlaceId": "51c1994ea1a9f93c40595de223bd03814440f00103f901ec31823001000000",
+    "observedName": "Istiklal Marsi",
+    "observedEnglishName": "Istiklal Marsi",
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.memorial"
+    ],
+    "categoryIds": [
+      "historic_site"
+    ],
+    "mappingReason": "Observed memorial evidence maps to canonical historic_site; monument is not assigned without explicit monument evidence.",
+    "status": "accepted-stage3-canonical-mapping"
+  },
+  {
+    "fixtureId": "fatih-004",
+    "destinationScope": "Fatih, Istanbul, Turkey",
+    "destinationId": "istanbul-tr",
+    "sourceFile": "sample-responses/fatih-istanbul-tourism-sights.txt",
+    "sourceRecordIndex": 9,
+    "provider": "Geoapify",
+    "providerPlaceId": "51a43a9d1d05fb3c4059bd59170fef804440f00102f9014d4fe208000000009203135069736b6f706f736c756b205361726179c4b1",
+    "observedName": "Piskoposluk Sarayؤ±",
+    "observedEnglishName": "Archeological Park",
+    "observedCategories": [
+      "tourism",
+      "tourism.sights",
+      "tourism.sights.archaeological_site"
+    ],
+    "categoryIds": [
+      "historic_site"
+    ],
+    "mappingReason": "Observed archaeological_site evidence maps to canonical historic_site under the reviewed Stage 3 taxonomy.",
+    "status": "accepted-stage3-canonical-mapping"
+  }
 ]

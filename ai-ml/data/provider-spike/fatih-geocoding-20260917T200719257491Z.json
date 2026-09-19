@@ -1,0 +1,268 @@
+{
+  "checked_at_utc": "20260917T200719257491Z",
+  "status": "Candidate results — boundary review pending",
+  "request": {
+    "endpoint": "https://api.geoapify.com/v1/geocode/search",
+    "parameters": {
+      "text": "Fatih, Istanbul, Turkey",
+      "type": "locality",
+      "filter": "countrycode:tr",
+      "bias": "countrycode:none",
+      "lang": "en",
+      "limit": 5,
+      "format": "json",
+      "apiKey": "YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "results": [
+      {
+        "country_code": "tr",
+        "name": "Fatih",
+        "country": "Turkey",
+        "county": "Fatih",
+        "datasource": {
+          "sourcename": "whosonfirst",
+          "attribution": "Who's On First",
+          "license": "CC0",
+          "url": "https://www.whosonfirst.org/docs/licenses/"
+        },
+        "state": "Istanbul",
+        "state_code": "IB",
+        "county_code": "FA",
+        "lon": 28.945378,
+        "lat": 41.014782,
+        "result_type": "county",
+        "city": "Fatih",
+        "formatted": "Fatih, Turkey",
+        "address_line1": "Fatih",
+        "address_line2": "Turkey",
+        "timezone": {
+          "name": "Europe/Istanbul",
+          "offset_STD": "+03:00",
+          "offset_DST": "+03:00",
+          "offset_STD_seconds": 10800,
+          "offset_DST_seconds": 10800
+        },
+        "plus_code": "8GHC2W7W+W5",
+        "iso3166_2": "TR-IB",
+        "rank": {
+          "popularity": 8.587809198800862,
+          "confidence": 1,
+          "match_type": "full_match"
+        },
+        "place_id": "519f5be84a04f23c4059e4486760e4814440c002099203054661746968e2031d77686f736f6e66697273743a636f756e74793a31313038373039353033",
+        "bbox": {
+          "lon1": 28.919019,
+          "lat1": 40.987585,
+          "lon2": 28.988134,
+          "lat2": 41.042075
+        }
+      },
+      {
+        "country_code": "tr",
+        "name": "Fatih Sultan Mehmet",
+        "country": "Turkey",
+        "county": "Fatih",
+        "datasource": {
+          "sourcename": "whosonfirst",
+          "attribution": "Who's On First",
+          "license": "CC0",
+          "url": "https://www.whosonfirst.org/docs/licenses/"
+        },
+        "state": "Istanbul",
+        "state_code": "IB",
+        "county_code": "FA",
+        "city": "Istanbul",
+        "suburb": "Fatih Sultan Mehmet",
+        "lon": 29.129686,
+        "lat": 41.038059,
+        "result_type": "suburb",
+        "formatted": "Fatih Sultan Mehmet, Istanbul, Fatih, Turkey",
+        "address_line1": "Fatih Sultan Mehmet",
+        "address_line2": "Istanbul, Fatih, Turkey",
+        "timezone": {
+          "name": "Europe/Istanbul",
+          "offset_STD": "+03:00",
+          "offset_DST": "+03:00",
+          "offset_STD_seconds": 10800,
+          "offset_DST_seconds": 10800
+        },
+        "plus_code": "8GHF24QH+6V",
+        "plus_code_short": "24QH+6V Istanbul, Fatih, Turkey",
+        "iso3166_2": "TR-IB",
+        "rank": {
+          "popularity": 5.967345712261457,
+          "confidence": 1,
+          "confidence_city_level": 1,
+          "match_type": "full_match"
+        },
+        "place_id": "51c2bf081a33213d4059c328081edf844440c0020592031346617469682053756c74616e204d65686d6574e2032477686f736f6e66697273743a6e65696768626f7572686f6f643a31343434383331333039",
+        "bbox": {
+          "lon1": 29.120167,
+          "lat1": 41.020743,
+          "lon2": 29.139984,
+          "lat2": 41.053434
+        }
+      },
+      {
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "name": "Fatih",
+        "other_names": {
+          "name:ar": "الفاتح",
+          "name:ru": "Фатих",
+          "_place_name:ar": "فاتح",
+          "name:el": "Φατίχ",
+          "name:fa": "فاتح",
+          "name:hi": "फ़ातिह",
+          "name:ml": "ഫത്തേഹ്",
+          "name:sr": "Фатих"
+        },
+        "country": "Turkey",
+        "country_code": "tr",
+        "state": "Marmara Region",
+        "county": "Istanbul",
+        "city": "Fatih",
+        "iso3166_2": "TR-34",
+        "lon": 28.9479296,
+        "lat": 41.0192846,
+        "result_type": "city",
+        "formatted": "Fatih, Istanbul, Turkey",
+        "address_line1": "Fatih",
+        "address_line2": "Istanbul, Turkey",
+        "category": "administrative",
+        "timezone": {
+          "name": "Europe/Istanbul",
+          "offset_STD": "+03:00",
+          "offset_DST": "+03:00",
+          "offset_STD_seconds": 10800,
+          "offset_DST_seconds": 10800
+        },
+        "plus_code": "8GHC2W9X+P5",
+        "rank": {
+          "importance": 0.5412038282169342,
+          "popularity": 8.371379493225245,
+          "confidence": 0.5,
+          "confidence_city_level": 0.5,
+          "match_type": "full_match"
+        },
+        "place_id": "510de9a683abf23c40598128f3ea77824440f00101f901d8f21a0000000000c002089203054661746968",
+        "bbox": {
+          "lon1": 28.919882,
+          "lat1": 40.9876327,
+          "lon2": 28.9881084,
+          "lat2": 41.04086
+        }
+      },
+      {
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "name": "Fatih Mahallesi",
+        "other_names": {
+          "_place_name": "Fatih",
+          "name:ar": "فاتح",
+          "_place_name:tr": "Fatih"
+        },
+        "country": "Turkey",
+        "country_code": "tr",
+        "state": "Marmara Region",
+        "county": "Istanbul",
+        "city": "Esenyurt",
+        "suburb": "Fatih Mahallesi",
+        "iso3166_2": "TR-34",
+        "lon": 28.6746475,
+        "lat": 41.0298974,
+        "result_type": "suburb",
+        "formatted": "Fatih Mahallesi, Esenyurt, Istanbul, Turkey",
+        "address_line1": "Fatih Mahallesi",
+        "address_line2": "Esenyurt, Istanbul, Turkey",
+        "category": "administrative",
+        "timezone": {
+          "name": "Europe/Istanbul",
+          "offset_STD": "+03:00",
+          "offset_DST": "+03:00",
+          "offset_STD_seconds": 10800,
+          "offset_DST_seconds": 10800
+        },
+        "plus_code": "8GHC2MHF+XV",
+        "plus_code_short": "HF+XV Esenyurt, Istanbul, Turkey",
+        "rank": {
+          "importance": 0.5412038282169342,
+          "popularity": 7.64605376562582,
+          "confidence": 0.5,
+          "confidence_city_level": 0.5,
+          "match_type": "full_match"
+        },
+        "place_id": "5102d4d4b2b5ac3c4059239e91add3834440f00101f901d623930000000000c0020592030f4661746968204d6168616c6c657369",
+        "bbox": {
+          "lon1": 28.6668297,
+          "lat1": 41.0247692,
+          "lon2": 28.6819857,
+          "lat2": 41.034281
+        }
+      },
+      {
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "name": "Fatih Mahallesi",
+        "other_names": {
+          "name:ar": "فاتح",
+          "_place_name": "Fatih",
+          "_place_name:tr": "Fatih"
+        },
+        "country": "Turkey",
+        "country_code": "tr",
+        "state": "Marmara Region",
+        "county": "Istanbul",
+        "city": "Küçükçekmece",
+        "suburb": "Fatih Mahallesi",
+        "iso3166_2": "TR-34",
+        "lon": 28.76962,
+        "lat": 40.9920419,
+        "result_type": "suburb",
+        "formatted": "Fatih Mahallesi, Küçükçekmece, Istanbul, Turkey",
+        "address_line1": "Fatih Mahallesi",
+        "address_line2": "Küçükçekmece, Istanbul, Turkey",
+        "category": "administrative",
+        "timezone": {
+          "name": "Europe/Istanbul",
+          "offset_STD": "+03:00",
+          "offset_DST": "+03:00",
+          "offset_STD_seconds": 10800,
+          "offset_DST_seconds": 10800
+        },
+        "plus_code": "8GGCXQR9+RR",
+        "rank": {
+          "importance": 0.27236747457604304,
+          "popularity": 6.949485844269054,
+          "confidence": 0.5,
+          "confidence_city_level": 0.5,
+          "match_type": "full_match"
+        },
+        "place_id": "51f758fad005c53c40597f619e3afb7e4440f00101f90101d0760000000000c0020592030f4661746968204d6168616c6c657369",
+        "bbox": {
+          "lon1": 28.7566005,
+          "lat1": 40.9770526,
+          "lon2": 28.7757386,
+          "lat2": 41.005453
+        }
+      }
+    ],
+    "query": {
+      "text": "Fatih, Istanbul, Turkey"
+    }
+  }
+}
