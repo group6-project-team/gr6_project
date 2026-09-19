@@ -5,7 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../services/trip_api.dart';
 import '../theme/app_theme.dart';
 import '../widgets/onboarding_wave_clipper.dart';
-import 'login_screen.dart';
+import 'main_shell.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key, required this.api});
@@ -65,11 +65,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  void _goToLogin() {
+  void _goToPlanner() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
         transitionDuration: const Duration(milliseconds: 650),
-        pageBuilder: (_, _, _) => LoginScreen(api: widget.api),
+        pageBuilder: (_, _, _) => MainShell(api: widget.api, initialTab: 1),
         transitionsBuilder: (_, animation, _, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _next() {
     if (_index >= _pages.length - 1) {
-      _goToLogin();
+      _goToPlanner();
       return;
     }
     _controller.nextPage(
@@ -109,7 +109,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   key: const Key('onboarding-skip'),
-                  onPressed: _goToLogin,
+                  onPressed: _goToPlanner,
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
                     textStyle: const TextStyle(

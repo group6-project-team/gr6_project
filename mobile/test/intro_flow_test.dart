@@ -30,11 +30,11 @@ void main() {
 
     await tester.tap(find.byKey(const Key('onboarding-skip')));
     await tester.pumpAndSettle();
-    expect(find.text('Welcome Back!'), findsOneWidget);
-
-    await tester.tap(find.byKey(const Key('login-submit')));
-    await tester.pumpAndSettle();
-    expect(find.text('Hi there'), findsOneWidget);
-    expect(find.byKey(const Key('start-planning')), findsOneWidget);
+    expect(find.text('Plan your trip'), findsOneWidget);
+    expect(find.text('Where do you want to go?'), findsOneWidget);
+    expect(find.byKey(const Key('destination-field')), findsOneWidget);
+    expect(find.byKey(const Key('plan-next')), findsOneWidget);
+    expect(find.text('Welcome Back!'), findsNothing);
+    expect(find.byKey(const Key('login-submit')), findsNothing);
   });
 }

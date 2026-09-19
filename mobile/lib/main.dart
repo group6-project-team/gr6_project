@@ -32,7 +32,7 @@ class TripPlannerApp extends StatelessWidget {
       theme: AppTheme.light(),
       builder: (context, child) => PhoneCanvas(child: child ?? const SizedBox.shrink()),
       home: skipIntro
-          ? MainShell(api: api)
+          ? MainShell(api: api, initialTab: 1)
           : SplashScreen(api: api, displayDuration: splashDuration),
     );
   }
