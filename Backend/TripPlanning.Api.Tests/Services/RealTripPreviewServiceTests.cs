@@ -121,6 +121,154 @@ namespace TripPlanning.Api.Tests.Services
             Assert.Empty(result.Days[0].Places);
         }
 
+        [Fact]
+        public async Task GeneratePreviewAsync_MapsHistoryInterestToHistoricSite()
+        {
+            // Arrange
+            var candidateSource = new StubCandidateSource
+            {
+                Candidates = new List<PlaceCandidateRequest>()
+            };
+
+            var planningService = new StubPlanningService
+            {
+                Result = new FastApiPlanResponse
+                {
+                    Days = new List<FastApiPlanningDayResponse>
+            {
+                new()
+                {
+                    Day = 1,
+                    PlaceIds = new List<string>()
+                }
+            },
+                    Warnings = new List<FastApiPlanningWarningResponse>()
+                }
+            };
+
+            var service = new RealTripPreviewService(
+                planningService,
+                candidateSource);
+
+            var request = new TripPlanPreviewRequest
+            {
+                DestinationId = "istanbul",
+                Days = 1,
+                Interests = new List<string>
+        {
+            "history"
+        }
+            };
+
+            // Act
+            await service.GeneratePreviewAsync(
+                request,
+                "request-history",
+                CancellationToken.None);
+
+            // Assert
+            Assert.Equal(
+                new List<string> { "historic_site" },
+                planningService.CapturedRequest!.Interests);
+        }
+
+        [Fact]
+        public async Task GeneratePreviewAsync_MapsLandmarkInterestToMonument()
+        {
+            // Arrange
+            var candidateSource = new StubCandidateSource
+            {
+                Candidates = new List<PlaceCandidateRequest>()
+            };
+
+            var planningService = new StubPlanningService
+            {
+                Result = new FastApiPlanResponse
+                {
+                    Days = new List<FastApiPlanningDayResponse>
+            {
+                new()
+                {
+                    Day = 1,
+                    PlaceIds = new List<string>()
+                }
+            },
+                    Warnings = new List<FastApiPlanningWarningResponse>()
+                }
+            };
+
+            var service = new RealTripPreviewService(
+                planningService,
+                candidateSource);
+
+            var request = new TripPlanPreviewRequest
+            {
+                DestinationId = "istanbul",
+                Days = 1,
+                Interests = new List<string>
+        {
+            "landmark"
+        }
+            };
+
+            // Act
+            await service.GeneratePreviewAsync(
+                request,
+                "request-landmark",
+                CancellationToken.None);
+
+            // Assert
+            Assert.Equal(
+                new List<string> { "monument" },
+                planningService.CapturedRequest!.Interests);
+        }
+
+        [Fact]
+        public async Task GeneratePreviewAsync_PreservesEmptyInterests()
+        {
+            // Arrange
+            var candidateSource = new StubCandidateSource
+            {
+                Candidates = new List<PlaceCandidateRequest>()
+            };
+
+            var planningService = new StubPlanningService
+            {
+                Result = new FastApiPlanResponse
+                {
+                    Days = new List<FastApiPlanningDayResponse>
+            {
+                new()
+                {
+                    Day = 1,
+                    PlaceIds = new List<string>()
+                }
+            },
+                    Warnings = new List<FastApiPlanningWarningResponse>()
+                }
+            };
+
+            var service = new RealTripPreviewService(
+                planningService,
+                candidateSource);
+
+            var request = new TripPlanPreviewRequest
+            {
+                DestinationId = "istanbul",
+                Days = 1,
+                Interests = new List<string>()
+            };
+
+            // Act
+            await service.GeneratePreviewAsync(
+                request,
+                "request-empty",
+                CancellationToken.None);
+
+            // Assert
+            Assert.Empty(planningService.CapturedRequest!.Interests);
+        }
+
         private sealed class StubCandidateSource : ICandidateSource
         {
             public List<PlaceCandidateRequest> Candidates { get; set; } = new();
