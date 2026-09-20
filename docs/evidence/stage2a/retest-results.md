@@ -1,5 +1,13 @@
 # Stage 2A security evidence — 17 September 2026
 
+## Historical scope and post-merge status
+
+The commands, counts and results below are preserved historical evidence from 17 September at `71323258799cd15bc4ac77abd7d701158bf6589d`; “final SHA” below means that historical owner-fix SHA, not the final post-merge gate. No runtime tests were rerun for the 20 September documentation correction.
+
+Stage 2A GREEN is closed on main `dd72cc1313387908c51b497ee97b8167650e429a`, with no current security Blocker/Critical identified for that gate, as recorded in [Ahmad's PR #14 review](https://github.com/group6-project-team/gr6_project/pull/14#pullrequestreview-5241477565) and card update. At that baseline, following `b75b806`, the public path is `POST /trip-plans/preview → Backend → real FastAPI /plan → real planner` and the verified candidate pool reaches **9 candidates**. Source inspection corroborates `TripPlansController.Preview` → `RealTripPreviewService` → `PlanningService` → `FastApiPlanningClient`; `CreateStage2ACandidates` contains `ist-001` through `ist-009`. This reported post-merge gate is distinct from the historical 24-test client-only proof below; `dd72cc1` is a gate baseline, not a claim about the latest main head.
+
+See [the corrected review summary and prepared Stage 2B checks](../../security-stage2a-review.md) for active Stage 2B work, explicit dev/test/integration fixture sources, no silent dependency/provider fallback, retained Medium Backend/config findings 2A-02/03/04, and the production Geoapify gate (Stage 2B GREEN plus Asma handoff readiness). Hosting/external protection remains **N/A / pending target**, not tested. No Auth/JWT/CORS scope is added.
+
 ## Tested source and environment
 
 - Owner implementation: `71323258799cd15bc4ac77abd7d701158bf6589d` (`feature/backend-stage2a-fastapi-integration`, PR #13).
