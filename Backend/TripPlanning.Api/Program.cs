@@ -26,6 +26,23 @@ namespace TripPlanning.Api
             builder.Services.AddScoped<IPlanningResultValidator, PlanningResultValidator>();
             builder.Services.AddScoped<IPlanningService, PlanningService>();
             builder.Services.AddScoped<IRealTripPreviewService, RealTripPreviewService>();
+            var candidateSourceMode =
+                builder.Configuration["CANDIDATE_SOURCE_MODE"]
+                ?? builder.Configuration["CandidateSource:Mode"];
+
+            if (string.Equals(
+                candidateSourceMode,
+                "Fixture",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                builder.Services.AddScoped<ICandidateSource, FixtureCandidateSource>();
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    $"Unsupported or missing candidate source mode: '{candidateSourceMode}'. " +
+                    "Configure CANDIDATE_SOURCE_MODE explicitly.");
+            }
             builder.Services.AddHttpClient<IFastApiPlanningClient, FastApiPlanningClient>((serviceProvider, client) =>
             {
                 var configuration = serviceProvider.GetRequiredService<IConfiguration>();
