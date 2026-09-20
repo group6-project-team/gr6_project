@@ -37,6 +37,13 @@ namespace TripPlanning.Api
             {
                 builder.Services.AddScoped<ICandidateSource, FixtureCandidateSource>();
             }
+            else if (string.Equals(
+                candidateSourceMode,
+                "Geoapify",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                builder.Services.AddScoped<ICandidateSource, GeoapifyCandidateSource>();
+            }
             else
             {
                 throw new InvalidOperationException(
@@ -57,6 +64,25 @@ namespace TripPlanning.Api
                 var timeoutSeconds = int.TryParse(timeoutValue, out var configuredTimeout)
                     ? configuredTimeout
                     : configuration.GetValue<int>("AIService:TimeoutSeconds");
+
+                client.BaseAddress = new Uri(baseUrl!);
+                client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
+            });
+
+            builder.Services.AddHttpClient<IGeoapifyClient, GeoapifyClient>((serviceProvider, client) =>
+            {
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+                var baseUrl =
+                    configuration["GEOAPIFY_BASE_URL"]
+                    ?? configuration["Geoapify:BaseUrl"];
+
+                var timeoutValue =
+                    configuration["GEOAPIFY_TIMEOUT"];
+
+                var timeoutSeconds = int.TryParse(timeoutValue, out var configuredTimeout)
+                    ? configuredTimeout
+                    : configuration.GetValue<int>("Geoapify:TimeoutSeconds");
 
                 client.BaseAddress = new Uri(baseUrl!);
                 client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
