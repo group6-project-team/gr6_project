@@ -66,10 +66,10 @@ def test_valid_plan_has_camel_case_ids_only_and_balanced_days() -> None:
 
 def test_successful_plan_logs_request_id_at_info(caplog) -> None:
     request_id = "stage2b-log-test-001"
-    logger = logging.getLogger("planning_service")
+    logger = logging.getLogger("uvicorn.error.planning_service")
     assert logger.isEnabledFor(logging.INFO)
 
-    with caplog.at_level(logging.INFO, logger="planning_service"):
+    with caplog.at_level(logging.INFO, logger="uvicorn.error.planning_service"):
         response = client.post(
             "/plan",
             json=request_body(),

@@ -13,7 +13,7 @@ from service.config import get_max_candidates
 from service.schemas import ErrorResponse, HealthResponse, PlanRequest, PlanResponse
 
 
-LOGGER = logging.getLogger("planning_service")
+LOGGER = logging.getLogger("uvicorn.error.planning_service")
 LOGGER.setLevel(logging.INFO)
 REQUEST_ID_HEADER = "X-Request-ID"
 REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z0-9._:-]{1,64}$")
