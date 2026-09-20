@@ -1,0 +1,403 @@
+{
+  "checked_at_utc": "20260917T201633097033Z",
+  "status": "Evidence captured; final review pending",
+  "http_status": 200,
+  "boundary_candidate": {
+    "status": "Selected for validation; final approval pending",
+    "geocoding_evidence_file": "fatih-geocoding-20260917T200719257491Z.json",
+    "source_result_index": 2,
+    "name": "Fatih",
+    "category": "administrative",
+    "datasource": "openstreetmap",
+    "place_id": "510de9a683abf23c40598128f3ea77824440f00101f901d8f21a0000000000c002089203054661746968",
+    "public_destination_id": "istanbul",
+    "supported_scope": "Fatih only"
+  },
+  "request": {
+    "endpoint": "https://api.geoapify.com/v2/places",
+    "parameters": {
+      "categories": "tourism.sights",
+      "filter": "place:510de9a683abf23c40598128f3ea77824440f00101f901d8f21a0000000000c002089203054661746968",
+      "limit": 20,
+      "lang": "en",
+      "apiKey": "YOUR_API_KEY"
+    }
+  },
+  "raw_evidence_file": "fatih-bounded-response-20260917T201633097033Z.json",
+  "record_count": 20,
+  "membership_counts": {
+    "MATCH": 20
+  },
+  "limitations": [
+    "One bounded sample, up to 20 records; not exhaustive coverage.",
+    "MATCH checks membership fields and coordinate ranges only.",
+    "Full recommendation eligibility still requires separate checks.",
+    "Physical-place deduplication is not established by this check.",
+    "An empty response does not establish successful membership validation."
+  ],
+  "records": [
+    {
+      "source_record_index": 0,
+      "provider_place_id": "51260c00a2b7ed3c4059fd057ee0807f4440f00102f901dc6ebb1300000000920320486167696f7320c4b06f616e6e65732053747564697573204b696c6973657369",
+      "name": "Hagios İoannes Studius Kilisesi",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 40.9961193,
+      "longitude": 28.9285817,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.ruines"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 1,
+      "provider_place_id": "51e0205cca60ec3c405975f4883c3c7f4440f00102f9019f1b63010000000092030f546f776572206f662043616e6e6f6e",
+      "name": "Tower of Cannon",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 40.9940256,
+      "longitude": 28.9233519,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.ruines"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 2,
+      "provider_place_id": "51cc58d9e32af93c40595cf635dc91804440f00103f9010a7394c30000000092030841746174c3bc726b",
+      "name": "Atatürk",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0044513,
+      "longitude": 28.9733107,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 3,
+      "provider_place_id": "51d4fd52f5e1fb3c4059c014d4a6a0814440f00103f90128231b5601000000",
+      "name": "Ранневизантийская базилика",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0127152,
+      "longitude": 28.9839166,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.ruines"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 4,
+      "provider_place_id": "5176f1c86999f83c4059261e5036e5814440f00103f9011a40fcbf000000009203134d616e69666174757261636920447261706572",
+      "name": "Manifaturaci Draper",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0148075,
+      "longitude": 28.9710909,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 5,
+      "provider_place_id": "51bdd584fe53f33c4059c328ad646c824440f00103f901aeffc10c01000000",
+      "name": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0189329,
+      "longitude": 28.9505004,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 6,
+      "provider_place_id": "51a0b998b047f43c4059ef9a4649fe814440f00103f901dc1ffbc10000000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1",
+      "name": "Fatih Sultan Mehmet Anıtı",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0155727,
+      "longitude": 28.9542189,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 7,
+      "provider_place_id": "515fe493732df33c40594593201cff834440f00101f901d20837010000000092030d46656e65726c69204f64612031",
+      "name": "Fenerli Oda 1",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0311827,
+      "longitude": 28.9499608,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 8,
+      "provider_place_id": "51c1994ea1a9f93c40595de223bd03814440f00103f901ec31823001000000",
+      "name": "Istiklal Marsi",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0079266,
+      "longitude": 28.9752446,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 9,
+      "provider_place_id": "5157e1e01cbff73c40591b3b97981d814440f00103f901788225c90000000092031d4b617261204d757374616661205061c59f61204bc3bc6c6c6979657369",
+      "name": "Kara Mustafa Paşa Külliyesi",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0087157,
+      "longitude": 28.9677599,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial",
+        "tourism.sights.memorial.monument",
+        "wheelchair",
+        "wheelchair.limited"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 10,
+      "provider_place_id": "5182a0ede247f53c4059797d416642814440f00102f90194a1711400000000920315546179796172652041706172746d616e6c6172c4b1",
+      "name": "Tayyare Apartmanları",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0098389,
+      "longitude": 28.9581282,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 11,
+      "provider_place_id": "5119987043e7f63c405976864e7402824440f00103f901a010a00c010000009203204b616e756e692053756c74616e2053756c65796d616e20312054757262657369",
+      "name": "Kanuni Sultan Suleyman 1 Turbesi",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0156999,
+      "longitude": 28.9644663,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 12,
+      "provider_place_id": "513a9be9b9e0ef3c405939c3c36ae2834440f00103f901ea06229c0100000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1",
+      "name": "Fatih Sultan Mehmet Anıtı",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0303472,
+      "longitude": 28.9370228,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 13,
+      "provider_place_id": "51d961928d0afc3c405944518321d0814440f00102f9010854ee01000000009203104261c49f646164204bc3b6c59f6bc3bc",
+      "name": "Bağdad Köşkü",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0141603,
+      "longitude": 28.9845401,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 14,
+      "provider_place_id": "516465ea645ffa3c4059f694415a08814440f00103f901041ac4710000000092030d4d696c796f6e205461c59fc4b1",
+      "name": "Milyon Taşı",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0080674,
+      "longitude": 28.9780181,
+      "categories": [
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial",
+        "tourism.sights.memorial.monument"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 15,
+      "provider_place_id": "510683ed31d6f63c405914a7cad54f814440f00101f9014e97430000000000920311426579617ac4b174204d657964616ec4b1",
+      "name": "Beyazıt Meydanı",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0102262,
+      "longitude": 28.9642308,
+      "categories": [
+        "highway",
+        "highway.pedestrian",
+        "religion",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.square"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 16,
+      "provider_place_id": "51bbc227428ff93c40593a9d1a1eb1804440f00102f901c2d9ce4200000000920310c396726d652044696b696c697461c59f",
+      "name": "Örme Dikilitaş",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0054052,
+      "longitude": 28.9748422,
+      "categories": [
+        "man_made",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.memorial",
+        "tourism.sights.memorial.monument"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 17,
+      "provider_place_id": "51106eda17b3f63c40595ec6849765814440f00102f901dcb98e0600000000920326c4b07374616e62756c20c39c6e69766572736974657369204b6170c4b1204bc3b6c59f6bc3bc",
+      "name": "İstanbul Üniversitesi Kapı Köşkü",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0109297,
+      "longitude": 28.9636662,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 18,
+      "provider_place_id": "51e127e138c6fb3c40595352024599814440f00102f901bc8131060000000092031544c3ae76c3a26e2dc4b12048c3bc6dc3a279c3bb6e",
+      "name": "Dîvân-ı Hümâyûn",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.0125263,
+      "longitude": 28.9835167,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    },
+    {
+      "source_record_index": 19,
+      "provider_place_id": "51c972124809fc3c40598cf5c49f80814440f00102f9014053ee01000000009203115361726179204d757466616b6c6172c4b1",
+      "name": "Saray Mutfakları",
+      "country_code": "tr",
+      "city": "Istanbul",
+      "town": "Fatih",
+      "latitude": 41.011744,
+      "longitude": 28.9846189,
+      "categories": [
+        "building",
+        "building.historic",
+        "tourism",
+        "tourism.sights",
+        "tourism.sights.building"
+      ],
+      "membership_check": "MATCH",
+      "reasons": []
+    }
+  ]
+}

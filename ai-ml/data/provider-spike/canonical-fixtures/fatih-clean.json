@@ -4,8 +4,7 @@
     "destinationId": "istanbul-tr",
     "name": "Gate of Salutation",
     "categoryIds": [
-      "history",
-      "landmark"
+      "historic_site"
     ],
     "latitude": 41.0113977,
     "longitude": 28.9832354
@@ -15,8 +14,8 @@
     "destinationId": "istanbul-tr",
     "name": "Milion",
     "categoryIds": [
-      "history",
-      "landmark"
+      "historic_site",
+      "monument"
     ],
     "latitude": 41.0080674,
     "longitude": 28.9780181
@@ -26,7 +25,7 @@
     "destinationId": "istanbul-tr",
     "name": "Istiklal Marsi",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 41.0079266,
     "longitude": 28.9752446
@@ -36,7 +35,7 @@
     "destinationId": "istanbul-tr",
     "name": "Archeological Park",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 41.0073174,
     "longitude": 28.9806541

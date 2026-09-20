@@ -1,0 +1,1398 @@
+{
+  "checked_at_utc": "20260917T201633097033Z",
+  "http_status": 200,
+  "boundary_candidate": {
+    "status": "Selected for validation; final approval pending",
+    "geocoding_evidence_file": "fatih-geocoding-20260917T200719257491Z.json",
+    "source_result_index": 2,
+    "name": "Fatih",
+    "category": "administrative",
+    "datasource": "openstreetmap",
+    "place_id": "510de9a683abf23c40598128f3ea77824440f00101f901d8f21a0000000000c002089203054661746968",
+    "public_destination_id": "istanbul",
+    "supported_scope": "Fatih only"
+  },
+  "request": {
+    "endpoint": "https://api.geoapify.com/v2/places",
+    "parameters": {
+      "categories": "tourism.sights",
+      "filter": "place:510de9a683abf23c40598128f3ea77824440f00101f901d8f21a0000000000c002089203054661746968",
+      "limit": 20,
+      "lang": "en",
+      "apiKey": "YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Hagios İoannes Studius Kilisesi",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34098",
+          "suburb": "Yedikule Mahallesi",
+          "quarter": "Samatya",
+          "street": "İmam Aşır Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9285817,
+          "lat": 40.9961193,
+          "formatted": "Hagios İoannes Studius Kilisesi, İmam Aşır Sokağı, 34098 Fatih, Turkey",
+          "address_line1": "Hagios İoannes Studius Kilisesi",
+          "address_line2": "İmam Aşır Sokağı, 34098 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.ruines"
+          ],
+          "details": [],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 40.996120511565074,
+              "lon": 28.92858326436194,
+              "name": "Hagios İoannes Studius Kilisesi",
+              "osm_id": 331050716,
+              "historic": "ruins",
+              "osm_type": "w",
+              "designation": "İmrahor Cami"
+            }
+          },
+          "historic": {
+            "type": "ruins"
+          },
+          "place_id": "51260c00a2b7ed3c4059fd057ee0807f4440f00102f901dc6ebb1300000000920320486167696f7320c4b06f616e6e65732053747564697573204b696c6973657369"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.92858326436194,
+            40.996120511565074
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Tower of Cannon",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34107",
+          "suburb": "Yedikule Mahallesi",
+          "street": "Yedikule Meydanı Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9233519,
+          "lat": 40.9940256,
+          "formatted": "Tower of Cannon, Yedikule Meydanı Sokağı, 34107 Fatih, Turkey",
+          "address_line1": "Tower of Cannon",
+          "address_line2": "Yedikule Meydanı Sokağı, 34107 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.ruines"
+          ],
+          "details": [],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 40.99402577101947,
+              "lon": 28.923351905338563,
+              "name": "Tower of Cannon",
+              "osm_id": 23272351,
+              "building": "yes",
+              "historic": "ruins",
+              "osm_type": "w"
+            }
+          },
+          "historic": {
+            "type": "ruins"
+          },
+          "place_id": "51e0205cca60ec3c405975f4883c3c7f4440f00102f9019f1b63010000000092030f546f776572206f662043616e6e6f6e"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.923351905338563,
+            40.99402577101947
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Atatürk",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Küçük Ayasofya Mahallesi",
+          "street": "Üçler Hamamı Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9733107,
+          "lat": 41.0044513,
+          "formatted": "Atatürk, Üçler Hamamı Sokağı, 34122 Fatih, Turkey",
+          "address_line1": "Atatürk",
+          "address_line2": "Üçler Hamamı Sokağı, 34122 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0044513,
+              "lon": 28.9733107,
+              "name": "Atatürk",
+              "osm_id": 3281285898,
+              "historic": "memorial",
+              "osm_type": "n"
+            }
+          },
+          "historic": {
+            "type": "memorial"
+          },
+          "place_id": "51cc58d9e32af93c40595cf635dc91804440f00103f9010a7394c30000000092030841746174c3bc726b"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9733107,
+            41.0044513
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Ранневизантийская базилика",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Cankurtaran Mahallesi",
+          "street": "Courtyard of the Eunuchs",
+          "iso3166_2": "TR-34",
+          "lon": 28.9839166,
+          "lat": 41.0127152,
+          "formatted": "Ранневизантийская базилика, Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "address_line1": "Ранневизантийская базилика",
+          "address_line2": "Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.ruines"
+          ],
+          "details": [
+            "details"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0127152,
+              "lon": 28.9839166,
+              "osm_id": 5739586344,
+              "name:ru": "Ранневизантийская базилика",
+              "historic": "ruins",
+              "osm_type": "n"
+            }
+          },
+          "name_international": {
+            "ru": "Ранневизантийская базилика"
+          },
+          "historic": {
+            "type": "ruins"
+          },
+          "place_id": "51d4fd52f5e1fb3c4059c014d4a6a0814440f00103f90128231b5601000000"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9839166,
+            41.0127152
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Manifaturaci Draper",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34116",
+          "suburb": "Rüstempaşa Mahallesi",
+          "quarter": "Eminönü",
+          "street": "Saka Mehmet Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9710909,
+          "lat": 41.0148075,
+          "formatted": "Manifaturaci Draper, Saka Mehmet Sokağı, 34116 Fatih, Turkey",
+          "address_line1": "Manifaturaci Draper",
+          "address_line2": "Saka Mehmet Sokağı, 34116 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0148075,
+              "lon": 28.9710909,
+              "name": "Manifaturaci Draper",
+              "osm_id": 3220979738,
+              "name:tr": "Manifaturaci Draper",
+              "historic": "memorial",
+              "osm_type": "n"
+            }
+          },
+          "name_international": {
+            "tr": "Manifaturaci Draper"
+          },
+          "historic": {
+            "type": "memorial"
+          },
+          "place_id": "5176f1c86999f83c4059261e5036e5814440f00103f9011a40fcbf000000009203134d616e69666174757261636920447261706572"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9710909,
+            41.0148075
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34083",
+          "suburb": "Ali Kuşçu Mahallesi",
+          "street": "Tabhane Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9505004,
+          "lat": 41.0189329,
+          "formatted": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi, Tabhane Sokağı, 34083 Fatih, Turkey",
+          "address_line1": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi",
+          "address_line2": "Tabhane Sokağı, 34083 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0189329,
+              "lon": 28.9505004,
+              "osm_id": 4509007790,
+              "name:ru": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi",
+              "historic": "memorial",
+              "osm_type": "n"
+            }
+          },
+          "name_international": {
+            "ru": "Мавзолей Мехмеда 2 Фатиха (Завоевателья) Fatih Sultan Mehmet 2 Turbesi"
+          },
+          "historic": {
+            "type": "memorial"
+          },
+          "place_id": "51bdd584fe53f33c4059c328ad646c824440f00103f901aeffc10c01000000"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9505004,
+            41.0189329
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Fatih Sultan Mehmet Anıtı",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34083",
+          "suburb": "Zeyrek Mahallesi",
+          "street": "İtfaiye Caddesi",
+          "iso3166_2": "TR-34",
+          "lon": 28.9542189,
+          "lat": 41.0155727,
+          "formatted": "Mehmed II the Conqueror, İtfaiye Caddesi, 34083 Fatih, Turkey",
+          "address_line1": "Mehmed II the Conqueror",
+          "address_line2": "İtfaiye Caddesi, 34083 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details",
+            "details.historic",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0155727,
+              "lon": 28.9542189,
+              "name": "Fatih Sultan Mehmet Anıtı",
+              "osm_id": 3254460380,
+              "name:en": "Mehmed II the Conqueror",
+              "name:ru": "Мехмед II Завоеватель",
+              "name:tr": "Fatih Sultan Mehmet Anıtı",
+              "historic": "memorial",
+              "memorial": "statue",
+              "osm_type": "n",
+              "wikimedia_commons": "Category:Monument to Mehmed II, Istanbul"
+            }
+          },
+          "name_international": {
+            "en": "Mehmed II the Conqueror",
+            "ru": "Мехмед II Завоеватель",
+            "tr": "Fatih Sultan Mehmet Anıtı"
+          },
+          "wiki_and_media": {
+            "wikimedia_commons": "Category:Monument to Mehmed II, Istanbul"
+          },
+          "historic": {
+            "type": "memorial",
+            "memorial": "statue"
+          },
+          "place_id": "51a0b998b047f43c4059ef9a4649fe814440f00103f901dc1ffbc10000000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9542189,
+            41.0155727
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Fenerli Oda 1",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34087",
+          "suburb": "Balat Mahallesi",
+          "quarter": "Fener",
+          "street": "Ayvansaray Caddesi",
+          "iso3166_2": "TR-34",
+          "lon": 28.9499608,
+          "lat": 41.0311827,
+          "formatted": "Fenerli Oda 1, Ayvansaray Caddesi, 34087 Fatih, Turkey",
+          "address_line1": "Fenerli Oda 1",
+          "address_line2": "Ayvansaray Caddesi, 34087 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.031222835451025,
+              "lon": 28.94991228447577,
+              "name": "Fenerli Oda 1",
+              "osm_id": 20383954,
+              "building": "yes",
+              "historic": "building",
+              "osm_type": "r",
+              "wikidata": "Q135430338"
+            }
+          },
+          "wiki_and_media": {
+            "wikidata": "Q135430338"
+          },
+          "historic": {
+            "type": "building"
+          },
+          "place_id": "515fe493732df33c40594593201cff834440f00101f901d20837010000000092030d46656e65726c69204f64612031"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.94991228447577,
+            41.031222835451025
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Istiklal Marsi",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34110",
+          "suburb": "Alemdar Mahallesi",
+          "street": "Molla Fenari Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9752446,
+          "lat": 41.0079266,
+          "formatted": "Istiklal Marsi, Molla Fenari Sokağı, 34110 Fatih, Turkey",
+          "address_line1": "Istiklal Marsi",
+          "address_line2": "Molla Fenari Sokağı, 34110 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details",
+            "details.historic"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0079266,
+              "lon": 28.9752446,
+              "osm_id": 5108806124,
+              "name:en": "Istiklal Marsi",
+              "historic": "memorial",
+              "memorial": "bust",
+              "osm_type": "n"
+            }
+          },
+          "name_international": {
+            "en": "Istiklal Marsi"
+          },
+          "historic": {
+            "type": "memorial",
+            "memorial": "bust"
+          },
+          "place_id": "51c1994ea1a9f93c40595de223bd03814440f00103f901ec31823001000000"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9752446,
+            41.0079266
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Kara Mustafa Paşa Külliyesi",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34126",
+          "suburb": "Mimar Hayrettin Mahallesi",
+          "street": "Gedikpaşa Caddesi",
+          "housenumber": "39/2",
+          "iso3166_2": "TR-34",
+          "lon": 28.9677599,
+          "lat": 41.0087157,
+          "formatted": "Kara Mustafa Paşa Külliyesi, Gedikpaşa Caddesi 39/2, 34126 Fatih, Turkey",
+          "address_line1": "Kara Mustafa Paşa Külliyesi",
+          "address_line2": "Gedikpaşa Caddesi 39/2, 34126 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial",
+            "tourism.sights.memorial.monument",
+            "wheelchair",
+            "wheelchair.limited"
+          ],
+          "details": [
+            "details.facilities"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0087157,
+              "lon": 28.9677599,
+              "name": "Kara Mustafa Paşa Külliyesi",
+              "osm_id": 3374678648,
+              "country": "TR",
+              "district": "Fatih",
+              "historic": "monument",
+              "osm_type": "n",
+              "province": "İstanbul",
+              "_inherited": "",
+              "wheelchair": "limited",
+              "housenumber": "39/2"
+            }
+          },
+          "facilities": {
+            "wheelchair": true,
+            "wheelchair_details": {
+              "condition": "limited"
+            }
+          },
+          "historic": {
+            "type": "monument"
+          },
+          "place_id": "5157e1e01cbff73c40591b3b97981d814440f00103f901788225c90000000092031d4b617261204d757374616661205061c59f61204bc3bc6c6c6979657369"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9677599,
+            41.0087157
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Tayyare Apartmanları",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34134",
+          "suburb": "Balabanağa Mahallesi",
+          "quarter": "Laleli",
+          "street": "Harıkzedeler Sokağı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9581282,
+          "lat": 41.0098389,
+          "formatted": "Tayyare Apartmanları, Harıkzedeler Sokağı, 34134 Fatih, Turkey",
+          "address_line1": "Tayyare Apartmanları",
+          "address_line2": "Harıkzedeler Sokağı, 34134 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.00983885,
+              "lon": 28.95812815,
+              "name": "Tayyare Apartmanları",
+              "osm_id": 342991252,
+              "building": "yes",
+              "historic": "building",
+              "osm_type": "w",
+              "architect": "Ahmed Kemaleddin"
+            }
+          },
+          "historic": {
+            "type": "building"
+          },
+          "place_id": "5182a0ede247f53c4059797d416642814440f00102f90194a1711400000000920315546179796172652041706172746d616e6c6172c4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.95812815,
+            41.00983885
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Kanuni Sultan Suleyman 1 Turbesi",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34116",
+          "suburb": "Süleymaniye Mahallesi",
+          "street": "Profesör Doktor Sıddık Sami Onar Caddesi",
+          "iso3166_2": "TR-34",
+          "lon": 28.9644663,
+          "lat": 41.0156999,
+          "formatted": "Mausoleum of Suleiman the Magnificent, Profesör Doktor Sıddık Sami Onar Caddesi, 34116 Fatih, Turkey",
+          "address_line1": "Mausoleum of Suleiman the Magnificent",
+          "address_line2": "Profesör Doktor Sıddık Sami Onar Caddesi, 34116 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details",
+            "details.historic",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0156999,
+              "lon": 28.9644663,
+              "name": "Kanuni Sultan Suleyman 1 Turbesi",
+              "osm_id": 4506783904,
+              "name:ar": "ضريح سليمان القانوني",
+              "name:en": "Mausoleum of Suleiman the Magnificent",
+              "name:ru": "Мавзолей Сулеймана 1Великолепного (Кануни) (управлял 1520-1566)",
+              "name:tr": "Kanuni Sultan Suleyman 1 Turbesi",
+              "historic": "memorial",
+              "memorial": "sculpture",
+              "osm_type": "n",
+              "wikidata": "Q8474",
+              "wikipedia": "tr:I. Süleyman",
+              "wikimedia_commons": "Category:Suleiman I"
+            }
+          },
+          "name_international": {
+            "ar": "ضريح سليمان القانوني",
+            "en": "Mausoleum of Suleiman the Magnificent",
+            "ru": "Мавзолей Сулеймана 1Великолепного (Кануни) (управлял 1520-1566)",
+            "tr": "Kanuni Sultan Suleyman 1 Turbesi"
+          },
+          "wiki_and_media": {
+            "wikidata": "Q8474",
+            "wikipedia": "tr:I. Süleyman",
+            "wikimedia_commons": "Category:Suleiman I"
+          },
+          "historic": {
+            "type": "memorial",
+            "memorial": "sculpture"
+          },
+          "place_id": "5119987043e7f63c405976864e7402824440f00103f901a010a00c010000009203204b616e756e692053756c74616e2053756c65796d616e20312054757262657369"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9644663,
+            41.0156999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Fatih Sultan Mehmet Anıtı",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34087",
+          "suburb": "Derviş Ali Mahallesi",
+          "street": "Fevzipaşa Caddesi",
+          "iso3166_2": "TR-34",
+          "lon": 28.9370228,
+          "lat": 41.0303472,
+          "formatted": "Monument to Fatih Sultan Mehmet, Fevzipaşa Caddesi, 34087 Fatih, Turkey",
+          "address_line1": "Monument to Fatih Sultan Mehmet",
+          "address_line2": "Fevzipaşa Caddesi, 34087 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial"
+          ],
+          "details": [
+            "details",
+            "details.historic"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0303472,
+              "lon": 28.9370228,
+              "name": "Fatih Sultan Mehmet Anıtı",
+              "osm_id": 6914442986,
+              "name:en": "Monument to Fatih Sultan Mehmet",
+              "name:tr": "Fatih Sultan Mehmet Anıtı",
+              "historic": "memorial",
+              "memorial": "statue",
+              "osm_type": "n"
+            }
+          },
+          "name_international": {
+            "en": "Monument to Fatih Sultan Mehmet",
+            "tr": "Fatih Sultan Mehmet Anıtı"
+          },
+          "historic": {
+            "type": "memorial",
+            "memorial": "statue"
+          },
+          "place_id": "513a9be9b9e0ef3c405939c3c36ae2834440f00103f901ea06229c0100000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9370228,
+            41.0303472
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Bağdad Köşkü",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Cankurtaran Mahallesi",
+          "street": "Courtyard of the Favourites",
+          "iso3166_2": "TR-34",
+          "lon": 28.9845401,
+          "lat": 41.0141603,
+          "formatted": "Baghdad Kiosk, Courtyard of the Favourites, 34122 Fatih, Turkey",
+          "address_line1": "Baghdad Kiosk",
+          "address_line2": "Courtyard of the Favourites, 34122 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [
+            "details",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.014164151306005,
+              "lon": 28.984536026227804,
+              "name": "Bağdad Köşkü",
+              "image": "https://photos.app.goo.gl/aG5DUzkuw2vUya9G9",
+              "osm_id": 32396296,
+              "name:en": "Baghdad Kiosk",
+              "name:es": "Quiosco de Bagdad",
+              "name:hi": "बगदाद हवेली",
+              "name:ru": "Багдадский павильон",
+              "name:tr": "Bağdad Köşkü",
+              "building": "yes",
+              "historic": "building",
+              "osm_type": "w",
+              "wikidata": "Q6096486",
+              "wikipedia": "tr:Bağdat Köşkü",
+              "roof:colour": "#cbd1cd",
+              "wikimedia_commons": "Category:Baghdad Kiosk"
+            }
+          },
+          "name_international": {
+            "en": "Baghdad Kiosk",
+            "es": "Quiosco de Bagdad",
+            "hi": "बगदाद हवेली",
+            "ru": "Багдадский павильон",
+            "tr": "Bağdad Köşkü"
+          },
+          "wiki_and_media": {
+            "wikidata": "Q6096486",
+            "wikipedia": "tr:Bağdat Köşkü",
+            "wikimedia_commons": "Category:Baghdad Kiosk",
+            "image": "https://photos.app.goo.gl/aG5DUzkuw2vUya9G9"
+          },
+          "historic": {
+            "type": "building"
+          },
+          "building": {
+            "roof": {
+              "color": "#cbd1cd"
+            }
+          },
+          "place_id": "51d961928d0afc3c405944518321d0814440f00102f9010854ee01000000009203104261c49f646164204bc3b6c59f6bc3bc"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.984536026227804,
+            41.014164151306005
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Milyon Taşı",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Binbirdirek Mahallesi",
+          "street": "Sultanahmet Meydanı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9780181,
+          "lat": 41.0080674,
+          "formatted": "Milion, Sultanahmet Meydanı, 34122 Fatih, Turkey",
+          "address_line1": "Milion",
+          "address_line2": "Sultanahmet Meydanı, 34122 Fatih, Turkey",
+          "categories": [
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial",
+            "tourism.sights.memorial.monument"
+          ],
+          "details": [
+            "details",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0080674,
+              "lon": 28.9780181,
+              "name": "Milyon Taşı",
+              "osm_id": 1908677124,
+              "name:en": "Milion",
+              "name:tr": "Milyon Taşı",
+              "historic": "monument",
+              "int_name": "The Stone of Million",
+              "osm_type": "n",
+              "wikidata": "Q1187329",
+              "wikipedia": "en:Milion",
+              "wikipedia:ru": "Милий",
+              "wikimedia_commons": "Category:Milion"
+            }
+          },
+          "name_international": {
+            "en": "Milion",
+            "tr": "Milyon Taşı"
+          },
+          "wiki_and_media": {
+            "wikidata": "Q1187329",
+            "wikipedia": "en:Milion",
+            "wikimedia_commons": "Category:Milion"
+          },
+          "historic": {
+            "type": "monument"
+          },
+          "place_id": "516465ea645ffa3c4059f694415a08814440f00103f901041ac4710000000092030d4d696c796f6e205461c59fc4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9780181,
+            41.0080674
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Beyazıt Meydanı",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34134",
+          "suburb": "Balabanağa Mahallesi",
+          "quarter": "Laleli",
+          "street": "Beyazit Square",
+          "iso3166_2": "TR-34",
+          "lon": 28.9642308,
+          "lat": 41.0102262,
+          "formatted": "Beyazit Square, 34134 Fatih, Turkey",
+          "address_line1": "Beyazit Square",
+          "address_line2": "34134 Fatih, Turkey",
+          "categories": [
+            "highway",
+            "highway.pedestrian",
+            "religion",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.square"
+          ],
+          "details": [
+            "details",
+            "details.way",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.01024887461804,
+              "lit": "yes",
+              "lon": 28.964205856786997,
+              "name": "Beyazıt Meydanı",
+              "place": "square",
+              "osm_id": 4429646,
+              "highway": "pedestrian",
+              "landuse": "religious",
+              "name:de": "Bayezidplatz",
+              "name:el": "Πλατεία Μπεγιαζίτ",
+              "name:en": "Beyazit Square",
+              "name:fa": "میدان بایزید",
+              "name:ru": "Площадь Беязыт",
+              "name:tr": "Beyazıt Meydanı",
+              "osm_type": "r",
+              "wikidata": "Q6043077",
+              "wikipedia": "tr:Beyazıt Meydanı",
+              "area:highway": "pedestrian",
+              "wikimedia_commons": "Category:Beyazıt Square"
+            }
+          },
+          "name_international": {
+            "de": "Bayezidplatz",
+            "el": "Πλατεία Μπεγιαζίτ",
+            "en": "Beyazit Square",
+            "fa": "میدان بایزید",
+            "ru": "Площадь Беязыт",
+            "tr": "Beyazıt Meydanı"
+          },
+          "wiki_and_media": {
+            "wikidata": "Q6043077",
+            "wikipedia": "tr:Beyazıt Meydanı",
+            "wikimedia_commons": "Category:Beyazıt Square"
+          },
+          "way": {
+            "lit": true
+          },
+          "place_id": "510683ed31d6f63c405914a7cad54f814440f00101f9014e97430000000000920311426579617ac4b174204d657964616ec4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.964205856786997,
+            41.01024887461804
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Örme Dikilitaş",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Binbirdirek Mahallesi",
+          "street": "Sultanahmet Meydanı",
+          "iso3166_2": "TR-34",
+          "lon": 28.9748422,
+          "lat": 41.0054052,
+          "formatted": "The Walled Obelisk, Sultanahmet Meydanı, 34122 Fatih, Turkey",
+          "address_line1": "The Walled Obelisk",
+          "address_line2": "Sultanahmet Meydanı, 34122 Fatih, Turkey",
+          "categories": [
+            "man_made",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.memorial",
+            "tourism.sights.memorial.monument"
+          ],
+          "details": [
+            "details",
+            "details.historic",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0054052,
+              "lon": 28.974842199999994,
+              "name": "Örme Dikilitaş",
+              "image": "https://photos.app.goo.gl/Y6FYWDC6BH6c9Sjy5",
+              "colour": "#bf9c9c",
+              "height": 32,
+              "osm_id": 1120852418,
+              "name:ar": "أومري ديكيليتاشِ",
+              "name:de": "Obelisk",
+              "name:el": "Ο Περιτειχισμένος Οβελίσκος",
+              "name:en": "The Walled Obelisk",
+              "name:es": "Obelisco de Constantino",
+              "name:fa": "ابلیسک دیواری",
+              "name:fr": "Obélisque « muré »",
+              "name:hi": "ओबिलिस्क की दीवार",
+              "name:pt": "Obelisco de Constantino",
+              "name:ru": "Обелиск Константина",
+              "name:tr": "Örme Dikilitaş",
+              "historic": "monument",
+              "man_made": "obelisk",
+              "material": "stone",
+              "osm_type": "w",
+              "wikidata": "Q742474",
+              "wikipedia": "tr:Örme Dikilitaş",
+              "wikimedia_commons": "Category:Walled Obelisk"
+            }
+          },
+          "name_international": {
+            "ar": "أومري ديكيليتاشِ",
+            "de": "Obelisk",
+            "el": "Ο Περιτειχισμένος Οβελίσκος",
+            "en": "The Walled Obelisk",
+            "es": "Obelisco de Constantino",
+            "fa": "ابلیسک دیواری",
+            "fr": "Obélisque « muré »",
+            "hi": "ओबिलिस्क की दीवार",
+            "pt": "Obelisco de Constantino",
+            "ru": "Обелиск Константина",
+            "tr": "Örme Dikilitaş"
+          },
+          "color": "#bf9c9c",
+          "wiki_and_media": {
+            "wikidata": "Q742474",
+            "wikipedia": "tr:Örme Dikilitaş",
+            "wikimedia_commons": "Category:Walled Obelisk",
+            "image": "https://photos.app.goo.gl/Y6FYWDC6BH6c9Sjy5"
+          },
+          "historic": {
+            "type": "monument",
+            "object_type": "obelisk"
+          },
+          "place_id": "51bbc227428ff93c40593a9d1a1eb1804440f00102f901c2d9ce4200000000920310c396726d652044696b696c697461c59f"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.974842199999994,
+            41.0054052
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "İstanbul Üniversitesi Kapı Köşkü",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34134",
+          "suburb": "Balabanağa Mahallesi",
+          "quarter": "Laleli",
+          "street": "Beyazit Square",
+          "iso3166_2": "TR-34",
+          "lon": 28.9636662,
+          "lat": 41.0109297,
+          "formatted": "İstanbul Üniversitesi Kapı Köşkü, Beyazit Square, 34134 Fatih, Turkey",
+          "address_line1": "İstanbul Üniversitesi Kapı Köşkü",
+          "address_line2": "Beyazit Square, 34134 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.010912837821465,
+              "lon": 28.9636702450062,
+              "name": "İstanbul Üniversitesi Kapı Köşkü",
+              "osm_id": 110016988,
+              "country": "TR",
+              "building": "yes",
+              "district": "Fatih",
+              "historic": "building",
+              "osm_type": "w",
+              "province": "İstanbul",
+              "wikidata": "Q132081845",
+              "wikimedia_commons": "Category:İstanbul Üniversitesi Kapı Köşkü 2"
+            }
+          },
+          "wiki_and_media": {
+            "wikidata": "Q132081845",
+            "wikimedia_commons": "Category:İstanbul Üniversitesi Kapı Köşkü 2"
+          },
+          "historic": {
+            "type": "building"
+          },
+          "place_id": "51106eda17b3f63c40595ec6849765814440f00102f901dcb98e0600000000920326c4b07374616e62756c20c39c6e69766572736974657369204b6170c4b1204bc3b6c59f6bc3bc"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.9636702450062,
+            41.010912837821465
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Dîvân-ı Hümâyûn",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Cankurtaran Mahallesi",
+          "street": "Courtyard of the Eunuchs",
+          "iso3166_2": "TR-34",
+          "lon": 28.9835167,
+          "lat": 41.0125263,
+          "formatted": "Imperial Council Hall, Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "address_line1": "Imperial Council Hall",
+          "address_line2": "Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [
+            "details",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.01248991597517,
+              "lon": 28.983493380517647,
+              "name": "Dîvân-ı Hümâyûn",
+              "image": "https://photos.app.goo.gl/DtSy5pkr4btSTS2cA",
+              "osm_id": 103907772,
+              "name:en": "Imperial Council Hall",
+              "name:tr": "Dîvân-ı Hümâyûn",
+              "building": "yes",
+              "historic": "building",
+              "osm_type": "w",
+              "wikidata": "Q6605155",
+              "roof:colour": "#cbd1cd",
+              "wikimedia_commons": "Category:Imperial Council (Topkapı Palace)"
+            }
+          },
+          "name_international": {
+            "en": "Imperial Council Hall",
+            "tr": "Dîvân-ı Hümâyûn"
+          },
+          "wiki_and_media": {
+            "wikidata": "Q6605155",
+            "wikimedia_commons": "Category:Imperial Council (Topkapı Palace)",
+            "image": "https://photos.app.goo.gl/DtSy5pkr4btSTS2cA"
+          },
+          "historic": {
+            "type": "building"
+          },
+          "building": {
+            "roof": {
+              "color": "#cbd1cd"
+            }
+          },
+          "place_id": "51e127e138c6fb3c40595352024599814440f00102f901bc8131060000000092031544c3ae76c3a26e2dc4b12048c3bc6dc3a279c3bb6e"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.983493380517647,
+            41.01248991597517
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "Saray Mutfakları",
+          "country": "Turkey",
+          "country_code": "tr",
+          "state": "Marmara Region",
+          "county": "Istanbul",
+          "city": "Istanbul",
+          "town": "Fatih",
+          "postcode": "34122",
+          "suburb": "Cankurtaran Mahallesi",
+          "street": "Courtyard of the Eunuchs",
+          "iso3166_2": "TR-34",
+          "lon": 28.9846189,
+          "lat": 41.011744,
+          "formatted": "Palace Kitchens, Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "address_line1": "Palace Kitchens",
+          "address_line2": "Courtyard of the Eunuchs, 34122 Fatih, Turkey",
+          "categories": [
+            "building",
+            "building.historic",
+            "tourism",
+            "tourism.sights",
+            "tourism.sights.building"
+          ],
+          "details": [
+            "details",
+            "details.building",
+            "details.historic",
+            "details.wiki_and_media"
+          ],
+          "datasource": {
+            "sourcename": "openstreetmap",
+            "attribution": "© OpenStreetMap contributors",
+            "license": "Open Database License",
+            "url": "https://www.openstreetmap.org/copyright",
+            "raw": {
+              "lat": 41.0117377959933,
+              "lon": 28.984516624931334,
+              "name": "Saray Mutfakları",
+              "image": "https://photos.app.goo.gl/43MwGudh7V88D6aD7",
+              "osm_id": 32396096,
+              "name:br": "Keginoù ar Palez",
+              "name:en": "Palace Kitchens",
+              "name:es": "Cocinas del palacio",
+              "name:hi": "महल की रसोई",
+              "name:ru": "Дворцовые кухни",
+              "name:tr": "Saray Mutfakları",
+              "building": "yes",
+              "historic": "building",
+              "osm_type": "w",
+              "start_date": "C15",
+              "roof:colour": "#cbd1cd",
+              "wikimedia_commons": "Category:Palace kitchens (Topkapı Palace)"
+            }
+          },
+          "name_international": {
+            "br": "Keginoù ar Palez",
+            "en": "Palace Kitchens",
+            "es": "Cocinas del palacio",
+            "hi": "महल की रसोई",
+            "ru": "Дворцовые кухни",
+            "tr": "Saray Mutfakları"
+          },
+          "wiki_and_media": {
+            "wikimedia_commons": "Category:Palace kitchens (Topkapı Palace)",
+            "image": "https://photos.app.goo.gl/43MwGudh7V88D6aD7"
+          },
+          "historic": {
+            "type": "building",
+            "start_date": "C15"
+          },
+          "building": {
+            "start_date": "C15",
+            "roof": {
+              "color": "#cbd1cd"
+            }
+          },
+          "place_id": "51c972124809fc3c40598cf5c49f80814440f00102f9014053ee01000000009203115361726179204d757466616b6c6172c4b1"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            28.984516624931334,
+            41.0117377959933
+          ]
+        }
+      }
+    ]
+  }
+}

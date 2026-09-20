@@ -4,8 +4,8 @@
     "destinationId": "rome-it",
     "name": "Monumento al Fante d'Italia",
     "categoryIds": [
-      "history",
-      "landmark"
+      "historic_site",
+      "monument"
     ],
     "latitude": 42.0687057,
     "longitude": 12.3311388
@@ -15,7 +15,7 @@
     "destinationId": "rome-it",
     "name": "Pietra Pertusa Mithraeum",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0392609,
     "longitude": 12.4777709
@@ -25,7 +25,7 @@
     "destinationId": "rome-it",
     "name": "tomba dei leoni ruggenti",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0345167,
     "longitude": 12.3859441
@@ -35,7 +35,7 @@
     "destinationId": "rome-it",
     "name": "Area Archeologica Monticchio",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0293917,
     "longitude": 12.3514011
@@ -45,7 +45,7 @@
     "destinationId": "rome-it",
     "name": "Area Archeologica di Campetti - Decumano",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0266526,
     "longitude": 12.3940519
@@ -55,7 +55,7 @@
     "destinationId": "rome-it",
     "name": "Tomba delle Anatre",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0254627,
     "longitude": 12.3830916
@@ -65,7 +65,7 @@
     "destinationId": "rome-it",
     "name": "Galeria",
     "categoryIds": [
-      "history"
+      "historic_site"
     ],
     "latitude": 42.0249846,
     "longitude": 12.2999366
