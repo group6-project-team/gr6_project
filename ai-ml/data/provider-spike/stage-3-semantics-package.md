@@ -2,13 +2,15 @@
 
 **Owner:** Asma Bzoor — AI/Data
 
-**Scope:** Card 04 — Stage-3 Provider Semantics Handoff, minimum Fatih flow
+**Scope:** Card 04 carry-over → Card 10 preparation — minimum Fatih flow
 
-**Status:** Card 04 Stage-3 semantics handoff is complete and Backend-confirmed. This focused revision retains the agreed public/taxonomy decisions and existing evidence. Mohammad’s final Backend handoff confirmation was received on 20 September 2026. Card 10 real-provider validation remains NOT RUN.
+**Status:** Card 04 Stage-3 semantics handoff is implementation-ready and Backend-confirmed. Agreed public/taxonomy decisions are retained. Mohammad’s final handoff confirmation was received on 20 September 2026 with no remaining blocking semantic questions for mapping, membership, or eligibility. Card 10 real-provider validation is NOT RUN.
 
-**Revision:** 20 September 2026 — final Backend confirmation recorded; Markdown formatting restored; accepted semantics unchanged
+**Revision:** 20 September 2026 — file-reference consistency cleanup; existing semantics retained
 
-**Latest review baseline stated by the task card:** `6614578983758b41789c9a384114efc5d393ab30`. This is a supplied repository reference, not a claim that this document revision was tested against that checkout.
+**Latest baseline stated by the task card:** `6614578983758b41789c9a384114efc5d393ab30`. Stage 2A = GREEN as reported by that card. This archive does not contain the complete repository or proof of subsequent gates.
+
+**Gate order:** Stage 2A GREEN → Stage 2B GREEN → Stage 3 → Release Verification. Historical provider calls are evidence for Card 04, not an executed Card 10 audit of Mohammad’s implementation.
 
 This package builds on existing Iteration 2 evidence. It prepares implementation guidance for Stage 3; it does not implement the production Geoapify client, Backend normalization, or orchestration.
 
@@ -75,8 +77,6 @@ Key artifacts:
 - `canonical-fixtures/rome-clean-provenance.json`
 
 - `canonical-fixtures/rome-unresolved.json`
-
-The supporting Iteration 1/2 documents remain historical evidence. Where their provisional taxonomy or eligibility wording differs from the agreed minimum flow, use the current decisions in Sections 3–12 of this document. Updating this handoff does not require editing those historical files.
 
 Earlier draft references to “general candidates” do not establish production eligibility and do not authorize inventing a fallback category named `general` or `other`. Stage 3 must state the agreed unmapped/zero-category policy explicitly.
 
@@ -229,7 +229,7 @@ Backend owns the routing from public `istanbul` to the Fatih-scoped candidate po
 
 ### 2.4 Exact Boundary Evidence and Final Review
 
-The exact boundary evidence is already present in the existing Card 04 files: the geocoding result at `/response/results/2`, bounded request filter, and membership review contain the same Fatih `place_id`. Section 15 records the exact value, retrieval timestamps, request context and three source filenames directly. No additional evidence-index file or repeat provider request is required to read this handoff. The original capture files retain their historical review-pending status; final acceptance must be documented through the actual team confirmation.
+The exact boundary evidence is already present in this archive: the geocoding result, bounded request filter, and membership review contain the same Fatih `place_id`. The retrieval timestamps and matching result are recorded directly in the existing source artifacts listed in Section 16.2; Section 15 records the executed request. No repeat provider request is needed to fill this evidence gap. The original capture files retain their historical review-pending status. This revision does not manufacture boundary approval or Mohammad’s final handoff confirmation.
 
 Do not expand the minimum flow to all Istanbul or re-open broad Rome research to close this handoff.
 
@@ -273,7 +273,7 @@ The confirmed boundary is:
 
 4. The planner matches the requested canonical IDs against `PlaceCandidate.categoryIds`.
 
-The reported contract behavior does not define a fixed canonical allowlist. The latest supplied review baseline is recorded in the document header; compatibility with that checkout must be distinguished from the earlier review. Verified Stage 2A examples used IDs such as `historic_site`, `museum`, and `monument`, but those examples do not define the complete taxonomy.
+The reported contract behavior does not define a fixed canonical allowlist. The latest task-card baseline is recorded in Section 16; compatibility with that checkout must be distinguished from the earlier review. Verified Stage 2A examples used IDs such as `historic_site`, `museum`, and `monument`, but those examples do not define the complete taxonomy.
 
 ### 3.3 Agreed Public Interest → Canonical Mapping
 
@@ -314,7 +314,7 @@ Historical regression result reported in the supplied document (retained as repo
 
 `culture`, `art`, `nature`, `adventure`, and `food` remain outside the confirmed minimum Stage 3 provider mapping in this package. The public contract/UI must handle them according to the team's release decision. They must not be silently mapped to `historic_site` or `monument`.
 
-**Current status:** the minimum public IDs, mapping ownership, exact public-to-canonical mapping, and conservative Geoapify guidance are accepted by Ahmad and Mohammad for the minimum Stage 3 scope. Provider fixtures were migrated and repository regression tests were reported as `83 passed` in the earlier document. Final Backend handoff confirmation was received from Mohammad on 20 September 2026.
+**Current status:** the minimum public IDs, mapping ownership, exact public-to-canonical mapping, and conservative Geoapify guidance are accepted by Ahmad and Mohammad for the minimum Stage 3 scope. Provider fixtures were migrated and repository regression tests were reported as `83 passed` in the earlier document. Final Backend handoff confirmation was received on 20 September 2026.
 
 ## 4. Geoapify Category → Canonical Mapping Guidance
 
@@ -336,7 +336,7 @@ The table below translates the existing evidence into the canonical IDs `histori
 | `tourism.sights.memorial` | `historic_site` | Apply the accepted minimum historic-site mapping; do not infer `monument` without explicit monument evidence |
 | `tourism.sights.memorial.monument` | `historic_site`, `monument` | Supports both the history and landmark public flows |
 | `tourism.sights.ruines` | `historic_site` | Accepted minimum mapping; preserve Geoapify's observed spelling `ruines` |
-| `tourism.sights.building` with corroborating historic evidence | `historic_site` | Record-specific historic evidence is required; generic building alone is insufficient. `building.historic` is the demonstrated corroborating signal in the supplied examples, not a newly imposed exclusive rule |
+| `tourism.sights.building` together with `building.historic` | `historic_site` | This is the corroborating signal present in the reviewed fixtures and bounded records. A generic building or an inferred meaning from its name alone is insufficient |
 | `tourism.sights.building` alone | No accepted mapping | Do not infer `historic_site` or `monument` |
 | `tourism.sights.memorial.tumulus` | Unresolved | No subtype-specific canonical mapping is frozen |
 | `tourism.sights`, `tourism.sights.square` | No accepted mapping in this package | Do not treat broad sightseeing/square labels as monuments automatically |
@@ -366,13 +366,11 @@ A record may contain both a broad category and a more specific unresolved subtyp
 
 The presence of `tourism.sights.memorial` must not silently bypass the documented uncertainty around `tourism.sights.memorial.tumulus`.
 
-**Proposed conservative release policy retained from the submitted draft:** hold records affected by an unresolved subtype decision outside the eligible pool until the relevant parent/subtype behavior is agreed.
-
-Record the accepted behavior explicitly, including whether any independently supported category can still make such a record eligible. This revision does not freeze a stricter exclusion for all mixed-category records or invent a tumulus mapping.
+**Conservative handling retained for final handoff review:** records with a blocking unresolved subtype, including `tourism.sights.memorial.tumulus`, remain outside the minimum production pool. A parent `memorial` token or an unrelated mapped token must not silently override that hold. Incidental unmapped metadata, such as accessibility categories, is not itself a blocking subtype. This preserves the draft’s conservative exclusion; it does not invent a tumulus mapping.
 
 ### 4.4 Mapping Decision Record
 
-The minimum public mapping and accepted Geoapify guidance retain their recorded team decisions. Section 4.3 preserves the unresolved subtype handling and its original proposal status; this document does not manufacture approval of an additional restriction. Preserve the actual reviewed version and confirmation reference in the final handoff.
+Ahmad and Mohammad accepted the minimum public mapping and conservative Geoapify guidance described above. Keep those decisions closed. The final package review should confirm that the implementation follows the recorded rules, rather than request a new taxonomy or public-interest decision.
 
 ## 5. Destination Membership Semantics — Agreed Minimum Fatih Policy
 
@@ -468,7 +466,7 @@ The narrow evidence checks required to freeze the Fatih policy are complete:
 
 No additional city research, arbitrary radius, hand-drawn polygon, or postcode allowlist is required for this minimum policy.
 
-**Review status:** Fatih-only membership semantics are frozen for the minimum Stage 3 scope, the exact boundary evidence is complete, and Mohammad’s final Backend handoff confirmation was received on 20 September 2026.
+**Review status:** Fatih-only membership semantics are frozen for the minimum Stage 3 scope, the exact boundary evidence is complete, and Mohammad's final Backend handoff confirmation was received on 20 September 2026.
 
 ## 6. Recommendation Eligibility Semantics
 
@@ -498,7 +496,7 @@ A provider record may enter the supported candidate pool only when:
 
 - The resulting candidate contains exactly the six canonical fields.
 
-Mohammad accepted this minimum policy in Backend review. The membership, category, and canonical ID rules are consolidated in Sections 4–5 and 9.3. Final confirmation of the complete handoff was received from Mohammad on 20 September 2026; this policy is not a claim that Backend normalization has run.
+Mohammad accepted this minimum policy in Backend review. The membership, category, and canonical ID rules are consolidated in Sections 4–5 and 9.3. Final confirmation of the complete handoff was received on 20 September 2026; this policy is not a claim that Backend normalization has run.
 
 ### 6.3 Exclusion Evidence
 
@@ -548,7 +546,7 @@ This is not approval for recommendation eligibility.
 
 Keep that exclusion for the minimum flow. Do not reopen zero-category eligibility, change planner ranking, or invent fallback categories as part of this carry-over task.
 
-**Decision status:** retained from Backend review; final Backend handoff confirmation was received on 20 September 2026.
+**Decision status:** retained from Backend review; explicitly confirmed in Mohammad’s final Backend handoff review on 20 September 2026.
 
 ## 9. Provider Identity and Deduplication
 
@@ -721,18 +719,18 @@ Complete the following before claiming implementation readiness:
 | Current Flutter Stage 1 catalog | `history`, `culture`, `art`, `nature`, `adventure`, `food` | Confirmed development state | Heba's response |
 | Minimum Stage 3 public options | `history`, `landmark` | Confirmed release minimum | Ahmad/Mohammad/Heba coordination; Section 3 |
 | Mapping ownership and `/plan` boundary | Backend owns both mapping layers; `/plan.interests` is canonical-only | Confirmed | Team responses and Mohammad review |
-| Verified planner contract | Earlier reviewed snapshot `7f41755a7744721421471c93dff526be5496ff6e`; latest card reports `6614578983758b41789c9a384114efc5d393ab30` | Earlier contract review retained; latest checkout not independently tested in this archive | Ahmad / task-card baseline; Section 3.2 and document header |
+| Verified planner contract | Earlier reviewed snapshot `7f41755a7744721421471c93dff526be5496ff6e`; latest card reports `6614578983758b41789c9a384114efc5d393ab30` | Earlier contract review retained; latest checkout not independently tested in this archive | Ahmad / new task card; Sections 3.2 and 16 |
 | Canonical category IDs | `historic_site`, `monument` | Accepted for minimum Stage 3 scope | Ahmad + Mohammad reviews; Sections 3.3 and 4 |
 | Public Interest → canonical mapping | `history` → `historic_site`; `landmark` → `monument` | Accepted for minimum Stage 3 scope | Ahmad + Mohammad reviews; Section 3.3 |
 | Other current public IDs | Outside minimum Stage 3 mapping | Documented scope limitation | Section 3.5 |
-| Provider category rules | Mapping to `historic_site` / `monument` in Section 4 | Accepted minimum mapping retained | Ahmad + Mohammad reviews; unresolved subtype handling keeps its proposal status in Section 4.3 |
-| Membership mechanism and conflict handling | Fatih-only executable rule in Section 5 | Accepted for minimum Stage 3 scope | Exact boundary evidence and source filenames are recorded directly in Section 15; final Backend confirmation received 20 September 2026 |
+| Provider category rules and subtype handling | Mapping to `historic_site` / `monument` in Section 4 | Accepted for minimum Stage 3 scope | Ahmad + Mohammad reviews; unresolved subtype remains unmapped |
+| Membership mechanism and conflict handling | Fatih-only executable rule in Section 5 | Accepted for minimum Stage 3 scope | Exact boundary evidence is indexed; final Backend package acceptance confirmed 20 September 2026 |
 | Eligibility policy | Minimum conditions in Section 6.2 | Accepted by Backend, with dependencies | Mohammad review |
-| Unmapped-category behavior | No invented mapping; preserve evidence; use zero-category policy when none maps | Accepted in principle by Backend | Mohammad final handoff confirmation, 20 September 2026 |
-| Zero-category behavior | Exclude from production pool; preserve evidence | Accepted in principle by Backend | Mohammad final handoff confirmation, 20 September 2026 |
+| Unmapped-category behavior | No invented mapping; preserve evidence; use zero-category policy when none maps | Accepted by Backend | Mohammad final handoff confirmation, 20 September 2026 |
+| Zero-category behavior | Exclude from production pool; preserve evidence | Accepted by Backend | Mohammad final handoff confirmation, 20 September 2026 |
 | Canonical ID assignment | Deterministic provider-namespaced ID `geoapify:<place_id>`; identical repeated provider IDs collapse to one candidate with preserved traceability; conflicting repeats are not silently merged | Accepted and frozen by Backend | Section 9.3; Mohammad final review confirmation |
 | Duplicate-like physical places | Do not merge from name/proximity alone | Accepted in principle by Backend | Mohammad review; Atik evidence |
-| Optional metadata | Optional and not fabricated | Documented non-blocking limitation | Section 11; acknowledged in Mohammad final handoff confirmation |
+| Optional metadata | Optional and not fabricated | Documented; accepted with non-blocking metadata limitation | Section 11 |
 | Budget and price | Budget disabled; UNKNOWN ≠ FREE | Fixed release constraint | Final Sprint Guide / Card 04 |
 
 A proposal is not an accepted decision. Replace pending entries only with actual agreement and a traceable reference.
@@ -781,9 +779,9 @@ Mohammad confirmed:
 
 - Duplicate-like places must not be merged using name or proximity alone.
 
-The supplied package records agreement on mapping, public destination, minimum membership semantics, and production candidate identity. The exact boundary evidence is present. The historical regression result is retained as reported evidence without claiming a new repository or Stage 3 runtime execution.
+The supplied package records agreement on mapping, public destination, minimum membership semantics, and production candidate identity. The exact boundary evidence is present. The earlier regression result is retained as reported evidence without claiming a new-baseline test run.
 
-Mohammad provided final Backend confirmation on 20 September 2026. He confirmed that the agreed minimum Stage 3 semantics are implementation-ready and that no blocking semantic questions remain for mapping, membership, or eligibility in the agreed minimum Fatih flow.
+Final Backend confirmation was received on 20 September 2026. Mohammad confirmed that the agreed minimum Stage 3 semantics are implementation-ready and that no blocking semantic questions remain for mapping, membership, or eligibility in the minimum supported Fatih flow.
 
 ### 14.2 Confirmation Record
 
@@ -791,37 +789,26 @@ Mohammad provided final Backend confirmation on 20 September 2026. He confirmed 
 | --- | --- |
 | Reviewer | Mohammad Salameh |
 | First review date | 17 September 2026 |
-| Final confirmation date | 20 September 2026 |
-| Relevant Backend baseline | Latest task-card baseline: `6614578983758b41789c9a384114efc5d393ab30`; actual Stage 3 implementation SHA remains a Card 10 execution record |
-| Accepted areas | Public `istanbul` → Fatih-only routing; Public Interest → canonical mapping; Geoapify → canonical mapping; destination membership and conflict handling; recommendation eligibility and exclusion behavior; zero/unmapped handling; production candidate IDs and repeated-record handling; conservative handling of unresolved blocking subtypes such as `tourism.sights.memorial.tumulus` |
+| Document version / commit SHA | Card 04 final-confirmation documentation revision; repository head SHA to be recorded in the PR |
+| Relevant Backend baseline | Task-card baseline: `6614578983758b41789c9a384114efc5d393ab30`; the actual Stage 3 implementation SHA remains a Card 10 execution record, not a blocker for the completed Card 04 semantics handoff |
+| Accepted areas | Mapping ownership/boundary; minimum eligibility; conservative zero/unmapped/duplicate-like policies as described above |
 | Remaining blocking questions | None |
 | Final outcome | Confirmed — implementation-ready for the agreed minimum Fatih flow |
-| Non-blocking limitations | Physical-place deduplication across different provider IDs is not solved; optional metadata coverage is incomplete; Budget remains disabled; Rome remains outside the minimum Stage 3 scope; the historical `83 passed` result does not prove execution against the latest Stage 3 implementation baseline |
+| Final confirmation comment / PR link | Mohammad final Backend confirmation received in team coordination on 20 September 2026; PR link/head SHA to be recorded when opened |
 
 ### 14.3 Final Confirmation Record
 
-Mohammad’s final Backend confirmation states that the agreed minimum Stage 3 semantics are implementation-ready and provide sufficient guidance to implement:
+Final confirmation received from Mohammad on 20 September 2026. The confirmation states:
 
-- public `istanbul` → Fatih-only candidate routing;
-- Public Interest → canonical mapping;
-- Geoapify → canonical category mapping;
-- destination membership and conflict handling;
-- recommendation eligibility and exclusion behavior;
-- zero-category and unmapped-category handling;
-- production canonical candidate IDs and repeated-record handling;
-- conservative handling of unresolved blocking subtypes such as `tourism.sights.memorial.tumulus`.
+> I reviewed the updated package. From the Backend side, I confirm that the agreed minimum Stage 3 semantics are implementation-ready. I have sufficient guidance to implement public `istanbul` → Fatih-only candidate routing, Public Interest → canonical mapping, Geoapify → canonical category mapping, destination membership and conflict handling, recommendation eligibility and exclusion behavior, zero/unmapped-category handling, production candidate IDs and repeated-record handling, and conservative handling of unresolved blocking subtypes such as `tourism.sights.memorial.tumulus`.
+>
+> I do not see any remaining blocking semantic questions for mapping, membership, or eligibility in the agreed minimum Fatih flow.
+>
+> Documented non-blocking limitations acknowledged: physical-place deduplication across different provider IDs is not solved; optional metadata coverage is incomplete; Budget remains disabled; Rome remains outside the minimum Stage 3 scope; and the historical `83 passed` result does not prove execution against the latest Stage 3 implementation baseline.
+>
+> Remaining blocking semantic questions: none. Final Backend handoff confirmation: confirmed. Review date: 20 September 2026.
 
-Mohammad confirmed that no remaining blocking semantic questions exist for mapping, membership, or eligibility in the agreed minimum Fatih flow.
-
-The documented limitations remain non-blocking:
-
-- physical-place deduplication across different provider IDs is not solved;
-- optional metadata coverage is incomplete;
-- Budget remains disabled;
-- Rome remains outside the minimum Stage 3 scope;
-- the historical `83 passed` result does not prove execution against the latest Stage 3 implementation baseline.
-
-**Card 04 completion status: COMPLETE for semantics handoff.**
+**Card 04 completion status: COMPLETE for semantics handoff. The required decisions are recorded, the package is updated, and Mohammad’s final Backend confirmation has been captured.**
 
 Completion of this handoff does not establish that Stage 3 integration, real-data validation, or release verification has passed.
 
@@ -831,7 +818,7 @@ Completion of this handoff does not establish that Stage 3 integration, real-dat
 
 This update supersedes earlier Pending entries for the public destination
 
-ID, minimum destination scope, and membership semantics. The exact boundary identifier is now supported by sanitized geocoding evidence. Final Backend handoff confirmation was received from Mohammad on 20 September 2026.
+ID, minimum destination scope, and membership semantics. The exact boundary identifier is now supported by sanitized geocoding evidence. Final Backend handoff confirmation was received on 20 September 2026.
 
 ### 15.1 Confirmed Destination Routing
 
@@ -1012,16 +999,51 @@ the existing Iteration 2 evidence.
 
 - Reviewer / confirmation / date: Mohammad Salameh — final Backend handoff confirmed — 20 September 2026.
 
-The historical reported `83 passed` regression result above is retained without claiming a new repository or Stage 3 implementation run. The production canonical candidate ID policy is accepted and frozen by Backend, and the exact Fatih boundary `place_id` now has sanitized geocoding evidence plus bounded-request evidence. No remaining Card 04 semantic blocker exists for the agreed minimum Fatih flow.
+Local fixture checks are recorded separately from the historical reported `83 passed` regression run; no current repository or Stage 3 execution is claimed. The production canonical candidate ID policy is accepted and frozen by Backend, and the exact Fatih boundary `place_id` now has sanitized geocoding evidence plus bounded-request evidence. No remaining Card 04 semantic blocker exists for the agreed minimum Fatih flow. Card 10 remains Not run pending real Stage 3 provider/normalized outputs and the actual implementation SHA.
 
-### 15.6 Focused Source-Provenance Correction
+## 16. Card 04 Carry-over → Card 10 — Current Task Alignment
 
-This revision concerns only this semantics document and `canonical-fixtures/fatih-clean-provenance.json`. The latter restores three incorrectly encoded `observedName` values from the exact existing raw source records:
+### 16.1 Baseline and Gates
 
-| Fixture ID | Source file | Zero-based source index | Restored observedName |
-| --- | --- | ---: | --- |
-| `fatih-001` | `sample-responses/fatih-istanbul-tourism-sights.txt` | 0 | `Bâbüsselâm` |
-| `fatih-002` | `sample-responses/fatih-istanbul-tourism-sights.txt` | 6 | `Milyon Taşı` |
-| `fatih-004` | `sample-responses/fatih-istanbul-tourism-sights.txt` | 9 | `Piskoposluk Sarayı` |
+The task card states latest verified `main` as `6614578983758b41789c9a384114efc5d393ab30` and Stage 2A = GREEN. This package records that supplied baseline; it does not independently certify the repository state.
 
-Source indices, provider IDs, raw categories, mapping reasons, and canonical fixture values are unchanged. The source spelling is recovered from the preserved response, not inferred or translated. The raw response files are not edited.
+Required gate order: **Stage 2A GREEN → Stage 2B GREEN → Stage 3 → Release Verification**.
+
+No Stage 2B, Stage 3, or Release Verification success is inferred from Stage 2A. The 17 September direct Geoapify calls are Card 04 evidence, not executions through Mohammad’s real Backend normalization.
+
+### 16.2 Evidence Gap Closure
+
+The existing source artifacts provide the boundary evidence directly:
+
+- [`fatih-geocoding-20260917T200719257491Z.json`](fatih-geocoding-20260917T200719257491Z.json): sanitized geocoding request, retrieval time, and the matching administrative Fatih result at `/response/results/2`.
+- [`fatih-bounded-response-20260917T201633097033Z.json`](fatih-bounded-response-20260917T201633097033Z.json): matching bounded Places request and raw response.
+- [`fatih-membership-review-20260917T201633097033Z.json`](fatih-membership-review-20260917T201633097033Z.json): matching boundary reference, source-response filename, and per-record membership review.
+
+Together with Section 15, these artifacts identify:
+
+- The sanitized geocoding endpoint and parameters.
+- Retrieval time and the exact matching source result at `/response/results/2`.
+- The selected boundary `place_id`, observed type, name, source attribution, center, and bbox.
+- The matching `place:<id>` filter in the bounded Places request.
+- The preserved HTTP 200 response, all 20 Point features, and the matching membership report.
+
+The geocoding JSON response includes a bbox, not an administrative boundary polygon. The returned Places geometries are POI Points. No point-in-polygon containment test or independent boundary-geometry verification is claimed.
+
+Original capture-time statuses are preserved unchanged; they do not create or replace an approval record. Mohammad’s explicit final handoff confirmation was received on 20 September 2026 and closes the remaining Card 04 semantics blocker.
+
+### 16.3 Work That Can Be Completed Now
+
+- Review the existing sanitized evidence and exact boundary match without calling the provider again.
+- Keep already agreed destination, public-interest, canonical mapping, eligibility, and identity decisions.
+- Track the current task card’s 18 checklist items against the existing evidence and the decision/confirmation records in Sections 13–15.
+- Prepare the real-data audit using [`stage-3-validation-matrix.md`](stage-3-validation-matrix.md).
+
+- Preserve Mohammad’s final Backend handoff confirmation in Section 14 as Card 04 completion evidence.
+
+### 16.4 Card 10 Execution Trigger
+
+Begin the actual real-data audit when Mohammad exposes **real Stage 3 provider inputs and corresponding normalized outputs**. Record the actual implementation SHA, retrieval/run time, destination, sanitized request context, raw response, normalized pool, exclusions, duplicate handling, and count reconciliation.
+
+Audit provider mapping, membership, eligibility, coordinates, candidate counts, missing metadata, exact/near duplicates, and release-relevant limitations. Report only checks actually exercised. Controlled negative fixtures, if used, must be labelled as such and must not be reported as observed live-provider cases.
+
+Every Card 10 row remains **Not run** in this revision. Package consistency checks and historical provider samples do not satisfy this execution gate. Do not wait for another broad provider research phase; use the real implementation outputs as soon as they are exposed.
