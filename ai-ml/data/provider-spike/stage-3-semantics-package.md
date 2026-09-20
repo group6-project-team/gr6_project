@@ -724,7 +724,7 @@ Complete the following before claiming implementation readiness:
 | Public Interest → canonical mapping | `history` → `historic_site`; `landmark` → `monument` | Accepted for minimum Stage 3 scope | Ahmad + Mohammad reviews; Section 3.3 |
 | Other current public IDs | Outside minimum Stage 3 mapping | Documented scope limitation | Section 3.5 |
 | Provider category rules and subtype handling | Mapping to `historic_site` / `monument` in Section 4 | Accepted for minimum Stage 3 scope | Ahmad + Mohammad reviews; unresolved subtype remains unmapped |
-| Membership mechanism and conflict handling | Fatih-only executable rule in Section 5 | Accepted for minimum Stage 3 scope | Exact boundary evidence is indexed; explicit final package acceptance remains pending |
+| Membership mechanism and conflict handling | Fatih-only executable rule in Section 5 | Accepted for minimum Stage 3 scope | Exact boundary evidence is recorded in Section 15 and the source JSON evidence.; explicit final package acceptance remains pending |
 | Eligibility policy | Minimum conditions in Section 6.2 | Accepted by Backend, with dependencies | Mohammad review |
 | Unmapped-category behavior | No invented mapping; preserve evidence; use zero-category policy when none maps | Accepted in principle by Backend | Mohammad review; final handoff pending |
 | Zero-category behavior | Exclude from production pool; preserve evidence | Accepted in principle by Backend | Mohammad review; final handoff pending |
