@@ -13,15 +13,16 @@ namespace TripPlanning.Api.Data
             };
 
         public static readonly HashSet<string> SupportedInterests =
-            new()
-            {
-                "history",
-                "culture",
-                "art",
-                "nature",
-                "adventure",
-                "food"
-            };
+                new()
+                {
+                    "history",
+                    "landmark",
+                    "culture",
+                    "art",
+                    "nature",
+                    "adventure",
+                    "food"
+                };
 
         public static readonly Dictionary<string, List<PlaceResponse>> PlacesByDestination =
             new()
