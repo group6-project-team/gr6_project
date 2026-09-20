@@ -1,9 +1,8 @@
 
 /// Switch between mock data and the real ASP.NET Backend here.
 class AppConfig {
-/// `false` = call only the public ASP.NET API (Stage 1 default).
-/// `true` = local mock for tests / explicit offline demo. Never used as a
-/// silent fallback after a real request fails.
+/// `false` = call only the public ASP.NET API (release default).
+/// Mock implementations live under `test/` and are not bundled in the app.
 static const bool useMockApi = false;
 
 /// ASP.NET Backend base URL.

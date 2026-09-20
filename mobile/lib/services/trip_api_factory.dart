@@ -1,12 +1,11 @@
 import '../config/app_config.dart';
 import 'backend_trip_api.dart';
-import 'mock_trip_api.dart';
 import 'trip_api.dart';
 
-/// Builds the API implementation chosen in [AppConfig].
+/// Builds the public ASP.NET client. Mock implementations live under test/.
 TripApi createTripApi() {
-  if (AppConfig.useMockApi) {
-    return MockTripApi();
-  }
-  return BackendTripApi(baseUrl: AppConfig.backendBaseUrl);
+  return BackendTripApi(
+    baseUrl: AppConfig.backendBaseUrl,
+    timeout: AppConfig.requestTimeout,
+  );
 }

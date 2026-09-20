@@ -11,11 +11,7 @@ class Stage1Catalog {
 
   static const interests = [
     InterestOption(id: 'history', name: 'History'),
-    InterestOption(id: 'culture', name: 'Culture'),
-    InterestOption(id: 'art', name: 'Art'),
-    InterestOption(id: 'nature', name: 'Nature'),
-    InterestOption(id: 'adventure', name: 'Adventure'),
-    InterestOption(id: 'food', name: 'Food'),
+    InterestOption(id: 'landmark', name: 'Landmark'),
   ];
 
   static const options = TripOptions(

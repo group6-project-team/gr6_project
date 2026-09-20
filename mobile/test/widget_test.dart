@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
-import 'package:mobile/services/mock_trip_api.dart';
+import 'support/mock_trip_api.dart';
 
 Finder generateButton() => find.byKey(const Key('generate-button'));
 
 Future<void> _openApp(WidgetTester tester, MockTripApi api) async {
-  await tester.pumpWidget(TripPlannerApp(api: api));
+  await tester.pumpWidget(TripPlannerApp(api: api, skipIntro: true));
+  await tester.pumpAndSettle();
+}
+
+Future<void> _openPlanner(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('nav-plan')));
   await tester.pumpAndSettle();
 }
 
 Future<void> _chooseIstanbul(WidgetTester tester) async {
   await tester.tap(find.byKey(const Key('destination-istanbul')));
   await tester.pump();
+}
+
+Future<void> _goToDays(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('plan-next')));
+  await tester.pumpAndSettle();
+}
+
+Future<void> _goToInterests(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('days-next')));
+  await tester.pumpAndSettle();
 }
 
 Future<void> _generate(WidgetTester tester, {Duration delay = Duration.zero}) async {
@@ -29,10 +44,12 @@ void main() {
   testWidgets('invalid days cannot be submitted', (tester) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
+    await _openPlanner(tester);
     await _chooseIstanbul(tester);
+    await _goToDays(tester);
 
     await tester.enterText(find.byKey(const Key('days-field')), '15');
-    await _generate(tester);
+    await _goToInterests(tester);
 
     expect(find.text('Days must be between 1 and 14'), findsOneWidget);
     expect(find.text('Day 1'), findsNothing);
@@ -42,8 +59,8 @@ void main() {
   testWidgets('destination is required', (tester) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
-
-    await _generate(tester);
+    await _openPlanner(tester);
+    await _goToDays(tester);
 
     expect(find.text('Destination is required'), findsOneWidget);
     expect(api.planCallCount, 0);
@@ -52,8 +69,11 @@ void main() {
   testWidgets('success shows every requested day', (tester) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
+    await _openPlanner(tester);
     await _chooseIstanbul(tester);
+    await _goToDays(tester);
     await tester.enterText(find.byKey(const Key('days-field')), '2');
+    await _goToInterests(tester);
     await _generate(tester);
 
     expect(api.planCallCount, 1);
@@ -67,9 +87,12 @@ void main() {
   ) async {
     final api = MockTripApi(delay: Duration.zero);
     await _openApp(tester, api);
+    await _openPlanner(tester);
     await tester.tap(find.byKey(const Key('scenario-partial')));
     await tester.pump();
     await _chooseIstanbul(tester);
+    await _goToDays(tester);
+    await _goToInterests(tester);
     await _generate(tester);
 
     expect(find.text('Coverage warning'), findsOneWidget);
@@ -82,11 +105,14 @@ void main() {
       scenario: MockScenario.planningFailed,
     );
     await _openApp(tester, api);
+    await _openPlanner(tester);
     await _chooseIstanbul(tester);
+    await _goToDays(tester);
+    await _goToInterests(tester);
     await _generate(tester);
 
     expect(find.textContaining('could not create this itinerary'), findsOneWidget);
-    expect(find.text('Istanbul'), findsWidgets);
+    expect(find.text('What do you love?'), findsOneWidget);
 
     api.scenario = MockScenario.success;
     await tester.ensureVisible(find.byKey(const Key('action-Retry')));
@@ -100,7 +126,10 @@ void main() {
   testWidgets('loading ignores extra Generate taps', (tester) async {
     final api = MockTripApi(delay: const Duration(milliseconds: 400));
     await _openApp(tester, api);
+    await _openPlanner(tester);
     await _chooseIstanbul(tester);
+    await _goToDays(tester);
+    await _goToInterests(tester);
 
     await tester.tap(generateButton());
     await tester.pump();

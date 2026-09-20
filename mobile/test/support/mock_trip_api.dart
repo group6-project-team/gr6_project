@@ -1,29 +1,21 @@
-import '../data/stage1_catalog.dart';
-import '../models/trip_api_exception.dart';
-import '../models/trip_options.dart';
-import '../models/trip_plan.dart';
-import '../models/trip_request.dart';
-import 'trip_api.dart';
+import 'package:mobile/data/stage1_catalog.dart';
+import 'package:mobile/models/trip_api_exception.dart';
+import 'package:mobile/models/trip_options.dart';
+import 'package:mobile/models/trip_plan.dart';
+import 'package:mobile/models/trip_request.dart';
+import 'package:mobile/services/mock_scenario.dart';
 
-/// Demo cases used only in tests and explicit mock mode.
-enum MockScenario {
-  success,
-  partial,
-  empty,
-  planningUnavailable,
-  planningFailed,
-  networkError,
-  unexpected,
-}
+export 'package:mobile/services/mock_scenario.dart';
 
-/// Local fake Backend for tests/dev. Never used as a silent fallback.
-class MockTripApi implements TripApi {
+/// Local fake Backend for tests only. Not part of the release app.
+class MockTripApi implements ConfigurableTripApi {
   MockTripApi({
     this.delay = const Duration(milliseconds: 700),
     this.scenario = MockScenario.success,
   });
 
   Duration delay;
+  @override
   MockScenario scenario;
   int planCallCount = 0;
 
@@ -150,19 +142,19 @@ class MockTripApi implements TripApi {
 
   static const Map<String, List<Place>> _catalog = {
     'istanbul': [
-      Place(id: 'ist-001', name: 'Hagia Sophia', description: 'Historic landmark in Istanbul.', address: 'Sultanahmet, Istanbul'),
-      Place(id: 'ist-002', name: 'Topkapi Palace', description: 'Historic Ottoman palace.', address: 'Fatih, Istanbul'),
-      Place(id: 'ist-003', name: 'Blue Mosque', description: 'Historic mosque in Sultanahmet.', address: 'Sultanahmet, Istanbul'),
-      Place(id: 'ist-004', name: 'Grand Bazaar', description: 'Historic covered market.', address: 'Fatih, Istanbul'),
-      Place(id: 'ist-005', name: 'Galata Tower', description: 'Historic tower with city views.', address: 'Beyoglu, Istanbul'),
-      Place(id: 'ist-006', name: 'Istanbul Archaeological Museums', address: 'Fatih, Istanbul'),
-      Place(id: 'ist-007', name: 'Basilica Cistern', address: 'Sultanahmet, Istanbul'),
-      Place(id: 'ist-008', name: 'Dolmabahce Palace', address: 'Besiktas, Istanbul'),
-      Place(id: 'ist-009', name: 'Spice Bazaar', address: 'Fatih, Istanbul'),
+      Place(id: 'test-hagia-sophia', name: 'Hagia Sophia', description: 'Historic landmark in Istanbul.', address: 'Sultanahmet, Istanbul'),
+      Place(id: 'test-topkapi-palace', name: 'Topkapi Palace', description: 'Historic Ottoman palace.', address: 'Fatih, Istanbul'),
+      Place(id: 'test-blue-mosque', name: 'Blue Mosque', description: 'Historic mosque in Sultanahmet.', address: 'Sultanahmet, Istanbul'),
+      Place(id: 'test-grand-bazaar', name: 'Grand Bazaar', description: 'Historic covered market.', address: 'Fatih, Istanbul'),
+      Place(id: 'test-galata-tower', name: 'Galata Tower', description: 'Historic tower with city views.', address: 'Beyoglu, Istanbul'),
+      Place(id: 'test-archaeological-museums', name: 'Istanbul Archaeological Museums', address: 'Fatih, Istanbul'),
+      Place(id: 'test-basilica-cistern', name: 'Basilica Cistern', address: 'Sultanahmet, Istanbul'),
+      Place(id: 'test-dolmabahce-palace', name: 'Dolmabahce Palace', address: 'Besiktas, Istanbul'),
+      Place(id: 'test-spice-bazaar', name: 'Spice Bazaar', address: 'Fatih, Istanbul'),
     ],
     'rome': [
-      Place(id: 'rom-001', name: 'Colosseum', description: 'Historic amphitheatre in Rome.', address: 'Rome, Italy'),
-      Place(id: 'rom-002', name: 'Roman Forum', description: 'Ancient Roman archaeological site.', address: 'Rome, Italy'),
+      Place(id: 'test-colosseum', name: 'Colosseum', description: 'Historic amphitheatre in Rome.', address: 'Rome, Italy'),
+      Place(id: 'test-roman-forum', name: 'Roman Forum', description: 'Ancient Roman archaeological site.', address: 'Rome, Italy'),
     ],
     'aqaba': [],
   };
