@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/models/trip_api_exception.dart';
 import 'package:mobile/models/trip_request.dart';
-import 'package:mobile/services/mock_trip_api.dart';
+import 'support/mock_trip_api.dart';
 
 void main() {
   const request = TripPlanRequest(

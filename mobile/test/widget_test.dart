@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
-import 'package:mobile/services/mock_trip_api.dart';
+import 'support/mock_trip_api.dart';
 
 Finder generateButton() => find.byKey(const Key('generate-button'));
 

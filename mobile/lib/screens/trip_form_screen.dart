@@ -7,7 +7,7 @@ import '../models/trip_api_exception.dart';
 import '../models/trip_options.dart';
 import '../models/trip_plan.dart';
 import '../models/trip_request.dart';
-import '../services/mock_trip_api.dart';
+import '../services/mock_scenario.dart';
 import '../services/trip_api.dart';
 import '../theme/app_theme.dart';
 import '../theme/destination_art.dart';
@@ -52,9 +52,9 @@ class _TripFormScreenState extends State<TripFormScreen> {
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
   MockScenario _scenario = MockScenario.success;
 
-  MockTripApi? get _mockApi {
+  ConfigurableTripApi? get _mockApi {
     final api = widget.api;
-    return api is MockTripApi ? api : null;
+    return api is ConfigurableTripApi ? api : null;
   }
 
   @override
@@ -351,7 +351,7 @@ class _DestinationStep extends StatelessWidget {
   final bool enabled;
   final Object? optionsError;
   final VoidCallback onRetryOptions;
-  final MockTripApi? mockApi;
+  final ConfigurableTripApi? mockApi;
   final MockScenario scenario;
   final ValueChanged<MockScenario> onScenarioChanged;
   final ValueChanged<String?> onDestinationChanged;
