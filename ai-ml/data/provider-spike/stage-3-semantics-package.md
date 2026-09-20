@@ -6,7 +6,7 @@
 
 **Status:** Evidence package prepared for final Backend review. Agreed public/taxonomy decisions are retained. Mohammad’s explicit final handoff confirmation is pending. Card 10 real-provider validation is NOT RUN.
 
-**Revision:** 19 September 2026 — current-card reconciliation, evidence traceability, and real-data validation preparation
+**Revision:** 20 September 2026 — file-reference consistency cleanup; existing semantics retained
 
 **Latest baseline stated by the task card:** `6614578983758b41789c9a384114efc5d393ab30`. Stage 2A = GREEN as reported by that card. This archive does not contain the complete repository or proof of subsequent gates.
 
@@ -229,7 +229,7 @@ Backend owns the routing from public `istanbul` to the Fatih-scoped candidate po
 
 ### 2.4 Exact Boundary Evidence and Final Review
 
-The exact boundary evidence is already present in this archive: the geocoding result, bounded request filter, and membership review contain the same Fatih `place_id`. The retrieval timestamps and matching result are indexed in `fatih-boundary-evidence-index.json`; Section 15 records the executed request. No repeat provider request is needed to fill this evidence gap. The original capture files retain their historical review-pending status. This revision does not manufacture boundary approval or Mohammad’s final handoff confirmation.
+The exact boundary evidence is already present in this archive: the geocoding result, bounded request filter, and membership review contain the same Fatih `place_id`. The retrieval timestamps and matching result are recorded directly in the existing source artifacts listed in Section 16.2; Section 15 records the executed request. No repeat provider request is needed to fill this evidence gap. The original capture files retain their historical review-pending status. This revision does not manufacture boundary approval or Mohammad’s final handoff confirmation.
 
 Do not expand the minimum flow to all Istanbul or re-open broad Rome research to close this handoff.
 
@@ -1025,14 +1025,19 @@ No Stage 2B, Stage 3, or Release Verification success is inferred from Stage 2A.
 
 ### 16.2 Evidence Gap Closure
 
-`fatih-boundary-evidence-index.json` identifies:
+The existing source artifacts provide the boundary evidence directly:
+
+- [`fatih-geocoding-20260917T200719257491Z.json`](fatih-geocoding-20260917T200719257491Z.json): sanitized geocoding request, retrieval time, and the matching administrative Fatih result at `/response/results/2`.
+- [`fatih-bounded-response-20260917T201633097033Z.json`](fatih-bounded-response-20260917T201633097033Z.json): matching bounded Places request and raw response.
+- [`fatih-membership-review-20260917T201633097033Z.json`](fatih-membership-review-20260917T201633097033Z.json): matching boundary reference, source-response filename, and per-record membership review.
+
+Together with Section 15, these artifacts identify:
 
 - The sanitized geocoding endpoint and parameters.
 - Retrieval time and the exact matching source result at `/response/results/2`.
 - The selected boundary `place_id`, observed type, name, source attribution, center, and bbox.
 - The matching `place:<id>` filter in the bounded Places request.
 - The preserved HTTP 200 response, all 20 Point features, and the matching membership report.
-- SHA-256 checksums for the three original evidence files.
 
 The geocoding JSON response includes a bbox, not an administrative boundary polygon. The returned Places geometries are POI Points. No point-in-polygon containment test or independent boundary-geometry verification is claimed.
 
@@ -1042,8 +1047,8 @@ Original capture-time statuses are preserved unchanged; they do not create or re
 
 - Review the existing sanitized evidence and exact boundary match without calling the provider again.
 - Keep already agreed destination, public-interest, canonical mapping, eligibility, and identity decisions.
-- Use `card04-card10-readiness-review.md` for the exact 18 checklist items and their evidence.
-- Prepare the real-data audit using `stage-3-validation-matrix-updated.md`.
+- Track the current task card’s 18 checklist items against the existing evidence and the decision/confirmation records in Sections 13–15.
+- Prepare the real-data audit using [`stage-3-validation-matrix.md`](stage-3-validation-matrix.md).
 - Send the complete package for the final Backend handoff confirmation in Section 14.
 
 ### 16.4 Card 10 Execution Trigger

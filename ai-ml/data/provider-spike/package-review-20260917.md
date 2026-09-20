@@ -2,7 +2,7 @@
 This review checks package consistency after the Stage 3 mapping/membership decisions.
 ## File-level findings
 - `stage-3-semantics-package.md`: updated to current team decisions and remaining blockers.
-- `stage-3-validation-matrix (2).md`: preconditions updated; integrated rows intentionally remain Not run.
+- `stage-3-validation-matrix.md`: preconditions updated; integrated rows intentionally remain Not run.
 - `field-mapping.md`, `findings.md`, `validation-results.md`, `supported-place-rules.md`: preserved as historical spike evidence with an explicit Stage 3 supersession note.
 - `supported-place-rules.md`: historical general-candidate fallback explicitly marked superseded for Stage 3.
 - Rome fixture filenames normalized from accidental ` (1)` suffixes to the canonical names referenced by the docs.
