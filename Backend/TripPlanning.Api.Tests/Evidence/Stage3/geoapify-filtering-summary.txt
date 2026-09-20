@@ -1,0 +1,39 @@
+﻿Stage 3 Geoapify Filtering Summary
+
+Raw provider features: 20
+Normalized candidates: 19
+Excluded records: 1
+
+Excluded record:
+Name: Beyazıt Meydanı
+Place ID: 510683ed31d6f63c405914a7cad54f814440f00101f9014e97430000000000920311426579617ac4b174204d657964616ec4b1
+
+Membership:
+country_code: tr
+city: Istanbul
+town: Fatih
+latitude: 41.0102262
+longitude: 28.9642308
+
+Provider categories:
+- highway
+- highway.pedestrian
+- religion
+- tourism
+- tourism.sights
+- tourism.sights.square
+
+Exclusion reason:
+No approved canonical category mapping was produced.
+tourism.sights.square is intentionally unmapped.
+The record was excluded from the production candidate pool.
+
+Stage 3 Runtime Configuration Evidence
+
+CANDIDATE_SOURCE_MODE=Geoapify
+GEOAPIFY_BASE_URL=https://api.geoapify.com/
+GEOAPIFY_TIMEOUT=10
+AI_SERVICE_BASE_URL=http://127.0.0.1:8000/
+AI_SERVICE_TIMEOUT=10
+
+GEOAPIFY_API_KEY was supplied via environment variable and is intentionally not stored in this evidence.

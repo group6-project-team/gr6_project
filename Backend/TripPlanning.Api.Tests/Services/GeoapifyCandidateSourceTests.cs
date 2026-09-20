@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using TripPlanning.Api.DTOs.Requests;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Services.Interfaces;
 
@@ -244,6 +245,108 @@ namespace TripPlanning.Api.Tests.Services
                 source.GetCandidatesAsync(
                     "istanbul",
                     cancellationTokenSource.Token));
+        }
+
+        [Fact]
+        public async Task Evidence_NormalizesRealGeoapifyResponse()
+        {
+            var evidenceDirectory = Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "..",
+                    "..",
+                    "..",
+                    "Evidence",
+                    "Stage3"));
+
+            var rawPath = Path.Combine(
+                evidenceDirectory,
+                "geoapify-raw-response.json");
+
+            var rawJson = await File.ReadAllTextAsync(rawPath);
+
+            var client = new StubGeoapifyClient
+            {
+                Json = rawJson
+            };
+
+            var source = new GeoapifyCandidateSource(client);
+
+            var candidates = await source.GetCandidatesAsync(
+                "istanbul",
+                CancellationToken.None);
+
+            var outputPath = Path.Combine(
+                evidenceDirectory,
+                "geoapify-normalized-candidates.json");
+
+            var json = JsonSerializer.Serialize(
+                candidates,
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                });
+
+            await File.WriteAllTextAsync(
+                outputPath,
+                json);
+
+            Assert.NotEmpty(candidates);
+        }
+
+        [Fact]
+        public async Task Evidence_WritesActualPlanRequestWithCanonicalInterests()
+        {
+            var evidenceDirectory = Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "..",
+                    "..",
+                    "..",
+                    "Evidence",
+                    "Stage3"));
+
+            var normalizedPath = Path.Combine(
+                evidenceDirectory,
+                "geoapify-normalized-candidates.json");
+
+            var normalizedJson = await File.ReadAllTextAsync(normalizedPath);
+
+            var candidates =
+                JsonSerializer.Deserialize<List<PlaceCandidateRequest>>(
+                    normalizedJson)!;
+
+            var planningRequest = new FastApiPlanRequest
+            {
+                DestinationId = "istanbul",
+                Days = 3,
+                Interests = new List<string>
+        {
+            "monument"
+        },
+                CandidatePlaces = candidates
+            };
+
+            var outputPath = Path.Combine(
+                evidenceDirectory,
+                "fastapi-plan-request.json");
+
+            var json = JsonSerializer.Serialize(
+                planningRequest,
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                });
+
+            await File.WriteAllTextAsync(
+                outputPath,
+                json);
+
+            Assert.Equal(
+                new List<string> { "monument" },
+                planningRequest.Interests);
+
+            Assert.NotEmpty(planningRequest.CandidatePlaces);
         }
 
         private static string CreateResponse(

@@ -1,0 +1,195 @@
+[
+  {
+    "Id": "geoapify:51260c00a2b7ed3c4059fd057ee0807f4440f00102f901dc6ebb1300000000920320486167696f7320c4b06f616e6e65732053747564697573204b696c6973657369",
+    "DestinationId": "istanbul",
+    "Name": "Hagios \u0130oannes Studius Kilisesi",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 40.9961193,
+    "Longitude": 28.9285817
+  },
+  {
+    "Id": "geoapify:51e0205cca60ec3c405975f4883c3c7f4440f00102f9019f1b63010000000092030f546f776572206f662043616e6e6f6e",
+    "DestinationId": "istanbul",
+    "Name": "Tower of Cannon",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 40.9940256,
+    "Longitude": 28.9233519
+  },
+  {
+    "Id": "geoapify:51cc58d9e32af93c40595cf635dc91804440f00103f9010a7394c30000000092030841746174c3bc726b",
+    "DestinationId": "istanbul",
+    "Name": "Atat\u00FCrk",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0044513,
+    "Longitude": 28.9733107
+  },
+  {
+    "Id": "geoapify:51d4fd52f5e1fb3c4059c014d4a6a0814440f00103f90128231b5601000000",
+    "DestinationId": "istanbul",
+    "Name": "\u0420\u0430\u043D\u043D\u0435\u0432\u0438\u0437\u0430\u043D\u0442\u0438\u0439\u0441\u043A\u0430\u044F \u0431\u0430\u0437\u0438\u043B\u0438\u043A\u0430",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0127152,
+    "Longitude": 28.9839166
+  },
+  {
+    "Id": "geoapify:5176f1c86999f83c4059261e5036e5814440f00103f9011a40fcbf000000009203134d616e69666174757261636920447261706572",
+    "DestinationId": "istanbul",
+    "Name": "Manifaturaci Draper",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0148075,
+    "Longitude": 28.9710909
+  },
+  {
+    "Id": "geoapify:51bdd584fe53f33c4059c328ad646c824440f00103f901aeffc10c01000000",
+    "DestinationId": "istanbul",
+    "Name": "\u041C\u0430\u0432\u0437\u043E\u043B\u0435\u0439 \u041C\u0435\u0445\u043C\u0435\u0434\u0430 2 \u0424\u0430\u0442\u0438\u0445\u0430 (\u0417\u0430\u0432\u043E\u0435\u0432\u0430\u0442\u0435\u043B\u044C\u044F) Fatih Sultan Mehmet 2 Turbesi",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0189329,
+    "Longitude": 28.9505004
+  },
+  {
+    "Id": "geoapify:51a0b998b047f43c4059ef9a4649fe814440f00103f901dc1ffbc10000000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1",
+    "DestinationId": "istanbul",
+    "Name": "Fatih Sultan Mehmet An\u0131t\u0131",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0155727,
+    "Longitude": 28.9542189
+  },
+  {
+    "Id": "geoapify:515fe493732df33c40594593201cff834440f00101f901d20837010000000092030d46656e65726c69204f64612031",
+    "DestinationId": "istanbul",
+    "Name": "Fenerli Oda 1",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0311827,
+    "Longitude": 28.9499608
+  },
+  {
+    "Id": "geoapify:51c1994ea1a9f93c40595de223bd03814440f00103f901ec31823001000000",
+    "DestinationId": "istanbul",
+    "Name": "Istiklal Marsi",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0079266,
+    "Longitude": 28.9752446
+  },
+  {
+    "Id": "geoapify:5157e1e01cbff73c40591b3b97981d814440f00103f901788225c90000000092031d4b617261204d757374616661205061c59f61204bc3bc6c6c6979657369",
+    "DestinationId": "istanbul",
+    "Name": "Kara Mustafa Pa\u015Fa K\u00FClliyesi",
+    "CategoryIds": [
+      "historic_site",
+      "monument"
+    ],
+    "Latitude": 41.0087157,
+    "Longitude": 28.9677599
+  },
+  {
+    "Id": "geoapify:5182a0ede247f53c4059797d416642814440f00102f90194a1711400000000920315546179796172652041706172746d616e6c6172c4b1",
+    "DestinationId": "istanbul",
+    "Name": "Tayyare Apartmanlar\u0131",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0098389,
+    "Longitude": 28.9581282
+  },
+  {
+    "Id": "geoapify:5119987043e7f63c405976864e7402824440f00103f901a010a00c010000009203204b616e756e692053756c74616e2053756c65796d616e20312054757262657369",
+    "DestinationId": "istanbul",
+    "Name": "Kanuni Sultan Suleyman 1 Turbesi",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0156999,
+    "Longitude": 28.9644663
+  },
+  {
+    "Id": "geoapify:513a9be9b9e0ef3c405939c3c36ae2834440f00103f901ea06229c0100000092031b46617469682053756c74616e204d65686d657420416ec4b174c4b1",
+    "DestinationId": "istanbul",
+    "Name": "Fatih Sultan Mehmet An\u0131t\u0131",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0303472,
+    "Longitude": 28.9370228
+  },
+  {
+    "Id": "geoapify:51d961928d0afc3c405944518321d0814440f00102f9010854ee01000000009203104261c49f646164204bc3b6c59f6bc3bc",
+    "DestinationId": "istanbul",
+    "Name": "Ba\u011Fdad K\u00F6\u015Fk\u00FC",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0141603,
+    "Longitude": 28.9845401
+  },
+  {
+    "Id": "geoapify:516465ea645ffa3c4059f694415a08814440f00103f901041ac4710000000092030d4d696c796f6e205461c59fc4b1",
+    "DestinationId": "istanbul",
+    "Name": "Milyon Ta\u015F\u0131",
+    "CategoryIds": [
+      "historic_site",
+      "monument"
+    ],
+    "Latitude": 41.0080674,
+    "Longitude": 28.9780181
+  },
+  {
+    "Id": "geoapify:51bbc227428ff93c40593a9d1a1eb1804440f00102f901c2d9ce4200000000920310c396726d652044696b696c697461c59f",
+    "DestinationId": "istanbul",
+    "Name": "\u00D6rme Dikilita\u015F",
+    "CategoryIds": [
+      "historic_site",
+      "monument"
+    ],
+    "Latitude": 41.0054052,
+    "Longitude": 28.9748422
+  },
+  {
+    "Id": "geoapify:51106eda17b3f63c40595ec6849765814440f00102f901dcb98e0600000000920326c4b07374616e62756c20c39c6e69766572736974657369204b6170c4b1204bc3b6c59f6bc3bc",
+    "DestinationId": "istanbul",
+    "Name": "\u0130stanbul \u00DCniversitesi Kap\u0131 K\u00F6\u015Fk\u00FC",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0109297,
+    "Longitude": 28.9636662
+  },
+  {
+    "Id": "geoapify:51e127e138c6fb3c40595352024599814440f00102f901bc8131060000000092031544c3ae76c3a26e2dc4b12048c3bc6dc3a279c3bb6e",
+    "DestinationId": "istanbul",
+    "Name": "D\u00EEv\u00E2n-\u0131 H\u00FCm\u00E2y\u00FBn",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.0125263,
+    "Longitude": 28.9835167
+  },
+  {
+    "Id": "geoapify:51c972124809fc3c40598cf5c49f80814440f00102f9014053ee01000000009203115361726179204d757466616b6c6172c4b1",
+    "DestinationId": "istanbul",
+    "Name": "Saray Mutfaklar\u0131",
+    "CategoryIds": [
+      "historic_site"
+    ],
+    "Latitude": 41.011744,
+    "Longitude": 28.9846189
+  }
+]
