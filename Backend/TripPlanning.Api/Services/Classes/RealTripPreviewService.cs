@@ -26,7 +26,16 @@ namespace TripPlanning.Api.Services.Classes
                 request.DestinationId!,
                 cancellationToken);
 
-            var canonicalInterests = new List<string>();
+            var canonicalInterests = request.Interests?
+                .Select(interest => interest switch
+                {
+                    "history" => "historic_site",
+                    "landmark" => "monument",
+                    _ => interest
+                })
+                .Distinct()
+                .ToList()
+                ?? new List<string>();
 
             var planningRequest = new FastApiPlanRequest
             {
