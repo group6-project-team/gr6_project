@@ -23,32 +23,21 @@ function Invoke-SanitizedCheck {
             Uri = $Uri
             Method = $Method
             Headers = $headers
+            SkipHttpErrorCheck = $true
         }
         if ($PSBoundParameters.ContainsKey("Body")) {
             $parameters.ContentType = "application/json"
             $parameters.Body = $Body
         }
 
-        try {
-            $response = Invoke-WebRequest @parameters
-            $status = [int]$response.StatusCode
-            $responseId = [string]$response.Headers["X-Request-ID"]
-            $content = [string]$response.Content
+        $response = Invoke-WebRequest @parameters
+        $status = [int]$response.StatusCode
+        $responseId = [string]$response.Headers["X-Request-ID"]
+        if ($response.Content -is [byte[]]) {
+            $content = [System.Text.Encoding]::UTF8.GetString($response.Content)
         }
-        catch {
-            if ($null -eq $_.Exception.Response) {
-                throw
-            }
-            $errorResponse = $_.Exception.Response
-            $status = [int]$errorResponse.StatusCode
-            $responseId = [string]$errorResponse.Headers["X-Request-ID"]
-            $reader = New-Object System.IO.StreamReader($errorResponse.GetResponseStream())
-            try {
-                $content = $reader.ReadToEnd()
-            }
-            finally {
-                $reader.Dispose()
-            }
+        else {
+            $content = [string]$response.Content
         }
 
         if ($status -notin $ExpectedStatus) {
