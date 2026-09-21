@@ -1,9 +1,11 @@
 # Day 3 release handoff
 
-This handoff is pinned to merged `main` SHA
-`2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`. Stage 3 and release readiness
-remain **WAITING** until the deployment and independent owner checks below are
-completed on the final SHA.
+This handoff's runtime evidence is pinned to the pre-documentation `main`
+baseline `2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`. PR #25 changes only
+documentation and the read-only verification script. The deployment owner must
+deploy the latest `main` commit containing this handoff and record its exact SHA.
+Stage 3 and release readiness remain **WAITING** until the deployment and
+independent owner checks below are completed on that final SHA.
 
 ## Current evidence index
 
@@ -12,7 +14,7 @@ completed on the final SHA.
 | Stage 2B | `docs/security-stage2b-closeout.md` | GREEN/CLOSED at its recorded SHA |
 | Provider implementation | PR #23 merged as current main | Merged |
 | Real-data validation | PR #24 head `2254c7918d01c7a9f2ec1dae49c4857231e57da6` | WAITING for final-SHA V03/V07/V11/V14 evidence; do not merge yet |
-| Planner/FastAPI | `python -m pytest ai-ml/service/tests ai-ml/planning/tests -q` | 117 passed on current main, Python 3.14.4 |
+| Planner/FastAPI | `python -m pytest ai-ml/service/tests ai-ml/planning/tests -q` | 117 passed on runtime baseline `2d2e1f7`, Python 3.14.4 |
 | Backend | PR #24 records 57 passed on its owner branch | Provenance retained; rerun on final release SHA after deployment changes |
 | Flutter | Source/config inspected; commands and matrix below | WAITING for matching Flutter SDK, build, device smoke, and real-provider E2E |
 | Security | Repository review reports no unresolved Blocker/Critical | WAITING for Sami's deployed Geoapify-mode retest/sign-off |
@@ -38,8 +40,8 @@ This is evidence that the public Backend is not in final Geoapify mode.
 
 ## MonsterASP owner checklist
 
-1. Fetch and check out exact main SHA
-   `2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`.
+1. Fetch and check out the latest `main` commit containing PR #25. Record its
+   exact full SHA before building; do not deploy from an unrecorded branch tip.
 2. On a machine with the .NET 10 SDK, run:
 
    ```text

@@ -1,7 +1,9 @@
 # Final-sprint architecture and reproducibility
 
-This document describes the behavior present on merged `main` at
-`2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`. It separates merged behavior
+This document describes the runtime behavior present on the pre-documentation
+`main` baseline `2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`. PR #25 changes only
+documentation and the read-only verification script, so that SHA remains the
+runtime-code baseline after this document is merged. It separates merged behavior
 from release evidence that is still pending. Stage 2B is closed. Stage 3 and
 final release verification are **WAITING**, not GREEN.
 
@@ -111,7 +113,7 @@ Start the service from `ai-ml/`:
 python -m uvicorn service.app:app --host 127.0.0.1 --port 8001
 ```
 
-On the SHA recorded above, the combined test command completed with `117
+On the runtime baseline recorded above, the combined test command completed with `117
 passed` on Python 3.14.4. Local smoke checks returned `200 {"status":"ready"}`
 from `/health`, returned a balanced two-day plan from a valid canonical
 request, and returned `422 INVALID_REQUEST` for an invalid `days=0` request.
@@ -136,7 +138,7 @@ Flutter-device, independent QA, or security evidence.
   translation.
 - Budget and price behavior are outside the current release scope.
 
-## Gate status at this SHA
+## Gate status at this runtime baseline
 
 Merged code and the planner/service checks above do not make Stage 3 GREEN.
 The release remains waiting for all of the following evidence on the final
