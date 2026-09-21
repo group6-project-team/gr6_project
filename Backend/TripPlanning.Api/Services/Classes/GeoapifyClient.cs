@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using TripPlanning.Api.Exceptions;
 using TripPlanning.Api.Services.Interfaces;
 
 namespace TripPlanning.Api.Services.Classes
@@ -27,8 +28,11 @@ namespace TripPlanning.Api.Services.Classes
 
             if (string.IsNullOrWhiteSpace(apiKey))
             {
-                throw new InvalidOperationException(
-                    "GEOAPIFY_API_KEY is missing.");
+                _logger.LogError(
+                    "Geoapify provider configuration is missing its API key.");
+
+                throw new PlanningFailedException(
+                    "Geoapify provider configuration is invalid.");
             }
 
             string placeId;
@@ -43,27 +47,66 @@ namespace TripPlanning.Api.Services.Classes
             }
             else
             {
-                throw new InvalidOperationException(
-                    $"Geoapify destination is not supported: '{destinationId}'.");
+                _logger.LogWarning(
+                    "Geoapify destination is unsupported. DestinationId: {DestinationId}",
+                    destinationId);
+
+                throw new PlanningFailedException(
+                    "Geoapify does not support the requested destination.");
             }
 
             var requestUri =
                 $"v2/places?categories=tourism.sights&filter=place:{placeId}&limit=20&lang=en&apiKey={apiKey}";
 
-            using var response = await _httpClient.GetAsync(
-                requestUri,
-                cancellationToken);
+            try
+            {
+                using var response = await _httpClient.GetAsync(
+                    requestUri,
+                    cancellationToken);
 
-            response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogWarning(
+                        "Geoapify returned unsuccessful status {StatusCode}.",
+                        (int)response.StatusCode);
 
-            await using var stream = await response.Content.ReadAsStreamAsync(
-                cancellationToken);
+                    throw new PlanningServiceUnavailableException(
+                        "Geoapify is unavailable.");
+                }
 
-            var document = await JsonDocument.ParseAsync(
-                stream,
-                cancellationToken: cancellationToken);
+                await using var stream = await response.Content.ReadAsStreamAsync(
+                    cancellationToken);
 
-            return document;
+                return await JsonDocument.ParseAsync(
+                    stream,
+                    cancellationToken: cancellationToken);
+            }
+            catch (OperationCanceledException ex)
+                when (!cancellationToken.IsCancellationRequested)
+            {
+                _logger.LogWarning("Geoapify request timed out.");
+
+                throw new PlanningServiceUnavailableException(
+                    "Geoapify request timed out.",
+                    ex);
+            }
+            catch (HttpRequestException ex)
+            {
+                // Transport exceptions can include the full URI and API key.
+                _logger.LogWarning("Geoapify connection failed.");
+
+                throw new PlanningServiceUnavailableException(
+                    "Geoapify is unavailable.",
+                    ex);
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError("Geoapify returned a malformed response.");
+
+                throw new PlanningFailedException(
+                    "Geoapify returned a malformed response.",
+                    ex);
+            }
         }
     }
 }

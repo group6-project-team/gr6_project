@@ -230,6 +230,55 @@ namespace TripPlanning.Api.Tests.Services
         }
 
         [Fact]
+        public async Task GetCandidatesAsync_DeduplicatesCanonicalIdsAndKeepsFirstEligibleRecord()
+        {
+            var client = new StubGeoapifyClient
+            {
+                Json =
+                """
+                {
+                  "features": [
+                    {
+                      "properties": {
+                        "place_id": "duplicate-id",
+                        "name": "First Provider Record",
+                        "country_code": "tr",
+                        "city": "Istanbul",
+                        "town": "Fatih",
+                        "lat": 41.0,
+                        "lon": 28.9,
+                        "categories": ["tourism.sights.ruines"]
+                      }
+                    },
+                    {
+                      "properties": {
+                        "place_id": "duplicate-id",
+                        "name": "Second Provider Record",
+                        "country_code": "tr",
+                        "city": "Istanbul",
+                        "town": "Fatih",
+                        "lat": 41.1,
+                        "lon": 29.0,
+                        "categories": ["tourism.sights.memorial.monument"]
+                      }
+                    }
+                  ]
+                }
+                """
+            };
+            var source = new GeoapifyCandidateSource(client);
+
+            var candidates = await source.GetCandidatesAsync(
+                "istanbul",
+                CancellationToken.None);
+
+            var candidate = Assert.Single(candidates);
+            Assert.Equal("geoapify:duplicate-id", candidate.Id);
+            Assert.Equal("First Provider Record", candidate.Name);
+            Assert.Equal(new[] { "historic_site" }, candidate.CategoryIds);
+        }
+
+        [Fact]
         public async Task GetCandidatesAsync_Throws_WhenCancellationRequested()
         {
             var client = new StubGeoapifyClient();

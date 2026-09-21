@@ -33,6 +33,8 @@ namespace TripPlanning.Api.Services.Classes
             }
 
             var candidates = new List<PlaceCandidateRequest>();
+            var seenCandidateIds = new HashSet<string>(
+                StringComparer.OrdinalIgnoreCase);
 
             foreach (var feature in features.EnumerateArray())
             {
@@ -91,9 +93,17 @@ namespace TripPlanning.Api.Services.Classes
                     continue;
                 }
 
+                var candidateId = $"geoapify:{placeId}";
+
+                // Preserve provider order and keep the first eligible record.
+                if (!seenCandidateIds.Add(candidateId))
+                {
+                    continue;
+                }
+
                 candidates.Add(new PlaceCandidateRequest
                 {
-                    Id = $"geoapify:{placeId}",
+                    Id = candidateId,
                     DestinationId = destinationId,
                     Name = name,
                     CategoryIds = categoryIds,

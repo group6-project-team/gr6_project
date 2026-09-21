@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using TripPlanning.Api.Exceptions;
 using TripPlanning.Api.Services.Classes;
 
 namespace TripPlanning.Api.Tests.Services
@@ -148,7 +150,7 @@ namespace TripPlanning.Api.Tests.Services
                 NullLogger<GeoapifyClient>.Instance);
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(
+            await Assert.ThrowsAsync<PlanningFailedException>(
                 () => client.GetPlacesAsync(
                     "istanbul",
                     CancellationToken.None));
@@ -166,14 +168,14 @@ namespace TripPlanning.Api.Tests.Services
             var client = CreateClient(handler);
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(
+            await Assert.ThrowsAsync<PlanningFailedException>(
                 () => client.GetPlacesAsync(
                     "rome",
                     CancellationToken.None));
         }
 
         [Fact]
-        public async Task GetPlacesAsync_ThrowsHttpRequestException_WhenProviderReturnsError()
+        public async Task GetPlacesAsync_ThrowsControlledUnavailableError_WhenProviderReturnsError()
         {
             // Arrange
             var handler = new StubHttpMessageHandler(
@@ -185,14 +187,14 @@ namespace TripPlanning.Api.Tests.Services
             var client = CreateClient(handler);
 
             // Act & Assert
-            await Assert.ThrowsAsync<HttpRequestException>(
+            await Assert.ThrowsAsync<PlanningServiceUnavailableException>(
                 () => client.GetPlacesAsync(
                     "istanbul",
                     CancellationToken.None));
         }
 
         [Fact]
-        public async Task GetPlacesAsync_ThrowsJsonException_WhenResponseIsMalformed()
+        public async Task GetPlacesAsync_ThrowsControlledPlanningError_WhenResponseIsMalformed()
         {
             // Arrange
             var handler = new StubHttpMessageHandler(
@@ -207,10 +209,42 @@ namespace TripPlanning.Api.Tests.Services
             var client = CreateClient(handler);
 
             // Act & Assert
-            await Assert.ThrowsAnyAsync<System.Text.Json.JsonException>(
+            await Assert.ThrowsAsync<PlanningFailedException>(
                 () => client.GetPlacesAsync(
                     "istanbul",
                     CancellationToken.None));
+        }
+
+        [Fact]
+        public async Task GetPlacesAsync_DoesNotWriteApiKeyToApplicationLogs()
+        {
+            const string apiKey = "secret-key-that-must-not-be-logged";
+            var logger = new CapturingLogger<GeoapifyClient>();
+            var handler = new StubHttpMessageHandler(
+                (request, cancellationToken) =>
+                    throw new HttpRequestException(
+                        $"Provider failure for {request.RequestUri}"));
+            var httpClient = new HttpClient(handler)
+            {
+                BaseAddress = new Uri("https://api.geoapify.com/")
+            };
+            var configuration = new ConfigurationManager
+            {
+                ["GEOAPIFY_API_KEY"] = apiKey
+            };
+            var client = new GeoapifyClient(
+                httpClient,
+                configuration,
+                logger);
+
+            await Assert.ThrowsAsync<PlanningServiceUnavailableException>(
+                () => client.GetPlacesAsync(
+                    "istanbul",
+                    CancellationToken.None));
+
+            Assert.DoesNotContain(
+                logger.Messages,
+                message => message.Contains(apiKey, StringComparison.Ordinal));
         }
 
         private static GeoapifyClient CreateClient(
@@ -231,6 +265,26 @@ namespace TripPlanning.Api.Tests.Services
                 httpClient,
                 configuration,
                 NullLogger<GeoapifyClient>.Instance);
+        }
+
+        private sealed class CapturingLogger<T> : ILogger<T>
+        {
+            public List<string> Messages { get; } = new();
+
+            public IDisposable? BeginScope<TState>(TState state)
+                where TState : notnull => null;
+
+            public bool IsEnabled(LogLevel logLevel) => true;
+
+            public void Log<TState>(
+                LogLevel logLevel,
+                EventId eventId,
+                TState state,
+                Exception? exception,
+                Func<TState, Exception?, string> formatter)
+            {
+                Messages.Add(formatter(state, exception));
+            }
         }
     }
 }
