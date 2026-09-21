@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using TripPlanning.Api.DTOs.Requests;
+using TripPlanning.Api.Exceptions;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Services.Interfaces;
 
@@ -276,6 +277,21 @@ namespace TripPlanning.Api.Tests.Services
             Assert.Equal("geoapify:duplicate-id", candidate.Id);
             Assert.Equal("First Provider Record", candidate.Name);
             Assert.Equal(new[] { "historic_site" }, candidate.CategoryIds);
+        }
+
+        [Fact]
+        public async Task GetCandidatesAsync_ThrowsControlledError_ForInvalidProviderPayload()
+        {
+            var client = new StubGeoapifyClient
+            {
+                Json = """{ "features": "not-an-array" }"""
+            };
+            var source = new GeoapifyCandidateSource(client);
+
+            await Assert.ThrowsAsync<PlanningFailedException>(
+                () => source.GetCandidatesAsync(
+                    "istanbul",
+                    CancellationToken.None));
         }
 
         [Fact]

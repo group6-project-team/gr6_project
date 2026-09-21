@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using TripPlanning.Api.DTOs.Requests;
+using TripPlanning.Api.Exceptions;
 using TripPlanning.Api.Services.Interfaces;
 
 namespace TripPlanning.Api.Services.Classes
@@ -26,10 +27,12 @@ namespace TripPlanning.Api.Services.Classes
 
             var root = document.RootElement;
 
-            if (!root.TryGetProperty("features", out var features) ||
+            if (root.ValueKind != JsonValueKind.Object ||
+                !root.TryGetProperty("features", out var features) ||
                 features.ValueKind != JsonValueKind.Array)
             {
-                return new List<PlaceCandidateRequest>();
+                throw new PlanningFailedException(
+                    "Geoapify returned an invalid response.");
             }
 
             var candidates = new List<PlaceCandidateRequest>();
@@ -38,27 +41,33 @@ namespace TripPlanning.Api.Services.Classes
 
             foreach (var feature in features.EnumerateArray())
             {
-                if (!feature.TryGetProperty("properties", out var properties))
+                if (feature.ValueKind != JsonValueKind.Object ||
+                    !feature.TryGetProperty("properties", out var properties) ||
+                    properties.ValueKind != JsonValueKind.Object)
                 {
                     continue;
                 }
 
-                if (!properties.TryGetProperty("place_id", out var placeIdElement))
+                if (!properties.TryGetProperty("place_id", out var placeIdElement) ||
+                    placeIdElement.ValueKind != JsonValueKind.String)
                 {
                     continue;
                 }
 
-                if (!properties.TryGetProperty("name", out var nameElement))
+                if (!properties.TryGetProperty("name", out var nameElement) ||
+                    nameElement.ValueKind != JsonValueKind.String)
                 {
                     continue;
                 }
 
-                if (!properties.TryGetProperty("lat", out var latElement))
+                if (!properties.TryGetProperty("lat", out var latElement) ||
+                    latElement.ValueKind != JsonValueKind.Number)
                 {
                     continue;
                 }
 
-                if (!properties.TryGetProperty("lon", out var lonElement))
+                if (!properties.TryGetProperty("lon", out var lonElement) ||
+                    lonElement.ValueKind != JsonValueKind.Number)
                 {
                     continue;
                 }
@@ -184,7 +193,10 @@ namespace TripPlanning.Api.Services.Classes
 
             if (!properties.TryGetProperty("country_code", out var countryElement) ||
                 !properties.TryGetProperty("city", out var cityElement) ||
-                !properties.TryGetProperty("town", out var townElement))
+                !properties.TryGetProperty("town", out var townElement) ||
+                countryElement.ValueKind != JsonValueKind.String ||
+                cityElement.ValueKind != JsonValueKind.String ||
+                townElement.ValueKind != JsonValueKind.String)
             {
                 return false;
             }
