@@ -1,8 +1,8 @@
 # Stage 3 final security, secrets and configuration sign-off
 
-**Owner:** Sami Thaalba  
-**Review date:** 21 September 2026  
-**Final repository SHA reviewed and locally tested:** `bf24a7e9c9fc1a9fba61a0f31938561cb4eba074`  
+**Owner:** Sami Thaalba
+**Review date:** 21 September 2026
+**Final repository SHA reviewed and locally tested:** `bf24a7e9c9fc1a9fba61a0f31938561cb4eba074`
 **Deployed runtime SHA retested:** `664dfa726629c47fbd12c5ca6e7c43f54b95291f`
 
 ## Gate conclusion
