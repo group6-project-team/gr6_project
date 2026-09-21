@@ -37,6 +37,13 @@ namespace TripPlanning.Api
             {
                 builder.Services.AddScoped<ICandidateSource, FixtureCandidateSource>();
             }
+            else if (string.Equals(
+                candidateSourceMode,
+                "Geoapify",
+                StringComparison.OrdinalIgnoreCase))
+            {
+                builder.Services.AddScoped<ICandidateSource, GeoapifyCandidateSource>();
+            }
             else
             {
                 throw new InvalidOperationException(
@@ -61,6 +68,30 @@ namespace TripPlanning.Api
                 client.BaseAddress = new Uri(baseUrl!);
                 client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
             });
+
+            builder.Services
+                .AddHttpClient<IGeoapifyClient, GeoapifyClient>((serviceProvider, client) =>
+                {
+                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+                    var baseUrl =
+                        configuration["GEOAPIFY_BASE_URL"]
+                        ?? configuration["Geoapify:BaseUrl"];
+
+                    var timeoutValue =
+                        configuration["GEOAPIFY_TIMEOUT"];
+
+                    var timeoutSeconds = int.TryParse(timeoutValue, out var configuredTimeout)
+                        ? configuredTimeout
+                        : configuration.GetValue<int>("Geoapify:TimeoutSeconds");
+
+                    client.BaseAddress = new Uri(baseUrl!);
+                    client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
+                })
+                // Geoapify requires the API key in the query string. Disable
+                // HttpClientFactory URI logging for this client; the client
+                // emits its own sanitized diagnostics.
+                .RemoveAllLoggers();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
