@@ -1,140 +1,79 @@
 # Stage 3 Real-Data Validation Matrix
 
 **Owner:** Asma Bzoor — AI/Data
+
 **Scope:** Card 10 real-data semantic validation
-**Status:** Completed — Card 10 semantic validation passed for the tested Stage 3 evidence package
+**Status:** **WAITING — current implementation checks pass, but the real Geoapify run has not been repeated against the final provider implementation**
 
-## Validation Target
+## Validation target and provenance
 
-* **Backend branch:** `feature/stage3-geoapify-candidate-source`
-* **Tested SHA:** `4c958a11ddb129c4c1c7b9154950df00412314e2`
-* **PR:** `#23`
-* **Public destination:** `istanbul`
-* **Real-provider scope:** bounded Fatih Geoapify path
-* **Candidate source mode:** `Geoapify`
+- PR #23 final implementation SHA: `3a3683f9677b95ca3e1c67669639e1f4a936cbe5`
+- PR #23 merge SHA: `2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`
+- Public destination: `istanbul`
+- Real-provider scope: bounded Fatih Geoapify path
+- Candidate source mode required for the rerun: `Geoapify`
+- Historical recorded real-provider package SHA: `4c958a11ddb129c4c1c7b9154950df00412314e2`
 
-Validation was performed against the tested implementation and the Stage 3 evidence package provided for Card 10. Results below apply to this bounded Fatih sample and tested SHA; they do not imply complete Istanbul/Fatih provider coverage.
+The checked-in real-provider artifacts were captured for the earlier PR #23 head `4c958a11...`. They remain useful provenance, but they are not a fresh live-provider run against `3a3683f...`. Work had no `GEOAPIFY_API_KEY` in its authorized environment, so no new Geoapify response or end-to-end provider run is claimed here.
 
-| ID  | Check                               | Expected result                                                                                                    | Actual result                                                                                                                                                                                                                                                                           | Evidence reference                                                                                                                   | Status   |
-| --- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| V01 | Public Interest → canonical mapping | Apply `history` → `historic_site` and `landmark` → `monument` before `/plan`; no blind pass-through                | `RealTripPreviewService` performs both mappings before building `FastApiPlanRequest`. Dedicated tests verify both mappings. Actual planner evidence contains canonical `monument`.                                                                                                      | `RealTripPreviewService.cs`; `RealTripPreviewServiceTests.cs`; `fastapi-plan-request.json`                                           | **Pass** |
-| V02 | Geoapify → canonical mapping        | Only accepted evidence-backed mapping rules are applied; raw provider categories are not copied into `categoryIds` | Raw records map only through the approved rules. Normalized output contains only `historic_site` and `monument`; raw Geoapify category strings are not copied into canonical `categoryIds`.                                                                                             | `GeoapifyCandidateSource.cs`; `GeoapifyCandidateSourceTests.cs`; `geoapify-raw-response.json`; `geoapify-normalized-candidates.json` | **Pass** |
-| V03 | Accepted Fatih membership           | Record comes from approved Fatih bounded request and matches normalized `tr` / `Istanbul` / `Fatih` signals        | Geoapify request uses the approved exact Fatih `place_id`, `categories=tourism.sights`, `limit=20`, and `lang=en`. All 20 raw records in the recorded sample have `country_code=tr`, `city=Istanbul`, `town=Fatih`, with valid coordinates.                                             | `GeoapifyClient.cs`; `GeoapifyClientTests.cs`; `geoapify-raw-response.json`                                                          | **Pass** |
-| V04 | Fatih membership mismatch | Any `country_code`, `city`, or `town` mismatch is excluded and traceable | Membership implementation requires the structured Fatih signals and rejects mismatches. The dedicated wrong-town test provides a traceable mismatch case; no membership mismatch occurred in the recorded 20-record real sample. | `GeoapifyCandidateSource.cs`; `GetCandidatesAsync_RejectsWrongTown()` | **Pass** |                                                                                                                                                            | `GeoapifyCandidateSource.cs`; `GetCandidatesAsync_RejectsWrongTown()`                                                                | **Pass** |
-| V05 | Missing/conflicting Fatih signal    | Missing required signal is unknown; conflicts are excluded; supporting address text does not override              | Required `country_code`, `city`, and `town` fields must exist and match. Missing required membership evidence is rejected; structured fields, not formatted/supporting text, control membership.                                                                                        | `GeoapifyCandidateSource.cs`; `GetCandidatesAsync_RejectsMissingMembershipSignal()`                                                  | **Pass** |
-| V06 | Coordinates                         | Latitude/longitude are numeric, finite, not booleans, and within valid ranges                                      | Implementation rejects non-numeric, non-finite, and out-of-range coordinates. All 20 recorded raw coordinates are valid, and accepted values are preserved in normalized output.                                                                                                        | `GeoapifyCandidateSource.cs`; `GetCandidatesAsync_RejectsInvalidCoordinates()`; raw and normalized evidence                          | **Pass** |
-| V07 | Canonical object shape              | Each candidate contains exactly the six canonical fields with correct structure                                    | 19 normalized candidates were inspected. Every candidate contains exactly: `Id`, `DestinationId`, `Name`, `CategoryIds`, `Latitude`, `Longitude`.                                                                                                                                       | `geoapify-normalized-candidates.json`; `PlaceCandidateRequest` contract                                                              | **Pass** |
-| V08 | Identity and provenance             | Candidate IDs are unique and accepted records remain traceable to provider evidence                                | 19 normalized candidates contain 19 unique IDs. All IDs use `geoapify:<place_id>`. All 19 normalized provider IDs match a raw Geoapify `place_id`; no normalized ID is missing from the raw evidence.                                                                                   | `geoapify-raw-response.json`; `geoapify-normalized-candidates.json`; ID reconciliation check                                         | **Pass** |
-| V09 | Unmapped category                   | No canonical value is invented; source evidence is preserved                                                       | `Beyazıt Meydanı` contains `tourism.sights.square`, which has no approved canonical mapping. No fallback category was invented, and the raw record/reason remain documented.                                                                                                            | `geoapify-filtering-summary.txt`; `geoapify-raw-response.json`                                                                       | **Pass** |
-| V10 | Zero-category record                | A record producing no accepted canonical category is excluded                                                      | The only zero-mapped record, `Beyazıt Meydanı`, was excluded from the production candidate pool. Implementation explicitly excludes `categoryIds.Count == 0`.                                                                                                                           | `GeoapifyCandidateSource.cs`; `geoapify-filtering-summary.txt`; `GetCandidatesAsync_RejectsUnmappedCategories()`                     | **Pass** |
-| V11 | Duplicate-like records              | No physical-place merge occurs from name similarity or proximity alone                                             | The real sample contains two `Fatih Sultan Mehmet Anıtı` records with different provider IDs and coordinates. Both remain distinct canonical candidates. No physical identity was inferred from name similarity alone.                                                                  | `geoapify-raw-response.json`; `geoapify-normalized-candidates.json`                                                                  | **Pass** |
-| V12 | Optional metadata                   | Missing description/image/site/rating/price does not become fabricated data                                        | Raw provider records contain provider metadata such as `formatted`, `details`, `datasource`, and `historic`, but the canonical output remains limited to the six contract fields. Missing optional fields are not fabricated.                                                           | `geoapify-raw-response.json`; `geoapify-normalized-candidates.json`                                                                  | **Pass** |
-| V13 | Budget and price                    | Budget remains disabled and UNKNOWN price never becomes FREE or zero                                               | `TripPlanPreviewRequest` contains only `DestinationId`, `Days`, and `Interests`. The tested Backend contains no active `budget`, `price`, or `free` handling in this flow, and the actual `/plan` request contains no price/budget data. No UNKNOWN price is converted to zero or FREE. | `TripPlanPreviewRequest.cs`; `fastapi-plan-request.json`; Backend search on tested SHA                                               | **Pass** |
-| V14 | Filtering counts                    | Input, accepted, excluded, and unresolved counts reconcile without double-counting                                 | Raw provider features = 20; normalized candidates = 19; excluded = 1. `20 = 19 + 1`. The excluded ID is the unmapped `Beyazıt Meydanı` record, and all 19 accepted IDs trace to raw input.                                                                                              | `geoapify-filtering-summary.txt`; raw/normalized ID reconciliation                                                                   | **Pass** |
-| V15 | Provider/service failure            | Failure is surfaced; no silent successful fixture fallback occurs                                                  | Candidate source selection is explicit. Runtime evidence shows `CANDIDATE_SOURCE_MODE=Geoapify`. Missing/unsupported mode does not silently fall back. Provider tests cover missing API key, unsupported destination, provider HTTP error, and malformed JSON.                          | `Program.cs`; `runtime-configuration.txt`; `GeoapifyClientTests.cs`                                                                  | **Pass** |
-| V16 | Planner request boundary            | `/plan.interests` contains canonical IDs only, not public/raw provider IDs                                         | `RealTripPreviewService` canonicalizes interests before creating the planner request. Actual Stage 3 request evidence contains `Interests: ["monument"]`, not public `landmark` or raw Geoapify categories.                                                                             | `RealTripPreviewService.cs`; `RealTripPreviewServiceTests.cs`; `fastapi-plan-request.json`                                           | **Pass** |
+Work executed the full Backend suite at the final implementation with the local FastAPI service running:
 
-## Execution Record
+`dotnet test Backend/Backend.slnx --configuration Release --no-restore --nologo`
 
-| Run date   | Branch / SHA                                                                            | Destination                             | Input/output artifact                                                                                           | Checks executed | Result   | Notes / issue link                                                                            |
-| ---------- | --------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------- | -------- | --------------------------------------------------------------------------------------------- |
-| 2026-09-20 | `feature/stage3-geoapify-candidate-source` / `4c958a11ddb129c4c1c7b9154950df00412314e2` | Public `istanbul` / bounded Fatih scope | Stage 3 raw Geoapify response, normalized candidates, filtering summary, planner request, runtime configuration | V01–V16         | **Pass** | PR `#23`; validation is limited to the recorded bounded Fatih evidence package and tested SHA |
+Result: **57 passed, 0 failed, 0 skipped**. The suite includes three real Backend-to-FastAPI integration tests. It does not make a live Geoapify request.
 
-## Evidence Package
+Formatting verification also passed:
 
-Card 10 was validated against the following Stage 3 artifacts:
+`dotnet format Backend/Backend.slnx --verify-no-changes --no-restore --verbosity minimal`
 
-* `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-raw-response.json`
-* `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-normalized-candidates.json`
-* `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-filtering-summary.txt`
-* `Backend/TripPlanning.Api.Tests/Evidence/Stage3/fastapi-plan-request.json`
-* `Backend/TripPlanning.Api.Tests/Evidence/Stage3/runtime-configuration.txt`
+## V01–V16 current evidence
 
-Supporting implementation/test evidence includes:
+| ID | Check | Current evidence at `3a3683f...` / `2d2e1f...` | Status |
+| --- | --- | --- | --- |
+| V01 | Public interest → canonical mapping | `RealTripPreviewServiceTests` verifies `history` → `historic_site` and `landmark` → `monument`; the current full suite passed. | **Pass — current code/test** |
+| V02 | Geoapify → canonical mapping | Current normalization tests cover the approved archaeology, memorial, monument, ruins, and exact historic-building rules and reject broader categories. | **Pass — current code/test** |
+| V03 | Accepted Fatih membership in live provider output | Current code uses the approved bounded Fatih `place_id` and strict structured membership. The recorded 20-feature sample belongs to the earlier SHA; no live response was captured at the final SHA. | **Waiting — provider rerun** |
+| V04 | Fatih membership mismatch | `GetCandidatesAsync_RejectsWrongTown` passes at the final implementation; mismatched structured membership is excluded. | **Pass — current code/test** |
+| V05 | Missing/conflicting Fatih signal | `GetCandidatesAsync_RejectsMissingMembershipSignal` passes; supporting text cannot replace required structured membership. | **Pass — current code/test** |
+| V06 | Coordinates | Current tests reject invalid coordinates and the implementation requires numeric, finite, in-range latitude/longitude. | **Pass — current code/test** |
+| V07 | Canonical object shape in current live output | The contract and current normalization tests pass, but the 19 checked-in normalized candidates were generated for the earlier SHA. | **Waiting — provider rerun** |
+| V08 | Canonical identity and deterministic deduplication | `GetCandidatesAsync_DeduplicatesCanonicalIdsAndKeepsFirstEligibleRecord` supplies two eligible records with the same `place_id`, produces one `geoapify:<place_id>` candidate, and proves deterministic first-record retention. The test passed in the 57-test run. | **Pass — current focused runtime test** |
+| V09 | Unmapped category | Current tests prove broad/unmapped categories do not receive invented canonical values. The historical sample retains the excluded square record for provenance. | **Pass — current code/test** |
+| V10 | Zero-category record | `GetCandidatesAsync_RejectsUnmappedCategories` passes and the production path excludes zero-mapped candidates. | **Pass — current code/test** |
+| V11 | Duplicate-like records with different provider IDs | The historical package contains two similarly named records with different IDs and preserves both. This observation was not repeated with a final-SHA live response. No fuzzy physical-place merge was added. | **Waiting — provider rerun** |
+| V12 | Optional metadata | The canonical request contract remains limited to the six established fields; current code does not fabricate missing optional metadata. | **Pass — current code review/test** |
+| V13 | Budget and price | Budget/price remain outside the active request and candidate contracts; no UNKNOWN-to-FREE/zero conversion exists in this flow. | **Pass — current code review** |
+| V14 | Filtering counts | Historical evidence reconciles 20 raw = 19 accepted + 1 excluded. Those counts must be regenerated from the final-SHA live response before Card 10 closes. | **Waiting — provider rerun** |
+| V15 | Provider/service failure and no fallback | Current tests cover missing key, unsupported destination, non-success HTTP, malformed JSON, invalid provider payload, and API-key log protection. `InvokeAsync_ReturnsControlled503_ForGeoapifyHttpFailure` proves the middleware emits `PLANNING_SERVICE_UNAVAILABLE` with HTTP 503. Explicit source selection still fails startup for missing/unsupported modes; there is no provider-to-fixture fallback. | **Pass — current public-error test** |
+| V16 | Planner request boundary | Current service tests prove canonical interests. The final 57-test run exercised the real local FastAPI `/plan` boundary successfully for normal, partial, and empty cases. | **Pass — current Backend/FastAPI integration** |
 
-* `GeoapifyCandidateSource.cs`
-* `GeoapifyClient.cs`
-* `RealTripPreviewService.cs`
-* `Program.cs`
-* `GeoapifyCandidateSourceTests.cs`
-* `GeoapifyClientTests.cs`
-* `RealTripPreviewServiceTests.cs`
+## Historical real-provider artifacts
 
-Backend handoff reports **53/53 tests passing** on the tested Stage 3 evidence SHA. This validation independently inspected the relevant implementation, tests, and evidence artifacts required by Card 10; the 53/53 suite count itself is recorded from the Backend handoff.
+These files are retained as the prior bounded Fatih evidence package. They must not be described as newly generated at the final implementation SHA:
 
-## Validation Findings
+- `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-raw-response.json`
+- `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-normalized-candidates.json`
+- `Backend/TripPlanning.Api.Tests/Evidence/Stage3/geoapify-filtering-summary.txt`
+- `Backend/TripPlanning.Api.Tests/Evidence/Stage3/fastapi-plan-request.json`
+- `Backend/TripPlanning.Api.Tests/Evidence/Stage3/runtime-configuration.txt`
 
-### Real-provider sample reconciliation
+Historical package result at `4c958a11...`:
 
-The recorded bounded Fatih provider sample contains:
+- Raw Geoapify features: 20
+- Normalized candidates: 19
+- Excluded records: 1 (`Beyazıt Meydanı`, unmapped `tourism.sights.square`)
+- Canonical categories observed: `historic_site`, `monument`
+- Runtime mode recorded: `CANDIDATE_SOURCE_MODE=Geoapify`
 
-* **20** raw Geoapify features
-* **19** normalized production candidates
-* **1** excluded record
+## Required final rerun
 
-The excluded record is:
+Asma or another teammate with an authorized Geoapify key must rerun the bounded Fatih flow from main at or after `2d2e1f7019fa0db97a5274c9c632eef67c54ed0c`:
 
-* **Name:** `Beyazıt Meydanı`
-* **Reason:** no approved canonical category mapping
-* **Observed category:** `tourism.sights.square`
+1. Set `CANDIDATE_SOURCE_MODE=Geoapify`, the authorized `GEOAPIFY_API_KEY`, the Geoapify base URL/timeout, and the FastAPI base URL/timeout without recording the secret.
+2. Start FastAPI and the Backend, then call public `POST /trip-plans/preview` for `istanbul` with the supported interests.
+3. Capture a sanitized raw provider response, normalized candidates, filtering summary, planner request, runtime configuration, public response, implementation SHA, and request-ID correlation.
+4. Reconcile raw = accepted + excluded and verify every accepted canonical ID traces to a raw `place_id`.
+5. Confirm V03, V07, V11, and V14 against the new artifacts. Reconfirm V08 and V15 using the final focused tests; do not replace them with weaker uniqueness-only or thrown-exception evidence.
+6. Record the exact Backend test result. The current verified count is **57/57**, not 51 or 53.
 
-No fallback category was fabricated.
-
-### Canonical categories observed
-
-The normalized candidate pool contains only:
-
-* `historic_site`
-* `monument`
-
-Three candidates contain both `historic_site` and `monument`; the remaining accepted candidates contain `historic_site`.
-
-### Identity and duplicate observations
-
-All 19 normalized candidate IDs are unique and use the frozen production format:
-
-`geoapify:<place_id>`
-
-Every normalized ID maps back to an observed raw provider `place_id`.
-
-The sample contains two records named `Fatih Sultan Mehmet Anıtı` with different Geoapify IDs and different coordinates. They remain separate candidates. This confirms that the tested flow does not merge records merely because names are similar.
-
-This result does **not** claim that the two records represent different physical places. Physical-place deduplication beyond provider identity remains outside the current release semantics.
-
-### Runtime configuration
-
-The recorded Stage 3 run used:
-
-`CANDIDATE_SOURCE_MODE=Geoapify`
-
-The Geoapify API key was supplied through the environment and is intentionally not stored in the evidence package.
-
-There is no silent fixture fallback in the validated Geoapify flow.
-
-## Scope and Limitations
-
-This Card 10 result applies to:
-
-* the tested SHA `4c958a11ddb129c4c1c7b9154950df00412314e2`
-* the recorded real Geoapify bounded Fatih sample
-* the minimum Stage 3 `istanbul` flow
-* the approved `history` / `landmark` → `historic_site` / `monument` semantics
-
-It does **not** establish:
-
-* complete Fatih or Istanbul provider coverage
-* support for Rome
-* physical-place deduplication across different provider IDs
-* availability of optional descriptions/images/ratings/prices
-* Budget behavior beyond the current disabled state
-* correctness of future provider responses that differ from this tested evidence package
-
-## Card 10 Result
-
-**Card 10 semantic validation: PASS**
-
-No mapping, membership, eligibility, canonical-shape, identity/provenance, zero-category, runtime-source, or planner-boundary blocker was found in the tested Stage 3 evidence package.
-
-The result is tied to PR `#23` and tested SHA:
-
-`4c958a11ddb129c4c1c7b9154950df00412314e2`
+Card 10 remains **WAITING** until those four real-provider rows are rerun and linked to the final implementation/main SHA. Final RC emulator/device E2E is outside this matrix and is not claimed complete.
