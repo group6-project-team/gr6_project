@@ -9,6 +9,8 @@ using System.Text;
 using TripPlanning.Api.Data;
 using TripPlanning.Api.Middleware;
 using TripPlanning.Api.Models;
+using TripPlanning.Api.Repositories.Classes;
+using TripPlanning.Api.Repositories.Interfaces;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Services.Interfaces;
 using TripPlanning.Api.Validators;
@@ -76,6 +78,8 @@ namespace TripPlanning.Api
             builder.Services.AddScoped<IPlanningService, PlanningService>();
             builder.Services.AddScoped<IRealTripPreviewService, RealTripPreviewService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ISavedTripRepository, SavedTripRepository>();
+            builder.Services.AddScoped<ISavedTripService, SavedTripService>();
 
             var candidateSourceMode =
                 builder.Configuration["CANDIDATE_SOURCE_MODE"]
