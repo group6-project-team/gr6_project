@@ -1,0 +1,182 @@
+{
+  "baseline": "edd5cab05a3c4c66b2cdcb68af9ea5d5fa589750",
+  "cases": [
+    {
+      "id": "history_positive_memorial",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights",
+        "tourism.sights.memorial"
+      ],
+      "expected_categories": [
+        "historic_site"
+      ],
+      "public_interest_truth": {
+        "history": true,
+        "landmark": false
+      },
+      "expected_eligible": true
+    },
+    {
+      "id": "landmark_positive_monument",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.memorial.monument"
+      ],
+      "expected_categories": [
+        "historic_site",
+        "monument"
+      ],
+      "public_interest_truth": {
+        "history": true,
+        "landmark": true
+      },
+      "expected_eligible": true
+    },
+    {
+      "id": "historic_building_positive",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.building",
+        "building.historic"
+      ],
+      "expected_categories": [
+        "historic_site"
+      ],
+      "expected_eligible": true
+    },
+    {
+      "id": "generic_building_negative",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.building"
+      ],
+      "expected_categories": [],
+      "expected_eligible": false,
+      "reason": "generic building alone has no approved canonical mapping"
+    },
+    {
+      "id": "square_negative",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights",
+        "tourism.sights.square"
+      ],
+      "expected_categories": [],
+      "expected_eligible": false
+    },
+    {
+      "id": "tumulus_exclusion_precedence",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.memorial",
+        "tourism.sights.memorial.monument",
+        "tourism.sights.memorial.tumulus"
+      ],
+      "expected_categories": [],
+      "expected_eligible": false,
+      "reason": "tumulus is explicit exclusion"
+    },
+    {
+      "id": "outside_fatih_negative",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Besiktas"
+      },
+      "lat": 41.04,
+      "lon": 29.0,
+      "provider_categories": [
+        "tourism.sights.memorial"
+      ],
+      "expected_categories": [
+        "historic_site"
+      ],
+      "expected_eligible": false,
+      "reason": "structured Fatih membership fails"
+    },
+    {
+      "id": "missing_membership_negative",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul"
+      },
+      "lat": 41.01,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.memorial"
+      ],
+      "expected_eligible": false,
+      "reason": "town is missing"
+    },
+    {
+      "id": "invalid_coordinate_negative",
+      "membership": {
+        "country_code": "tr",
+        "city": "Istanbul",
+        "town": "Fatih"
+      },
+      "lat": 95.0,
+      "lon": 28.96,
+      "provider_categories": [
+        "tourism.sights.memorial"
+      ],
+      "expected_eligible": false,
+      "reason": "latitude outside valid range"
+    },
+    {
+      "id": "duplicate_like_name_distinct_ids",
+      "records": [
+        {
+          "place_id": "example-a",
+          "name": "Example Monument",
+          "lat": 41.01,
+          "lon": 28.96
+        },
+        {
+          "place_id": "example-b",
+          "name": "Example Monument",
+          "lat": 41.0105,
+          "lon": 28.9605
+        }
+      ],
+      "expected_behavior": "keep as distinct canonical IDs; no fuzzy physical dedup"
+    }
+  ]
+}

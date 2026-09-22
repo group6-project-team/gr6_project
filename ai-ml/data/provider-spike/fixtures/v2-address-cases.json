@@ -1,0 +1,58 @@
+{
+  "baseline": "edd5cab05a3c4c66b2cdcb68af9ea5d5fa589750",
+  "source_field": "properties.formatted",
+  "max_length": "PENDING_P0_DECISION",
+  "cases": [
+    {
+      "id": "positive_trimmed",
+      "formatted": "  Example Historic Site, Fatih, Turkey  ",
+      "expected_address": "Example Historic Site, Fatih, Turkey",
+      "expected_state": "present"
+    },
+    {
+      "id": "negative_missing",
+      "formatted_state": "missing",
+      "expected_address": null,
+      "expected_state": "absent"
+    },
+    {
+      "id": "negative_null",
+      "formatted": null,
+      "expected_address": null,
+      "expected_state": "absent"
+    },
+    {
+      "id": "negative_blank",
+      "formatted": "   ",
+      "expected_address": null,
+      "expected_state": "absent"
+    },
+    {
+      "id": "negative_non_string",
+      "formatted": 12345,
+      "expected_address": null,
+      "expected_state": "absent"
+    },
+    {
+      "id": "negative_control_character",
+      "formatted": "Example\u0007 Address",
+      "expected_address": null,
+      "expected_state": "absent",
+      "reason": "fails approved text-safety policy"
+    },
+    {
+      "id": "negative_markup_like",
+      "formatted": "<script>alert(1)</script>",
+      "expected_address": null,
+      "expected_state": "absent",
+      "reason": "must not be exposed verbatim as trusted display text"
+    },
+    {
+      "id": "negative_oversized",
+      "input_pattern": "A repeated MAX_ADDRESS_LENGTH + 1 times",
+      "expected_address": null,
+      "expected_state": "absent",
+      "reason": "exceeds approved maximum; numeric bound pending P0 decision"
+    }
+  ]
+}
