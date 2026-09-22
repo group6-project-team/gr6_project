@@ -179,3 +179,35 @@ It does not finalize:
 - snapshot DTO implementation
 - Flutter rendering behavior
 - any blocked P0/global product decision
+## Reproducibility
+
+Run:
+
+`powershell
+python ai-ml/data/provider-spike/analyze_v2_provider_evidence.py
+`
+
+The script reads only the committed Stage 3 raw and normalized snapshots. It does not call Geoapify and does not require credentials.
+
+Expected baseline results:
+
+- raw records: 20
+- normalized candidates: 19
+- membership failures: 0
+- coordinate failures: 0
+- raw-to-normalized mismatches: 0
+
+## Normalized field inventory
+
+All 19 accepted candidates contain the current six canonical PlaceCandidate fields:
+
+| Field | Observed |
+|---|---:|
+| Id | 19/19 |
+| DestinationId | 19/19 |
+| Name | 19/19 |
+| CategoryIds | 19/19 |
+| Latitude | 19/19 |
+| Longitude | 19/19 |
+
+No optional address, rating, opening-hours, price, website, wiki/media, or raw provider blob is present in the normalized snapshot at this baseline.

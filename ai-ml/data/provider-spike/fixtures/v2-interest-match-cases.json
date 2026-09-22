@@ -1,0 +1,123 @@
+{
+  "baseline": "edd5cab05a3c4c66b2cdcb68af9ea5d5fa589750",
+  "reason_code": "INTEREST_MATCH",
+  "positive_finalization": "PENDING_AHMAD_FACTOR_DEFINITION",
+  "cases": [
+    {
+      "id": "no_interests",
+      "requested_public_interests": [],
+      "canonical_interests": [],
+      "candidate_categories": [
+        "historic_site"
+      ],
+      "planner_factor_used": false,
+      "expected_reason": false
+    },
+    {
+      "id": "missing_candidate_categories",
+      "requested_public_interests": [
+        "history"
+      ],
+      "canonical_interests": [
+        "historic_site"
+      ],
+      "candidate_categories": [],
+      "planner_factor_used": false,
+      "expected_reason": false
+    },
+    {
+      "id": "history_category_mismatch",
+      "requested_public_interests": [
+        "history"
+      ],
+      "canonical_interests": [
+        "historic_site"
+      ],
+      "candidate_categories": [
+        "monument"
+      ],
+      "planner_factor_used": false,
+      "expected_reason": false
+    },
+    {
+      "id": "unrequested_history_must_not_be_claimed",
+      "requested_public_interests": [
+        "landmark"
+      ],
+      "canonical_interests": [
+        "monument"
+      ],
+      "candidate_categories": [
+        "historic_site",
+        "monument"
+      ],
+      "planner_factor_used": true,
+      "allowed_match": [
+        "landmark"
+      ],
+      "forbidden_match": [
+        "history"
+      ]
+    },
+    {
+      "id": "overlap_but_factor_not_used",
+      "requested_public_interests": [
+        "history"
+      ],
+      "canonical_interests": [
+        "historic_site"
+      ],
+      "candidate_categories": [
+        "historic_site"
+      ],
+      "planner_factor_used": false,
+      "expected_reason": false
+    },
+    {
+      "id": "history_positive_conditional",
+      "requested_public_interests": [
+        "history"
+      ],
+      "canonical_interests": [
+        "historic_site"
+      ],
+      "candidate_categories": [
+        "historic_site"
+      ],
+      "planner_factor_used": true,
+      "expected_reason": "CONDITIONAL_PENDING_AHMAD_FACTOR_DEFINITION"
+    },
+    {
+      "id": "landmark_positive_conditional",
+      "requested_public_interests": [
+        "landmark"
+      ],
+      "canonical_interests": [
+        "monument"
+      ],
+      "candidate_categories": [
+        "historic_site",
+        "monument"
+      ],
+      "planner_factor_used": true,
+      "expected_reason": "CONDITIONAL_PENDING_AHMAD_FACTOR_DEFINITION"
+    },
+    {
+      "id": "multi_interest_positive_conditional",
+      "requested_public_interests": [
+        "history",
+        "landmark"
+      ],
+      "canonical_interests": [
+        "historic_site",
+        "monument"
+      ],
+      "candidate_categories": [
+        "historic_site",
+        "monument"
+      ],
+      "planner_factor_used": true,
+      "expected_reason": "CONDITIONAL_PENDING_AHMAD_FACTOR_DEFINITION"
+    }
+  ]
+}
