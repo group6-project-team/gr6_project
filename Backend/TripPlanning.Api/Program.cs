@@ -1,7 +1,14 @@
 
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using TripPlanning.Api.Data;
 using TripPlanning.Api.Middleware;
+using TripPlanning.Api.Models;
 using TripPlanning.Api.Services.Classes;
 using TripPlanning.Api.Services.Interfaces;
 using TripPlanning.Api.Validators;
@@ -18,6 +25,48 @@ namespace TripPlanning.Api
 
             builder.Services.AddControllers();
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme =
+                        JwtBearerDefaults.AuthenticationScheme;
+
+                    options.DefaultChallengeScheme =
+                        JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    var jwtKey = builder.Configuration["Jwt:Key"];
+                    var issuer = builder.Configuration["Jwt:Issuer"];
+                    var audience = builder.Configuration["Jwt:Audience"];
+
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+
+                            ValidIssuer = issuer,
+                            ValidAudience = audience,
+
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(
+                                    Encoding.UTF8.GetBytes(jwtKey!))
+                        };
+                });
+
             builder.Services.AddFluentValidationAutoValidation();
 
             builder.Services.AddValidatorsFromAssemblyContaining<TripPlanPreviewRequestValidator>();
@@ -26,6 +75,8 @@ namespace TripPlanning.Api
             builder.Services.AddScoped<IPlanningResultValidator, PlanningResultValidator>();
             builder.Services.AddScoped<IPlanningService, PlanningService>();
             builder.Services.AddScoped<IRealTripPreviewService, RealTripPreviewService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
             var candidateSourceMode =
                 builder.Configuration["CANDIDATE_SOURCE_MODE"]
                 ?? builder.Configuration["CandidateSource:Mode"];
@@ -114,8 +165,8 @@ namespace TripPlanning.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
