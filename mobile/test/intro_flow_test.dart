@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
+
+import 'support/fake_auth_api.dart';
+import 'support/fake_saved_trips_api.dart';
 import 'support/mock_trip_api.dart';
 
 void main() {
-  testWidgets('splash fades into onboarding and skip opens the planner', (
+  testWidgets('splash fades into onboarding and skip opens the planner as guest', (
     tester,
   ) async {
     await tester.pumpWidget(
       TripPlannerApp(
         api: MockTripApi(delay: Duration.zero),
+        authApi: FakeAuthApi(),
+        savedTripsApi: FakeSavedTripsApi(),
         splashDuration: const Duration(milliseconds: 40),
       ),
     );
@@ -19,7 +24,10 @@ void main() {
     expect(find.textContaining("It's a story."), findsOneWidget);
 
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 40));
+    await tester.pump(const Duration(milliseconds: 20));
+    expect(find.byKey(const Key('splash-screen')), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 20));
     await tester.pumpAndSettle();
 
     expect(find.text('Discover\nNew Places'), findsOneWidget);
