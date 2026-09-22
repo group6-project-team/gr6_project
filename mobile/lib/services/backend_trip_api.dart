@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 import '../config/app_config.dart';
 import '../data/stage1_catalog.dart';
@@ -21,7 +22,11 @@ class BackendTripApi implements TripApi {
     required this.baseUrl,
     http.Client? client,
     this.timeout = AppConfig.requestTimeout,
-  }) : client = client ?? http.Client();
+  }) : client = client ?? _clientWithConnectionTimeout(timeout);
+
+  static http.Client _clientWithConnectionTimeout(Duration timeout) {
+    return IOClient(HttpClient()..connectionTimeout = timeout);
+  }
 
   final String baseUrl;
   final http.Client client;

@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
+import 'support/fake_auth_api.dart';
+import 'support/fake_saved_trips_api.dart';
 import 'support/mock_trip_api.dart';
 
 Finder generateButton() => find.byKey(const Key('generate-button'));
 
 Future<void> _openApp(WidgetTester tester, MockTripApi api) async {
-  await tester.pumpWidget(TripPlannerApp(api: api, skipIntro: true));
+  await tester.pumpWidget(
+    TripPlannerApp(
+      api: api,
+      authApi: FakeAuthApi(),
+      savedTripsApi: FakeSavedTripsApi(),
+      skipIntro: true,
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
