@@ -4,6 +4,7 @@ using TripPlanning.Api.DTOs.Responses;
 using TripPlanning.Api.Models;
 using TripPlanning.Api.Repositories.Interfaces;
 using TripPlanning.Api.Services.Interfaces;
+using TripPlanning.Api.Exceptions;
 
 namespace TripPlanning.Api.Services.Classes
 {
@@ -29,16 +30,20 @@ namespace TripPlanning.Api.Services.Classes
                 CreatedAt = DateTime.UtcNow
             };
 
-            await _savedTripRepository.AddAsync(savedTrip);
-            await _savedTripRepository.SaveChangesAsync();
+            var added = await _savedTripRepository.TryAddWithinQuotaAsync(
+                savedTrip,
+                50);
+
+            if (!added)
+            {
+                throw new SavedTripQuotaExceededException();
+            }
 
             return MapToResponse(savedTrip);
         }
 
-        public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int page, int pageSize)
+        public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int skip, int pageSize)
         {
-            var skip = (page - 1) * pageSize;
-
             var savedTrips =
                 await _savedTripRepository.GetByUserIdAsync(
                     userId,
