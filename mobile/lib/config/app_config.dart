@@ -9,6 +9,7 @@ static const bool useMockApi = false;
 static const String backendBaseUrl =
 'https://gr6-tripplanning-api.runasp.net/';
 
-static const Duration requestTimeout = Duration(seconds: 15);
+/// FastAPI can be cold on the first call of the day; 15s was too short.
+static const Duration requestTimeout = Duration(seconds: 30);
 }
 

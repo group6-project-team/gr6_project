@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -139,7 +140,9 @@ class _TripFormScreenState extends State<TripFormScreen> {
     });
 
     try {
-      final plan = await widget.api.planTrip(request);
+      final plan = await widget.api.planTrip(request).timeout(
+        AppConfig.requestTimeout + const Duration(seconds: 3),
+      );
       if (!mounted || seq != _requestSeq) {
         return;
       }
@@ -155,10 +158,15 @@ class _TripFormScreenState extends State<TripFormScreen> {
       }
       final mapped = error is TripApiException
           ? error
-          : const TripApiException(
-              code: TripApiException.unexpected,
-              message: 'Unexpected local failure.',
-            );
+          : error is TimeoutException
+              ? const TripApiException(
+                  code: TripApiException.networkError,
+                  message: 'The request timed out.',
+                )
+              : const TripApiException(
+                  code: TripApiException.unexpected,
+                  message: 'Unexpected local failure.',
+                );
       setState(() {
         _error = mapped;
         _status = _FlowStatus.error;
@@ -167,6 +175,10 @@ class _TripFormScreenState extends State<TripFormScreen> {
       if (mapped.code == TripApiException.invalidDestination ||
           mapped.code == TripApiException.invalidInterest) {
         await _loadOptions();
+      }
+    } finally {
+      if (mounted && seq == _requestSeq && _submitting) {
+        setState(() => _submitting = false);
       }
     }
   }
@@ -191,7 +203,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
 
   VoidCallback? get _footerAction {
     if (_submitting) {
-      return _step == 2 ? _onGenerate : null;
+      return null;
     }
     if (_step == 0) {
       return _options == null ? null : _nextFromDestination;
@@ -313,13 +325,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                     backgroundColor: AppTheme.introTeal,
                     shape: const StadiumBorder(),
                   ),
-                  child: _submitting
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                        )
-                      : Text(_step == 2 ? 'Generate' : 'Next'),
+                  child: Text(_submitting ? 'Generating…' : (_step == 2 ? 'Generate' : 'Next')),
                 ),
               ),
             ),
@@ -708,7 +714,7 @@ class _InterestsStep extends StatelessWidget {
         if (status == _FlowStatus.loading)
           const _MessageCard(
             title: 'Creating itinerary…',
-            body: 'Please wait. Extra Generate taps are ignored while this is running.',
+            body: 'Calling the planning server. The first request of the day can take up to 30 seconds.',
           ),
         if (status == _FlowStatus.error && error != null)
           _MessageCard(

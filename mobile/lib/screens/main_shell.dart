@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
 
 import '../data/stage1_catalog.dart';
+import '../models/auth_session.dart';
+import '../models/saved_trip.dart';
+import '../models/saved_trips_api_exception.dart';
 import '../models/trip_plan.dart';
+import '../services/auth_api.dart';
+import '../services/auth_session_store.dart';
+import '../services/saved_trips_api.dart';
 import '../services/trip_api.dart';
+import 'saved_trip_detail_screen.dart';
 import '../theme/app_theme.dart';
 import '../theme/destination_art.dart';
 import '../widgets/blended_scene.dart';
+import 'account_screen.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
+import 'saved_trips_screen.dart';
+import 'signup_screen.dart';
 import 'trip_form_screen.dart';
 
 class MainShell extends StatefulWidget {
-  const MainShell({super.key, required this.api, this.initialTab = 0});
+  const MainShell({
+    super.key,
+    required this.api,
+    required this.authApi,
+    required this.savedTripsApi,
+    required this.sessionStore,
+    this.initialTab = 0,
+    this.initialSession,
+  });
 
   final TripApi api;
+  final AuthApi authApi;
+  final SavedTripsApi savedTripsApi;
+  final AuthSessionStore sessionStore;
   final int initialTab;
+  final AuthSession? initialSession;
 
   @override
   State<MainShell> createState() => _MainShellState();
@@ -23,11 +46,207 @@ class _MainShellState extends State<MainShell> {
   late int _tab;
   String? _presetDestination;
   TripPlan? _plan;
+  AuthSession? _session;
+  List<SavedTrip> _savedTrips = const [];
+  bool _savedLoading = false;
+  bool _saving = false;
+  String? _savedError;
+  int _plannerEpoch = 0;
 
   @override
   void initState() {
     super.initState();
     _tab = widget.initialTab;
+    _session = widget.initialSession;
+    _restoreSession();
+  }
+
+  Future<void> _restoreSession() async {
+    if (_session != null) {
+      await _loadSavedTrips();
+      return;
+    }
+    final stored = await widget.sessionStore.read();
+    if (!mounted || stored == null) {
+      return;
+    }
+    setState(() => _session = stored);
+    await _loadSavedTrips();
+  }
+
+  Future<void> _keepSession(AuthSession session) async {
+    setState(() => _session = session);
+    await widget.sessionStore.write(session);
+    await _loadSavedTrips();
+  }
+
+  String? get _token => _session?.token;
+
+  Future<void> _loadSavedTrips() async {
+    final token = _token;
+    if (token == null || token.isEmpty) {
+      setState(() {
+        _savedTrips = const [];
+        _savedError = null;
+        _savedLoading = false;
+      });
+      return;
+    }
+    setState(() {
+      _savedLoading = true;
+      _savedError = null;
+    });
+    try {
+      final trips = await widget.savedTripsApi.listTrips(token: token);
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _savedTrips = trips;
+        _savedLoading = false;
+      });
+    } on SavedTripsApiException catch (error) {
+      if (!mounted) {
+        return;
+      }
+      if (error.code == SavedTripsApiException.unauthorized) {
+        await _forceSignOut();
+        return;
+      }
+      setState(() {
+        _savedLoading = false;
+        _savedError = error.userMessage;
+      });
+    } catch (_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _savedLoading = false;
+        _savedError = 'Could not load saved trips. Please try again.';
+      });
+    }
+  }
+
+  void _resetLocalWorkspace() {
+    _plan = null;
+    _presetDestination = null;
+    _saving = false;
+    _plannerEpoch += 1;
+  }
+
+  Future<void> _forceSignOut() async {
+    setState(() {
+      _session = null;
+      _savedTrips = const [];
+      _savedLoading = false;
+      _savedError = null;
+      _tab = 0;
+      _resetLocalWorkspace();
+    });
+    await widget.sessionStore.clear();
+  }
+
+  Future<void> _saveCurrentPlan() async {
+    final plan = _plan;
+    final token = _token;
+    if (plan == null) {
+      return;
+    }
+    if (token == null || token.isEmpty) {
+      await _openLogin();
+      return;
+    }
+    if (_saving) {
+      return;
+    }
+    setState(() => _saving = true);
+    try {
+      await widget.savedTripsApi.saveTrip(token: token, plan: plan);
+      if (!mounted) {
+        return;
+      }
+      setState(() => _saving = false);
+      await _loadSavedTrips();
+      if (!mounted) {
+        return;
+      }
+      setState(() => _tab = 3);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Trip saved to your account.')),
+      );
+    } on SavedTripsApiException catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _saving = false);
+      if (error.code == SavedTripsApiException.unauthorized) {
+        await _forceSignOut();
+        await _openLogin();
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.userMessage)),
+      );
+    } catch (_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not save this trip. Please try again.')),
+      );
+    }
+  }
+
+  Future<void> _openSavedTrip(SavedTrip trip) async {
+    final token = _token;
+    if (token == null) {
+      return;
+    }
+    SavedTrip detailed = trip;
+    if (trip.trip == null) {
+      try {
+        detailed = await widget.savedTripsApi.getTrip(token: token, id: trip.id);
+      } on SavedTripsApiException catch (error) {
+        if (!mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.userMessage)),
+        );
+        return;
+      }
+    }
+    if (!mounted) {
+      return;
+    }
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute(
+        builder: (_) => SavedTripDetailScreen(
+          trip: detailed,
+          onDelete: () => _deleteSavedTrip(detailed.id),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _deleteSavedTrip(String id) async {
+    final token = _token;
+    if (token == null) {
+      return;
+    }
+    try {
+      await widget.savedTripsApi.deleteTrip(token: token, id: id);
+      await _loadSavedTrips();
+    } on SavedTripsApiException catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.userMessage)),
+      );
+    }
   }
 
   void _openPlan({String? destinationId}) {
@@ -35,6 +254,58 @@ class _MainShellState extends State<MainShell> {
       _presetDestination = destinationId;
       _tab = 1;
     });
+  }
+
+  Future<void> _openLogin() async {
+    final session = await Navigator.of(context).push<AuthSession>(
+      MaterialPageRoute(builder: (_) => LoginScreen(authApi: widget.authApi)),
+    );
+    if (session != null && mounted) {
+      await _keepSession(session);
+    }
+  }
+
+  Future<void> _openSignup() async {
+    final session = await Navigator.of(context).push<AuthSession>(
+      MaterialPageRoute(builder: (_) => SignupScreen(authApi: widget.authApi)),
+    );
+    if (session != null && mounted) {
+      await _keepSession(session);
+    }
+  }
+
+  Future<void> _logout() async {
+    final token = _session?.token;
+    setState(() {
+      _session = null;
+      _savedTrips = const [];
+      _savedError = null;
+      _tab = 0;
+      _resetLocalWorkspace();
+    });
+    await widget.sessionStore.clear();
+    if (token != null && token.isNotEmpty) {
+      try {
+        await widget.authApi.logout(token);
+      } catch (_) {
+        // Local JWT is already deleted, matching the access-token-only contract.
+      }
+    }
+  }
+
+  Future<void> _openAccount() async {
+    if (_session == null) {
+      await _openLogin();
+      return;
+    }
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute(
+        builder: (_) => AccountScreen(
+          session: _session!,
+          onLogout: _logout,
+        ),
+      ),
+    );
   }
 
   @override
@@ -47,17 +318,36 @@ class _MainShellState extends State<MainShell> {
           HomeScreen(
             onStartPlanning: () => _openPlan(),
             onDestinationSelected: (id) => _openPlan(destinationId: id),
+            greetingName: _session?.greetingName,
+            onAccountTap: _openAccount,
           ),
           TripFormScreen(
+            key: ValueKey('planner-$_plannerEpoch'),
             api: widget.api,
             presetDestinationId: _presetDestination,
             onPlanGenerated: (plan) => setState(() => _plan = plan),
           ),
           _ItineraryTab(
             plan: _plan,
+            isSignedIn: _session != null,
             onPlanTrip: () => _openPlan(),
+            onSaveTrip: _saveCurrentPlan,
           ),
-          const _WishlistLounge(),
+          SavedTripsScreen(
+            session: _session,
+            trips: _savedTrips,
+            loading: _savedLoading,
+            error: _savedError,
+            draftPlan: _plan,
+            saving: _saving,
+            onLogin: _openLogin,
+            onSignup: _openSignup,
+            onAccount: _openAccount,
+            onPlanTrip: () => _openPlan(),
+            onRetry: _loadSavedTrips,
+            onSaveDraft: _saveCurrentPlan,
+            onOpenTrip: _openSavedTrip,
+          ),
           const _VisualLounge(
             title: 'Travel Assistant',
             subtitle: 'Ask for ideas, packing notes, and little local secrets.',
@@ -283,105 +573,18 @@ class _VisualLounge extends StatelessWidget {
   }
 }
 
-class _WishlistLounge extends StatelessWidget {
-  const _WishlistLounge();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const Opacity(
-          opacity: 0.3,
-          child: Image(
-            image: AssetImage('assets/intro/login_sky.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        const Opacity(
-          opacity: 0.28,
-          child: Image(
-            image: AssetImage(DestinationArt.floral),
-            fit: BoxFit.cover,
-          ),
-        ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 18, 20, 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'My Wishlist',
-                  style: TextStyle(
-                    fontFamily: 'PlayfairDisplay',
-                    fontSize: 32,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.brandInk,
-                  ),
-                ),
-                const Text(
-                  'Destinations waiting for a story.',
-                  style: TextStyle(
-                    fontFamily: 'PlayfairDisplay',
-                    fontStyle: FontStyle.italic,
-                    color: AppTheme.brandSoft,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 28),
-                Expanded(
-                  child: Center(
-                    child: SizedBox(
-                      height: 360,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Positioned(
-                            left: 8,
-                            top: 28,
-                            child: PolaroidPhoto(
-                              image: DestinationArt.rome,
-                              caption: 'Rome',
-                              width: 138,
-                              angle: -0.12,
-                            ),
-                          ),
-                          Positioned(
-                            right: 4,
-                            top: 8,
-                            child: PolaroidPhoto(
-                              image: DestinationArt.aqaba,
-                              caption: 'Aqaba',
-                              width: 138,
-                              angle: 0.14,
-                            ),
-                          ),
-                          PolaroidPhoto(
-                            image: DestinationArt.istanbul,
-                            caption: 'Istanbul',
-                            width: 168,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _ItineraryTab extends StatelessWidget {
-  const _ItineraryTab({required this.plan, required this.onPlanTrip});
+  const _ItineraryTab({
+    required this.plan,
+    required this.isSignedIn,
+    required this.onPlanTrip,
+    required this.onSaveTrip,
+  });
 
   final TripPlan? plan;
+  final bool isSignedIn;
   final VoidCallback onPlanTrip;
+  final VoidCallback onSaveTrip;
 
   @override
   Widget build(BuildContext context) {
@@ -545,8 +748,14 @@ class _ItineraryTab extends StatelessWidget {
                         : day.places.take(3).map((place) => place.name).join(', '),
                   ),
                 ),
-              ),
             ),
+          ),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            key: const Key('itinerary-save'),
+            onPressed: onSaveTrip,
+            child: Text(isSignedIn ? 'Save to account' : 'Log in to save'),
+          ),
         ],
       ),
     );
