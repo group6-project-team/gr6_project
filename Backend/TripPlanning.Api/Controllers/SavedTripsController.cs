@@ -55,14 +55,28 @@ namespace TripPlanning.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+      [FromQuery] int page = 1,
+      [FromQuery] int pageSize = 20)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized();
 
-            var result = await _savedTripService.GetAllAsync(userId);
+            if (page < 1)
+                page = 1;
+
+            if (pageSize < 1)
+                pageSize = 20;
+
+            if (pageSize > 50)
+                pageSize = 50;
+
+            var result = await _savedTripService.GetAllAsync(
+                userId,
+                page,
+                pageSize);
 
             return Ok(result);
         }

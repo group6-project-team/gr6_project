@@ -35,10 +35,15 @@ namespace TripPlanning.Api.Services.Classes
             return MapToResponse(savedTrip);
         }
 
-        public async Task<List<SavedTripResponse>> GetAllAsync(string userId)
+        public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int page, int pageSize)
         {
+            var skip = (page - 1) * pageSize;
+
             var savedTrips =
-                await _savedTripRepository.GetByUserIdAsync(userId);
+                await _savedTripRepository.GetByUserIdAsync(
+                    userId,
+                    skip,
+                    pageSize);
 
             return savedTrips
                 .Select(MapToResponse)

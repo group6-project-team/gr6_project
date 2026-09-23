@@ -20,12 +20,14 @@ namespace TripPlanning.Api.Repositories.Classes
             return savedTrip;
         }
 
-        public async Task<List<SavedTrip>> GetByUserIdAsync(string userId)
+        public async Task<List<SavedTrip>> GetByUserIdAsync(string userId, int skip, int take)
         {
             return await _context.SavedTrips
                 .AsNoTracking()
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedAt)
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
         }
 
