@@ -29,15 +29,19 @@ namespace TripPlanning.Api.Services.Classes
                 CreatedAt = DateTime.UtcNow
             };
 
-            await _savedTripRepository.AddAsync(savedTrip);
-            await _savedTripRepository.SaveChangesAsync();
+            if (!await _savedTripRepository.TryAddWithinQuotaAsync(savedTrip, 50))
+                throw new SavedTripQuotaExceededException();
 
             return MapToResponse(savedTrip);
         }
 
         public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int page, int pageSize)
         {
-            var skip = (page - 1) * pageSize;
+            var offset = ((long)page - 1) * pageSize;
+            if (page < 1 || pageSize < 1 || pageSize > 50 || offset > int.MaxValue)
+                throw new ArgumentOutOfRangeException(nameof(page));
+
+            var skip = (int)offset;
 
             var savedTrips =
                 await _savedTripRepository.GetByUserIdAsync(

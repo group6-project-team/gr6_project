@@ -4,6 +4,8 @@ using System.Security.Claims;
 using System.Text.Json;
 using TripPlanning.Api.DTOs.Requests;
 using TripPlanning.Api.Services.Interfaces;
+using TripPlanning.Api.Services.Classes;
+using TripPlanning.Api.DTOs.Responses;
 
 namespace TripPlanning.Api.Controllers
 {
@@ -46,7 +48,15 @@ namespace TripPlanning.Api.Controllers
                 });
             }
 
-            var result = await _savedTripService.SaveAsync(userId, request);
+            SavedTripResponse result;
+            try
+            {
+                result = await _savedTripService.SaveAsync(userId, request);
+            }
+            catch (SavedTripQuotaExceededException)
+            {
+                return Conflict(new { message = "Saved trips limit reached (50)." });
+            }
 
             return CreatedAtAction(
                 nameof(GetById),
@@ -64,14 +74,8 @@ namespace TripPlanning.Api.Controllers
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized();
 
-            if (page < 1)
-                page = 1;
-
-            if (pageSize < 1)
-                pageSize = 20;
-
-            if (pageSize > 50)
-                pageSize = 50;
+            if (page < 1 || pageSize < 1 || pageSize > 50 || ((long)page - 1) * pageSize > int.MaxValue)
+                return BadRequest(new { message = "Invalid pagination parameters." });
 
             var result = await _savedTripService.GetAllAsync(
                 userId,
