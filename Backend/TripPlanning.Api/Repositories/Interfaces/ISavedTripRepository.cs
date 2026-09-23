@@ -6,8 +6,7 @@ namespace TripPlanning.Api.Repositories.Interfaces
     {
         Task<SavedTrip> AddAsync(SavedTrip savedTrip);
 
-        Task<List<SavedTrip>> GetByUserIdAsync(string userId);
-
+     Task<List<SavedTrip>> GetByUserIdAsync(string userId, int skip, int take);
         Task<SavedTrip?> GetByIdAndUserIdAsync(int id, string userId);
 
         void Remove(SavedTrip savedTrip);
