@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text.Json;
 using TripPlanning.Api.DTOs.Requests;
 using TripPlanning.Api.Services.Interfaces;
 
@@ -18,6 +19,7 @@ namespace TripPlanning.Api.Controllers
             _savedTripService = savedTripService;
         }
 
+        [RequestSizeLimit(1_048_576)]
         [HttpPost]
         public async Task<IActionResult> SaveTrip(SaveTripRequest request)
         {
@@ -25,6 +27,24 @@ namespace TripPlanning.Api.Controllers
 
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized();
+
+            if (request.Trip.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null)
+            {
+                return BadRequest(new
+                {
+                    message = "Trip snapshot is required."
+                });
+            }
+
+            var tripJson = request.Trip.GetRawText();
+
+            if (System.Text.Encoding.UTF8.GetByteCount(tripJson) > 1_048_576)
+            {
+                return BadRequest(new
+                {
+                    message = "Trip snapshot is too large."
+                });
+            }
 
             var result = await _savedTripService.SaveAsync(userId, request);
 
