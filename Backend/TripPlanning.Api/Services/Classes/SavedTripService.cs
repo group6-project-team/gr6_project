@@ -4,6 +4,7 @@ using TripPlanning.Api.DTOs.Responses;
 using TripPlanning.Api.Models;
 using TripPlanning.Api.Repositories.Interfaces;
 using TripPlanning.Api.Services.Interfaces;
+using TripPlanning.Api.Exceptions;
 
 namespace TripPlanning.Api.Services.Classes
 {
@@ -29,20 +30,20 @@ namespace TripPlanning.Api.Services.Classes
                 CreatedAt = DateTime.UtcNow
             };
 
-            if (!await _savedTripRepository.TryAddWithinQuotaAsync(savedTrip, 50))
+            var added = await _savedTripRepository.TryAddWithinQuotaAsync(
+                savedTrip,
+                50);
+
+            if (!added)
+            {
                 throw new SavedTripQuotaExceededException();
+            }
 
             return MapToResponse(savedTrip);
         }
 
-        public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int page, int pageSize)
+        public async Task<List<SavedTripResponse>> GetAllAsync(string userId, int skip, int pageSize)
         {
-            var offset = ((long)page - 1) * pageSize;
-            if (page < 1 || pageSize < 1 || pageSize > 50 || offset > int.MaxValue)
-                throw new ArgumentOutOfRangeException(nameof(page));
-
-            var skip = (int)offset;
-
             var savedTrips =
                 await _savedTripRepository.GetByUserIdAsync(
                     userId,

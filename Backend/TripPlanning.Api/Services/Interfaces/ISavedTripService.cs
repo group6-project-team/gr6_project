@@ -7,7 +7,7 @@ namespace TripPlanning.Api.Services.Interfaces
     {
         Task<SavedTripResponse> SaveAsync(string userId, SaveTripRequest request);
 
-        Task<List<SavedTripResponse>> GetAllAsync( string userId, int page, int pageSize);
+        Task<List<SavedTripResponse>> GetAllAsync(string userId, int skip, int pageSize);
 
         Task<SavedTripResponse?> GetByIdAsync(int id, string userId);
 

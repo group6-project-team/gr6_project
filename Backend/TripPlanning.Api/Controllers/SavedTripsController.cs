@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 using TripPlanning.Api.DTOs.Requests;
+using TripPlanning.Api.Exceptions;
 using TripPlanning.Api.Services.Interfaces;
-using TripPlanning.Api.Services.Classes;
-using TripPlanning.Api.DTOs.Responses;
 
 namespace TripPlanning.Api.Controllers
 {
@@ -40,7 +40,7 @@ namespace TripPlanning.Api.Controllers
 
             var tripJson = request.Trip.GetRawText();
 
-            if (System.Text.Encoding.UTF8.GetByteCount(tripJson) > 1_048_576)
+            if (Encoding.UTF8.GetByteCount(tripJson) > 1_048_576)
             {
                 return BadRequest(new
                 {
@@ -48,20 +48,22 @@ namespace TripPlanning.Api.Controllers
                 });
             }
 
-            SavedTripResponse result;
             try
             {
-                result = await _savedTripService.SaveAsync(userId, request);
-            }
-            catch (SavedTripQuotaExceededException)
-            {
-                return Conflict(new { message = "Saved trips limit reached (50)." });
-            }
+                var result = await _savedTripService.SaveAsync(userId, request);
 
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = result.Id },
-                result);
+                return CreatedAtAction(
+                    nameof(GetById),
+                    new { id = result.Id },
+                    result);
+            }
+            catch (SavedTripQuotaExceededException ex)
+            {
+                return Conflict(new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpGet]
@@ -74,12 +76,37 @@ namespace TripPlanning.Api.Controllers
             if (string.IsNullOrWhiteSpace(userId))
                 return Unauthorized();
 
-            if (page < 1 || pageSize < 1 || pageSize > 50 || ((long)page - 1) * pageSize > int.MaxValue)
-                return BadRequest(new { message = "Invalid pagination parameters." });
+            if (page < 1)
+            {
+                return BadRequest(new
+                {
+                    message = "Page must be greater than or equal to 1."
+                });
+            }
+
+            if (pageSize < 1 || pageSize > 50)
+            {
+                return BadRequest(new
+                {
+                    message = "Page size must be between 1 and 50."
+                });
+            }
+
+            var offset = ((long)page - 1) * pageSize;
+
+            if (offset > int.MaxValue)
+            {
+                return BadRequest(new
+                {
+                    message = "Page value is too large."
+                });
+            }
+
+            var skip = (int)offset;
 
             var result = await _savedTripService.GetAllAsync(
                 userId,
-                page,
+                skip,
                 pageSize);
 
             return Ok(result);
