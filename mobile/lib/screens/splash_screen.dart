@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../services/auth_api.dart';
+import '../services/auth_session_store.dart';
+import '../services/saved_trips_api.dart';
 import '../services/trip_api.dart';
 import '../widgets/paper_plane_mark.dart';
 import 'onboarding_screen.dart';
@@ -11,10 +14,16 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({
     super.key,
     required this.api,
+    required this.authApi,
+    required this.savedTripsApi,
+    required this.sessionStore,
     this.displayDuration = const Duration(milliseconds: 7000),
   });
 
   final TripApi api;
+  final AuthApi authApi;
+  final SavedTripsApi savedTripsApi;
+  final AuthSessionStore sessionStore;
   final Duration displayDuration;
 
   @override
@@ -34,10 +43,14 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(milliseconds: 900),
     )..forward();
-    _timer = Timer(widget.displayDuration, _openOnboarding);
+    // Count display time only after the first Flutter frame is on screen.
+    // Starting the timer in initState skips this splash on slow debug launches:
+    // the native Android splash covers the widget, the 7s timer fires, and
+    // onboarding is the first screen the user actually sees.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       precacheImage(const AssetImage('assets/intro/splash_amalfi.png'), context);
+      _timer = Timer(widget.displayDuration, _openOnboarding);
     });
   }
 
@@ -47,7 +60,12 @@ class _SplashScreenState extends State<SplashScreen>
     await Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
         transitionDuration: const Duration(milliseconds: 700),
-        pageBuilder: (_, _, _) => OnboardingScreen(api: widget.api),
+        pageBuilder: (_, _, _) => OnboardingScreen(
+          api: widget.api,
+          authApi: widget.authApi,
+          savedTripsApi: widget.savedTripsApi,
+          sessionStore: widget.sessionStore,
+        ),
         transitionsBuilder: (_, animation, _, child) {
           return FadeTransition(opacity: animation, child: child);
         },

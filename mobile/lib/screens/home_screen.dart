@@ -11,10 +11,14 @@ class HomeScreen extends StatelessWidget {
     super.key,
     required this.onStartPlanning,
     required this.onDestinationSelected,
+    this.greetingName,
+    this.onAccountTap,
   });
 
   final VoidCallback onStartPlanning;
   final ValueChanged<String> onDestinationSelected;
+  final String? greetingName;
+  final VoidCallback? onAccountTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +50,34 @@ class HomeScreen extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 28),
                 children: [
-                  const Text(
-                    'Hi there',
-                    style: TextStyle(
-                      fontFamily: 'PlayfairDisplay',
-                      fontSize: 36,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.brandInk,
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          greetingName == null || greetingName!.isEmpty
+                              ? 'Hi there'
+                              : 'Hi, $greetingName',
+                          style: const TextStyle(
+                            fontFamily: 'PlayfairDisplay',
+                            fontSize: 36,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w600,
+                            color: AppTheme.brandInk,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        key: const Key('home-account'),
+                        onPressed: onAccountTap,
+                        icon: Icon(
+                          greetingName == null
+                              ? Icons.account_circle_outlined
+                              : Icons.account_circle,
+                        ),
+                        color: AppTheme.introTeal,
+                      ),
+                    ],
                   ),
                   const Text(
                     'Plan your perfect trip',

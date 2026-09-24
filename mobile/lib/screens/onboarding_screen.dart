@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../services/auth_api.dart';
+import '../services/auth_session_store.dart';
+import '../services/saved_trips_api.dart';
 import '../services/trip_api.dart';
 import '../theme/app_theme.dart';
 import '../widgets/onboarding_wave_clipper.dart';
 import 'main_shell.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key, required this.api});
+  const OnboardingScreen({
+    super.key,
+    required this.api,
+    required this.authApi,
+    required this.savedTripsApi,
+    required this.sessionStore,
+  });
 
   final TripApi api;
+  final AuthApi authApi;
+  final SavedTripsApi savedTripsApi;
+  final AuthSessionStore sessionStore;
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -65,11 +77,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  void _goToPlanner() {
+  void _goToApp() {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
         transitionDuration: const Duration(milliseconds: 650),
-        pageBuilder: (_, _, _) => MainShell(api: widget.api, initialTab: 1),
+        pageBuilder: (_, _, _) => MainShell(
+          api: widget.api,
+          authApi: widget.authApi,
+          savedTripsApi: widget.savedTripsApi,
+          sessionStore: widget.sessionStore,
+          initialTab: 1,
+        ),
         transitionsBuilder: (_, animation, _, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -79,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _next() {
     if (_index >= _pages.length - 1) {
-      _goToPlanner();
+      _goToApp();
       return;
     }
     _controller.nextPage(
@@ -109,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   key: const Key('onboarding-skip'),
-                  onPressed: _goToPlanner,
+                  onPressed: _goToApp,
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
                     textStyle: const TextStyle(
